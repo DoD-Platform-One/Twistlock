@@ -11,4 +11,4 @@ include:
 scan container:
   extends: .trivy scan
   variables:
-    IMAGE: $CI_REGISTRY_IMAGE/defender
+    IMAGE: $CI_REGISTRY_IMAGE/console
