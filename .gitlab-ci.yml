@@ -1,0 +1,10 @@
+stages:
+  - scan
+
+include:
+  - local: /jobs/scan/base.yml
+
+scan container:
+  extends: .trivy scan
+  variables:
+    IMAGE: $CI_REGISTRY_IMAGE/defender
