@@ -1,0 +1,4 @@
+namespace: twistlock
+
+resources:
+  - twistlock_console.yaml
