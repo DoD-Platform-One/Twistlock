@@ -41,3 +41,22 @@ chmod +x ./twistcli
 ./twistcli defender export kubernetes --namespace twistlock --privileged --cri --monitor-service-accounts --monitor-istio --user $TWISTLOCK_CONSOLE_USER --password $TWISTLOCK_CONSOLE_PASSWORD --address https://$TWISTLOCK_EXTERNAL_ROUTE --cluster-address twistlock-console:8084
 
 # kubectl apply -f ./defender
+#setup logging to stdout
+if ! curl -k \
+  -u $TWISTLOCK_CONSOLE_USER:$TWISTLOCK_CONSOLE_PASSWORD \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d \
+  '{
+   "stdout": {
+     "enabled": true,
+     "verboseScan": true,
+     "allProcEvents": true,
+     }
+  }' \
+  https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/settings/logging; then
+
+    echo "Error editing syslog settings on console"
+    exit 1
+fi
+

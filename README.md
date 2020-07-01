@@ -40,7 +40,7 @@ kubectl -k ./
 
 ### Next steps
 
-The application needs a administrator, the license file needs to be installed, then a defender.yaml needs to be generated and deployed. This has been consolidated in a script called build_defender.
+The application needs a administrator, the license file needs to be installed, then a defender.yaml needs to be generated and deployed, then logging needs to be enabled. This has been consolidated in a script called twistlock_setup.sh.
 
 The Variables required are as follows:
 ```
@@ -142,5 +142,26 @@ Run Defenders as privileged - On
 Nodes use Container Runtime Interface (CRI), not Docker - On
 Nodes runs inside containerized environment - Off
 
+#### Set up Logging
+Run this code while setting the correct variables:
+```
+if ! curl -k \
+  -u $TWISTLOCK_CONSOLE_USER:$TWISTLOCK_CONSOLE_PASSWORD \
+  -H 'Content-Type: application/json' \
+  -X POST \
+  -d \
+  '{
+   "stdout": {
+     "enabled": true,
+     "verboseScan": true,
+     "allProcEvents": true,
+     }
+  }' \
+  https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/settings/logging; then
+
+    echo "Error editing syslog settings on console"
+    exit 1
+fi
+```
 
 
