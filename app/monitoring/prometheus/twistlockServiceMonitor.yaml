@@ -1,0 +1,28 @@
+apiVersion: monitoring.coreos.com/v1
+kind: ServiceMonitor
+metadata:
+  labels:
+    prometheus: k8s
+  name: twistlock
+  namepsace: monitoring
+spec:
+  selector:
+    matchLabels:
+      name: console
+  namespaceSelector:
+    matchNames:
+      - twistlock
+  endpoints:
+    - interval: 30s
+      path: /api/v1/metrics
+      port: mgmt-http
+      scheme: http
+      basicAuth:
+        password:
+          name: twistlock-basic-auth
+          key: password
+        username:
+          name: twistlock-basic-auth
+          key: user
+
+      jobLabel: twistlock-metrics
