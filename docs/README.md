@@ -210,3 +210,27 @@ kubernetes.container_name:twistlock-console
 ```
 kubernetes.container_name:twistlock-console kubernetes.namespace_name:twistlock stream:stdout log: F [31m ERRO 2020-07-14T20:01:10.932 kubernetes_profile_resolver.go:38 [0m Failed to fetch Istio resources in 863da02e-15f2-d3da-f74d-0256f77292ad: 1 error occurred: docker.container_id:8303db1aa9e2a694b5db5a454c07127944ee0a4799f3e15f190eaa0eec53ca63 kubernetes.pod_name:twistlock-console-7d77c954d-lnjxp kubernetes.container_image:registry.dsop.io/platform-one/apps/twistlock/console:20.04.169 kubernetes.container_image_id:registry.dsop.io/platform-one/apps/twistlock/console@sha256:db77c64af682161c52da2bbee5fb55f38c0bcd46cacdb4c1148f24d094f18a10 kubernetes.pod_id:c979ebe6-f636-41b8-bfff-eab27fd48692
 ```
+
+# Monitoring
+
+## Prometheus Monitoring
+
+Twistlock Prometheus metrics collection is implemented following the documentation:
+
+https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/audit/prometheus.html
+
+NOTE:
+1. For twistlock monitoring, credentials are required to access the endpoint metrics. 
+2. Current metrics is coming null, as current deployment has no ways to enable prometheus metrics.     
+
+To enable prometheus metrics in twistlock:
+
+```
+cd app/monitoring/prometheus
+```
+
+```
+kubectl apply -k .
+
+
+
