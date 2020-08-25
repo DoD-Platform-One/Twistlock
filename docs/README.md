@@ -1,13 +1,13 @@
 # Twistlock
 
-## This should not go into production with license and token .
+## Licensing informaiton should not be in this repo
 
 ## Twistlock under DSOP
 
 The Twistlock Platform provides vulnerability management and compliance across the application lifecycle by scanning images and serverless functions to prevent security and compliance issues from progressing through the development pipeline, and continuously monitoring all registries and environments.
 
 This installation follows the Twistlock documented guidance.  Twistlock documentation can be found at:
-https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/welcome.html
+<https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/welcome.html>
 
 The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  For this installation the following information is needed:
 
@@ -18,9 +18,11 @@ The Twistlock Console is deployed as a part of the gitops.  Once deployed the pr
 * Elasticsearch and Kibana deployed to Kubernetes namespace
 
 Install kubectl
+
 ```
 brew install kubectl
 ```
+
 Install kustomize
 ```
 brew install kustomize
@@ -40,15 +42,15 @@ kubectl -k ./
 
 ### Next steps
 
-The application needs a administrator, the license file needs to be installed, then a defender.yaml needs to be generated and deployed. This has been consolidated in a script called build_defender.
+The application needs a administrator, the license file needs to be installed, then a defender.yaml needs to be generated and deployed. This has been consolidated in a script called twistlock_setup.sh.
 
 The Variables required are as follows:
 ```
 $ //Environment 
-$ TWISTLOCK_CONSOLE_USER=Administrator
-$ TWISTLOCK_CONSOLE_PASSWORD=< my password>
+$ ADMIN_USER=Administrator
+$ ADMIN_PASSWORD=< my password>
 $ TWISTLOCK_EXTERNAL_ROUTE=twistlock.fences.dsop.io
-$ TWISTLOCK_LICENSE=
+$ LICENSE_KEY=
 $ TOKEN=<Generated Bearer token Manage/Authentication/User Certificates>
 ```
 This process requires kubectl to be installed and able to communicate with the DSOP cluster.
@@ -60,10 +62,10 @@ Initially there is no users associated with twistlock console.  Go to the extern
 ```
 //Add Administrator
 if ! curl -k -H 'Content-Type: application/json' -X POST \
-     -d "{\"username\": \"$TWISTLOCK_CONSOLE_USER\", \"password\": \"$TWISTLOCK_CONSOLE_PASSWORD\"}" \
+     -d "{\"username\": \"$ADMIN_USER\", \"password\": \"$ADMIN_PASSWORD\"}" \
      https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/signup; then
 
-    echo "Error creating Twistlock Console user $TWISTLOCK_CONSOLE_USER"
+    echo "Error creating Twistlock Console user $ADMIN_USER"
     exit 1
 fi
 ```
@@ -74,21 +76,21 @@ The License can be added directly from the TWISTLOCK_EXTERNAL_ROUTE.  When first
 ```
 //License
 if ! curl -k \
-  -u $TWISTLOCK_CONSOLE_USER:$TWISTLOCK_CONSOLE_PASSWORD \
+  -u $ADMIN_USER:$ADMIN_PASSWORD \
   -H 'Content-Type: application/json' \
   -X POST \
-  -d "{\"key\": \"$TWISTLOCK_LICENSE\"}" \
+  -d "{\"key\": \"$LICENSE_KEY\"}" \
   https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/settings/license; then 
 
     echo "Error uploading Twistlock license to console"
     exit 1
 fi
 ```
+Notes: curl has some difficulties with special charicters.  During the initial setup using a password without special cahricters is recommended.  This password needs to be changed to a complex password or the account removed when keycloak is integrated. 
 
 #### Install Defender with Twistcli 
 
-This can be found in the Manage/System/Download.  After download ensure the file is made executable.
-
+Defender can be installde from console, script or by command line.  The twistlock CLI is provided as a part of the installation.  This can be found in the Manage/System/Download.  After download ensure the file is made executable.
 ```
 $ chmod +x twistcli
 ```
@@ -115,16 +117,17 @@ curl --progress-bar -L -k --header "authorization: Bearer TOKEN" https://twistlo
 
 The following command can be authenticated by TOKEN or Username/Password.
 ```
-./twistcli defender export kubernetes --namespace twistlock --privileged --cri --monitor-service-accounts --monitor-istio --user $TWISTLOCK_CONSOLE_USER --password $TWISTLOCK_CONSOLE_PASSWORD --address https://$TWISTLOCK_EXTERNAL_ROUTE --cluster-address twistlock-console:8084
+./twistcli defender export kubernetes --namespace twistlock --privileged --cri --monitor-service-accounts --monitor-istio --user $ADMIN_USER --password $ADMIN_PASSWORD --address https://$TWISTLOCK_EXTERNAL_ROUTE --cluster-address twistlock-console:8084
 ```
-#####Download the daemonset.yaml.  The default Image is set to teh Prisma server.  We need to pull images from Platform 1.  The image URL needs to be changed:
-##### Image: registry.dsop.io/platform-one/apps/twistlock/defender:20.04.169
+#####Download the daemonset.yaml.  The default Image is set to the Prisma server.  The image should be hardened.   To pull images from Platform 1.  The image URL needs to be changed:
+##### Image: registry.dsop.io/platform-one/apps/twistlock/defender:20.04.163_ib
+Note:  The Console and Defender must use the same version.  If your deploymnet is using 20.04.169 then edit the image accordingly.
 
 2) Install Defender
 ```
 kubectl apply -f defender.yaml
 ```
-Install Defender from the Console UI
+### Install Defender from the Console UI
 
 The Daemonset generator is located in the Twistlock Console Under Manage -> Defenders -> Deploy -> Daemonset
 Select the following options:
@@ -221,16 +224,67 @@ https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute
 
 NOTE:
 1. For twistlock monitoring, credentials are required to access the endpoint metrics. 
-2. Current metrics is coming null, as current deployment has no ways to enable prometheus metrics.     
+2. Current metrics is coming null, as current deployment has no ways to enable prometheus metrics.  To turn on Promethius from the console:
+ ``Console -> Manage -> Alerts -> Logging -> Enable Prometheus Monitoring``
 
 To enable prometheus metrics in twistlock:
-
 ```
 cd app/monitoring/prometheus
 ```
-
 ```
 kubectl apply -k .
+```
+## Integrating with SAML
 
+Integrating Prisma Cloud with SAML consists of setting up your IdP, then configuring Prisma Cloud to integrate with it. for keycloak integration we will use use ADFS as the IdP.
+
+Setting up Prisma Cloud in Keycloak
+
+1. Follow the keycloak instructions under docs/keycloak named `configure-keycloak.md`
+
+2. In Keycloak select the baby-yoda realm
+
+3. On the left column, select "Clients", then new client.
+
+4. Select load file and choose the "client.json" if available.  If not, use the 'saml_example.json.md' for the correct settings. The client info can be manually entered if the client isn't available.   Go into the configuration and select "Save".
+
+5. In the left column Create a `Client Scope` for twistlock with a SAML Protocol.  Return to yout twistlock client and Add the Client scope to the `Your twistlock client` client.
+
+6. Back in the Client configuration, under "Scope" Add the twistlock scope just created.
+
+7. Select the "Installation" tab, the download the connection file in `Mod Auth Mellon format`
+   _This is needed for the keycloak connection string._
+
+8. Create a user in keycloak for twistlock.  Add the user to the IL2 Group.
+
+### The following is required for manual configuration
+
+1. Navigate to the Twistlock URL and create an admin user, then add a license key.
+
+2. Navigate to "Manage" -> "Authentication" in the left navigation bar.
+
+3. Select "SAML" then the enable switch.
+
+4. Open the installation file from keycloak.  
+     a. The Identity Provider SSO is `https://keycloak.fences.dsop.io/auth/realms/your-realm/protocol/saml`
+     b. The Identity Provider is `https://keycloak.fences.dsop.io/auth/realms/your-realm`
+     c. The root URL is `https://twistlock.fences.dsop.io`
+
+5. Paste the client certificate token in the x509 area.  The certificate must be in pem format and include the header and footer.  When completed select "Save".  
+
+   If this fails, the certificate is not formatted correctly.  Copy the cert to a file and test its validity.
+   Copy the certificate into a vi session and ensure there are three lines:
+
+   -----BEGIN CERTIFICATE-----
+
+   (certificate from step 7 keycloak install file)
+
+   -----END CERTIFICATE-----
+
+   *note: when SAML is added, the twistlock console will default to keycloak.  If you need to bypass the saml auth process add "#!/login" the the end of the root url.*
+
+6. Create a twistlock user using the same name as in step
+
+7. There should be a "SAML box to select.  If this selection is not visible, go to a different tab, then return to users.
 
 
