@@ -1,6 +1,6 @@
 # Twistlock
 
-## Licensing informaiton should not be in this repo
+## Licensing information should not be in this repo
 
 ## Twistlock under DSOP
 
@@ -86,11 +86,11 @@ if ! curl -k \
     exit 1
 fi
 ```
-Notes: curl has some difficulties with special charicters.  During the initial setup using a password without special cahricters is recommended.  This password needs to be changed to a complex password or the account removed when keycloak is integrated. 
+Notes: curl has some difficulties with special characters.  During the initial setup using a password without special characters is recommended.  This password needs to be changed to a complex password or the account removed when keycloak is integrated. 
 
 #### Install Defender with Twistcli 
 
-Defender can be installde from console, script or by command line.  The twistlock CLI is provided as a part of the installation.  This can be found in the Manage/System/Download.  After download ensure the file is made executable.
+Defender can be installed from console, script or by command line.  The twistlock CLI is provided as a part of the installation.  This can be found in the Manage/System/Download.  After download ensure the file is made executable.
 ```
 $ chmod +x twistcli
 ```
@@ -285,6 +285,4 @@ Setting up Prisma Cloud in Keycloak
 
 6. Create a twistlock user using the same name as in step
 
-7. There should be a "SAML box to select.  If this selection is not visible, go to a different tab, then return to users.
-
-
+7. There should be a "SAML box to select.  If this selection is not visible, go to a different tab, then return to users.  

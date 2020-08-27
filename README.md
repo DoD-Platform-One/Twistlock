@@ -1,6 +1,6 @@
 # Twistlock
 
-## This should not go into production with license and token
+## Licensing is required for this applicaiton.  
 
 ## Twistlock under DSOP
 
@@ -9,13 +9,14 @@ The Twistlock Platform provides vulnerability management and compliance across t
 This installation follows the Twistlock documented guidance.  Twistlock documentation can be found at:
 <https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/welcome.html>
 
-The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  For this installation the following information is needed:
+
+The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  In order to install the following is required:
 
 ### Prerequisites
 
 * Kubernetes cluster deployed
 * Kubernetes config installed in `~/.kube/config`
-* Elasticsearch and Kibana deployed to Kubernetes namespace
+* Elasticsearch, Keycloak and Kibana deployed and accessable.
 
 Install kubectl
 
@@ -186,8 +187,15 @@ fi
 ## Integrating with SAML
 
 Integrating Prisma Cloud with SAML consists of setting up your IdP, then configuring Prisma Cloud to integrate with it. for keycloak integration we will use use ADFS as the IdP.
-
-Setting up Prisma Cloud in Keycloak
+The following information is required to setup up Prisma Cloud in Keycloak: 
+* The SSO_URI will be the keycloak SAML URI
+SSO_URL=https://keycloak.fences.dsop.io/auth/realms/your-realm/protocol/saml
+* The issuer URL 
+ISSUER_URL=https://keycloak.fences.dsop.io/auth/realms/your-realm
+* The Client ID.  THis is the name of the client in keycloak.  For SAML you will need the x509 certificate for this Client
+CLIENT_ID=il2_twistlock (or whatever your client name)
+* X590 certificate from the keycloak client install download  To imput this into twistlock by teh web page or by the api, be aware teh pem format is strictly enforced.  If you are having issues, test the certificate using opensource tools.  Ensure there are 3 lines in the cert; BEGIN/CRLF/Cert/CRLF/END 
+X_509_CERT="just the certificate"  
 
 1. Follow the keycloak instructions under docs/keycloak named `configure-keycloak.md`
 
@@ -232,6 +240,6 @@ Setting up Prisma Cloud in Keycloak
 
    *note: when SAML is added, the twistlock console will default to keycloak.  If you need to bypass the saml auth process add "#!/login" the the end of the root url.*
 
-6. Create a twistlock user using the same name as in step
+6. Create a twistlock user using the same name as in step 8 of keycloak setup.  
 
 7. There should be a "SAML box to select.  If this selection is not visible, go to a different tab, then return to users.
