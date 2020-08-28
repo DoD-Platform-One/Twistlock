@@ -1,6 +1,6 @@
 # Twistlock
 
-## Licensing is required for this applicaiton.  
+## Licensing is required for this applicaiton  
 
 ## Twistlock under DSOP
 
@@ -8,7 +8,6 @@ The Twistlock Platform provides vulnerability management and compliance across t
 
 This installation follows the Twistlock documented guidance.  Twistlock documentation can be found at:
 <https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/welcome.html>
-
 
 The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  In order to install the following is required:
 
@@ -40,6 +39,7 @@ cd twstlock
 ```
 
 Apply kustomized manifest
+
 ```
 kubectl -k ./
 ```
@@ -69,7 +69,7 @@ Initially there is no users associated with twistlock console.  Go to the extern
 //Add Administrator
 if ! curl -k -H 'Content-Type: application/json' -X POST \
      -d "{\"username\": \"$TWISTLOCK_CONSOLE_USER\", \"password\": \"$TWISTLOCK_CONSOLE_PASSWORD\"}" \
-     https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/signup; then
+     <https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/signup>; then
 
     echo "Error creating Twistlock Console user $TWISTLOCK_CONSOLE_USER"
     exit 1
@@ -187,14 +187,15 @@ fi
 ## Integrating with SAML
 
 Integrating Prisma Cloud with SAML consists of setting up your IdP, then configuring Prisma Cloud to integrate with it. for keycloak integration we will use use ADFS as the IdP.
-The following information is required to setup up Prisma Cloud in Keycloak: 
+The following information is required to setup up Prisma Cloud in Keycloak:
+
 * The SSO_URI will be the keycloak SAML URI
-SSO_URL=https://keycloak.fences.dsop.io/auth/realms/your-realm/protocol/saml
-* The issuer URL 
-ISSUER_URL=https://keycloak.fences.dsop.io/auth/realms/your-realm
+SSO_URL=<https://keycloak.fences.dsop.io/auth/realms/your-realm/protocol/saml>
+* The issuer URL
+ISSUER_URL=<https://keycloak.fences.dsop.io/auth/realms/your-realm>
 * The Client ID.  THis is the name of the client in keycloak.  For SAML you will need the x509 certificate for this Client
 CLIENT_ID=il2_twistlock (or whatever your client name)
-* X590 certificate from the keycloak client install download  To imput this into twistlock by teh web page or by the api, be aware teh pem format is strictly enforced.  If you are having issues, test the certificate using opensource tools.  Ensure there are 3 lines in the cert; BEGIN/CRLF/Cert/CRLF/END 
+* X590 certificate from the keycloak client install download  To imput this into twistlock by teh web page or by the api, be aware teh pem format is strictly enforced.  If you are having issues, test the certificate using opensource tools.  Ensure there are 3 lines in the cert; BEGIN/CRLF/Cert/CRLF/END
 X_509_CERT="just the certificate"  
 
 1. Follow the keycloak instructions under docs/keycloak named `configure-keycloak.md`
