@@ -26,10 +26,10 @@ There should be 4 pods in the twistlock namespace
 ```
 kubectl get pods -n twistlock
 NAME                                READY   STATUS    RESTARTS   AGE
-twistlock-console-7d77c954d-lnjxp   1/1     Running   0          3h13m
-twistlock-defender-ds-442zh         1/1     Running   0          5s
-twistlock-defender-ds-dtdjv         1/1     Running   0          5s
-twistlock-defender-ds-rgs7q         1/1     Running   0          5s
+twistlock-console-random-number      1/1     Running   0          3h13m
+twistlock-defender-random-number     1/1     Running   0          5s
+twistlock-defender-random-number     1/1     Running   0          5s
+twistlock-defender-random-number     1/1     Running   0          5s
 ```
 
 :warning: **CAUTION**:
