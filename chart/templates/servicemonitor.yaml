@@ -1,10 +1,11 @@
+{{- if .Values.prometheus.servicemonitor.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  labels:
-    prometheus: k8s
   name: twistlock
-  namepsace: monitoring
+  namespace: {{ .Release.Namespace }}
+  labels:
+    release: monitoring
 spec:
   selector:
     matchLabels:
@@ -26,3 +27,4 @@ spec:
           key: user
 
       jobLabel: twistlock-metrics
+{{- end }}

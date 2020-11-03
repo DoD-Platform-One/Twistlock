@@ -1,7 +1,0 @@
-namespace: vault
-
-resources:
-- twistlockServiceMonitor.yaml
-- role.yaml
-- roleBinding.yaml
-- twistlockSecret.yaml
