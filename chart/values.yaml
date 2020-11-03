@@ -1,8 +1,12 @@
 prometheus:
   servicemonitor:
-    enabled: true
+    enabled: false
 
 console:
   image:
     repository: registry.dsop.io/platform-one/big-bang/apps/security-tools/twistlock/console
     tag: 20.04.163
+
+  persistence:
+    size: 100Gi
+    accessMode: ReadWriteOnce

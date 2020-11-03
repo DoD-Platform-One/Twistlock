@@ -38,10 +38,10 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
-    - ReadWriteOnce
+    - {{ .Values.console.persistence.accessMode }}
   resources:
     requests:
-      storage: 100Gi
+      storage: {{ .Values.console.persistence.size }}
 ---
 
 ---
