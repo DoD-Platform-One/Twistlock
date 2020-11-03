@@ -72,8 +72,7 @@ spec:
       serviceAccountName: twistlock-console
       containers:
       - name: twistlock-console
-      # This is the P1 repo.    
-        image: registry.dsop.io/platform-one/apps/twistlock/console:20.04.169 
+        image: {{ .Values.console.image.repository }}:{{ .Values.console.image.tag }}
         ports:
         - name: mgmt-https
           containerPort: 8083

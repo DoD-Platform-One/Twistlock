@@ -1,3 +1,8 @@
 prometheus:
   servicemonitor:
     enabled: true
+
+console:
+  image:
+    repository: registry.dsop.io/platform-one/big-bang/apps/security-tools/twistlock/console
+    tag: 20.04.163
