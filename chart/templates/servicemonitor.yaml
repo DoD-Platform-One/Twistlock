@@ -12,7 +12,7 @@ spec:
       name: console
   namespaceSelector:
     matchNames:
-      - twistlock
+      - {{ .Release.Namespace }}
   endpoints:
     - interval: 30s
       path: /api/v1/metrics
@@ -25,6 +25,5 @@ spec:
         username:
           name: twistlock-basic-auth
           key: user
-
-      jobLabel: twistlock-metrics
+  jobLabel: twistlock-metrics
 {{- end }}
