@@ -1,0 +1,16 @@
+apiVersion: networking.istio.io/v1alpha3
+kind: VirtualService
+metadata:
+  name: console
+  namespace: {{ .Release.Namespace }}
+spec:
+  hosts:
+  - "twistlock.{{ .Values.console.hostname }}"
+  gateways:
+  - main.istio-system.svc.cluster.local
+  http:
+  - route:
+    - destination:
+        port:
+          number: 8081
+        host: twistlock-console.{{ .Release.Namespace }}.svc.cluster.local
