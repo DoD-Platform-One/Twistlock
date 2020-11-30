@@ -1,3 +1,4 @@
 apiVersion: v2
 name: twistlock
-version: 0.0.1
+version: 0.0.1-bb.0
+appVersion: 20.04.163
