@@ -1,0 +1,64 @@
+{
+    "clientId": "il2_00eb8904-5b88-4c68-ad67-cec0d2e07aa6_twistlock",
+    "name": "twistlock",
+    "rootUrl": "https://twistlock.bigbang.dev/api/v1/authenticate",
+    "surrogateAuthRequired": false,
+    "enabled": true,
+    "alwaysDisplayInConsole": false,
+    "clientAuthenticatorType": "client-secret",
+    "redirectUris": [
+        "*"
+    ],
+    "webOrigins": [],
+    "notBefore": 0,
+    "bearerOnly": false,
+    "consentRequired": false,
+    "standardFlowEnabled": true,
+    "implicitFlowEnabled": false,
+    "directAccessGrantsEnabled": false,
+    "serviceAccountsEnabled": false,
+    "publicClient": false,
+    "frontchannelLogout": true,
+    "protocol": "saml",
+    "attributes": {
+        "saml.assertion.signature": "true",
+        "saml.force.post.binding": "true",
+        "saml.multivalued.roles": "false",
+        "saml.encrypt": "false",
+        "saml.server.signature": "true",
+        "saml.server.signature.keyinfo.ext": "false",
+        "exclude.session.state.from.auth.response": "false",
+        "saml.signing.certificate": "MIIC8zCCAdsCBgFzK/Jw/zANBgkqhkiG9w0BAQsFADA9MTswOQYDVQQDDDJpbDJfMDBlYjg5MDQtNWI4OC00YzY4LWFkNjctY2VjMGQyZTA3YWE2X3R3aXN0bG9jazAeFw0yMDA3MDgwMTAxMTVaFw0zMDA3MDgwMTAyNTVaMD0xOzA5BgNVBAMMMmlsMl8wMGViODkwNC01Yjg4LTRjNjgtYWQ2Ny1jZWMwZDJlMDdhYTZfdHdpc3Rsb2NrMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAk/mEM2QcS2vQbHX1TPP2hhqIrmRq6DL7APlFfwd3vBrA2Dg8mKKpwujaXiqwuHc80CsI4GV2+LHxiLsKn9lwvfFcAl0rw0ZXiMRJFcBm81qnnn6xCE2q5AyItwWOaHgSx6koRMmEZ/VANKGCNAtabAqjP4aV/fnPaXODceBiB1RPernzBeZe7aGmXtfL/3lC6rdDkzuu+BZLE/Y7Jfq9FLCF+ItzlKlWDF59rM9t4mLAv0Io7YOd66HPG5EzckFkbnp6QpNbCeW4NYCle4zEx8gj2hVOjoZwAsx9XLy2+Bvqj7nr527/EnHc+4QfRGS1ZFUzPgA458kke/RgG3Nf5QIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQA6leKQaiQfCW6k2jQViliVwSbYMGZa8jP1RYaW3bl7U7pu5RlGoAPFG8K4NO8N+vrS2L7Vrs4iirgxRDwGvmcA3RzhNsmXPMoFKX+rbiUPB4N0wbL/AnL5c9Viig7qe/MJuRbiwZJPzxI2QiQXzXzu+pRGANlwAusn8hoxdyaFSdfs3TgOVk+wPN/EKqylIUjedTknGn4vZoom6SnSAHXFvgeygV089BpvLnHgcQWwJdn5jDyBwreoL0XUm8e9kFctwYsrWnGhK2ohIy2v9Td0HaaICe8qrsmdxz6CUHBo3yQ0WUieC8+oLAQra6FfnyHCnE1cDnrfuzZo5DmWi0gb",
+        "saml.signature.algorithm": "RSA_SHA256",
+        "saml_force_name_id_format": "false",
+        "saml.client.signature": "false",
+        "tls.client.certificate.bound.access.tokens": "false",
+        "saml.authnstatement": "true",
+        "display.on.consent.screen": "false",
+        "saml_name_id_format": "username",
+        "saml.signing.private.key": "MIIEpAIBAAKCAQEAk/mEM2QcS2vQbHX1TPP2hhqIrmRq6DL7APlFfwd3vBrA2Dg8mKKpwujaXiqwuHc80CsI4GV2+LHxiLsKn9lwvfFcAl0rw0ZXiMRJFcBm81qnnn6xCE2q5AyItwWOaHgSx6koRMmEZ/VANKGCNAtabAqjP4aV/fnPaXODceBiB1RPernzBeZe7aGmXtfL/3lC6rdDkzuu+BZLE/Y7Jfq9FLCF+ItzlKlWDF59rM9t4mLAv0Io7YOd66HPG5EzckFkbnp6QpNbCeW4NYCle4zEx8gj2hVOjoZwAsx9XLy2+Bvqj7nr527/EnHc+4QfRGS1ZFUzPgA458kke/RgG3Nf5QIDAQABAoIBAQCAmPjuHJOGbDUe/UhoTyCwnMCqJjTOhPekef2OjvPcsrdjcUQgNkUoUWrtKVaZiW59TtkRArzpFuPcuwhZsQOM3wPiPgx5UVljT4pgb+xIk0FWua2qlKzuMYJi5F5FpgxUHksTtLnwCrB4zN+10SQM/xWucI1Lwl0hvLTAM4ud563lIthzoTkYZDnNId0IVtRoViPbk5CtqDIcFbzTCngARPzRsdhPMZnO3f8EPOHAtz/oeDWxqDXLPr9Cp5rQII57um4UInoBm8knU8W+BzUjLNxwywFS/BQD9EMJcPt5NgAxq0/owlakP5rqwZobsPL5B0Qk0bz+UbiH12Cv32jFAoGBAORkcDakBrJiaidO4O0mL5lhpiHHelmCs/UQP/P3Cat4DlUMJ3xfMJKVphdsnnEZrsApEP/rSN8aSxr5+fyj5OhLy9KyEcYE0G6w5NyMKOBgmkpEfn7ygfH5qZzVpbIk/hDTybaYS4Ox4/suZHaDc6LvOReTVufTyjIKT2gDLJtLAoGBAKXckTj/c/whS8IHRwZtypGvdXaq5YCMiGTx5BNkG+v7lfS3oLi2nI9XGI+qIRNyztVTYrkt5GTqaHprxMHvIrFcgOFvymtZMLqWjVDfHWZeJ1IdAp4fO1QfKxtm0BZQH4nq2RfveaP4qlQn3vGqqAUfHoDFknh5fT3wrkHoLEOPAoGADYkWTWazLuc+O04lbmiQ8Zoj6mSUD7H7UE7CO4csf4kB8HBj9q79hfJwgXriePl4rdLBOymKjA5W3SZrdlmQO2QilD4RZ5bpc2XwalG0KngPLM+aX5Ont9t//dd7lm8yz3R9w+CKuSdVx5EcSxnHRKTA0XDd+adHmGecBSILBrkCgYBZQa1VAwOjtzdRnyD1sLfGVqnbxnPjDb2ItTOLy9/KyoUUQI1ZWcw+xxwMk/1gvfPYkRsblDrIo+y9lKk5xDrjP2iL6OEBi+nRP5uk3aywnhKC+eGiviPrTSqhgF6S42NVkPBrFRBc0UC4MQyk+LWaq/h6S9haxOZFIvRju1G2uQKBgQCpDkf1NQiNPqYB4HxFsO0wVs+IrxY+2PlBQffOagVy/sgoj7M7ux0wRjn5tMSv3BUPLQxwfnxhXzTJqXls7+lThgyHFc01uO+IUew0H2t+SAfG8eRzyKJExeLt/zszDlKWJEMnbmFGheGrilTnOwF7hVaVo9HpQEf5POgdWI/Erg==",
+        "saml_signature_canonicalization_method": "http://www.w3.org/2001/10/xml-exc-c14n#",
+        "saml.onetimeuse.condition": "false"
+    },
+    "authenticationFlowBindingOverrides": {},
+    "fullScopeAllowed": true,
+    "nodeReRegistrationTimeout": -1,
+    "defaultClientScopes": [
+        "web-origins",
+        "role_list",
+        "roles",
+        "profile",
+        "email"
+    ],
+    "optionalClientScopes": [
+        "address",
+        "phone",
+        "offline_access",
+        "microprofile-jwt"
+    ],
+    "access": {
+        "view": true,
+        "configure": true,
+        "manage": true
+    }
+}

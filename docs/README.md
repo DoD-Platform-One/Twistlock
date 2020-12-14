@@ -11,157 +11,18 @@ This installation follows the Twistlock documented guidance.  Twistlock document
 
 The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  For this installation the following information is needed:
 
-## Table of contents
-
-- Application Overview
-- Prerequisites
-- Deployment
-- Initial Configuration
-- Daily Application Use
-- Integrations
-  - Prometheus.md
-    - Elastic.md
-    - Keycloak.md
-- Troubleshooting Tips
-
 ### Applicaiton overview
 
 Twistlock monitors Docker for container deployment and Kubernetes for container orchestration, along with other cloud platforms. Twistlock provides continuous monitoring of containers, in addition to multi-tenancy which allows the user to defend, monitor, and manage multiple projects at once. Twistlock allows for adding firewall rules to individual applications, detecting and blocking anomalies, analyzing events, monitoring memory space, monitoring container compliance, and providing customizable access controls. Continuous Integration provides developers with the status of vulnerabilities found with each build they run, as opposed to running a different tool to see the status of each builds’ CVEs and their severity. ACAS has capability to scan entire servers, however, does not provide the container security Twistlock offers. Container security is a leading issue right now and Twistlock provides the tools necessary to address those.
 
-### Prerequisites
-
-* Kubernetes cluster deployed
-* Kubernetes config installed in `~/.kube/config`
-* Elasticsearch and Kibana deployed to Kubernetes namespace
-
-Install kubectl
-
-```
-brew install kubectl
-```
-
-Install kustomize
-
-```
-brew install kustomize
-```
 
 ### Deployment
 
-Clone repository
-
-```
-git clone https://repo1.dsop.io/platform-one/apps/twistlock.git
-cd twstlock
-```
-
-Apply kustomized manifest
-
-```
-kubectl -k ./
-```
+This package chart is delpoyed as part of the BigBang Umbrella chart.
 
 ### Initial Configuration
 
-The application needs a administrator, the license file needs to be installed, then a defender.yaml needs to be generated and deployed. This has been consolidated in a script called twistlock_setup.sh.
-
-The Variables required are as follows:
-
-```
-//Environment
-$ ADMIN_USER=Administrator
-$ ADMIN_PASSWORD=< my password>
-$ TWISTLOCK_EXTERNAL_ROUTE=twistlock.fences.dsop.io
-$ LICENSE_KEY=
-$ TOKEN=<Generated Bearer token Manage/Authentication/User Certificates>
-```
-
-This process requires kubectl to be installed and able to communicate with the DSOP cluster.
-
-#### Add an Administrator
-
-Initially there is no users associated with twistlock console.  Go to the external URL and add an Administrator account and a password.  Alternatively, run the following script:
-
-```
-//Add Administrator
-if ! curl -k -H 'Content-Type: application/json' -X POST \
-     -d "{\"username\": \"$ADMIN_USER\", \"password\": \"$ADMIN_PASSWORD\"}" \
-     https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/signup; then
-
-    echo "Error creating Twistlock Console user $ADMIN_USER"
-    exit 1
-fi
-```
-
-#### Install the license
-
-The License can be added directly from the TWISTLOCK_EXTERNAL_ROUTE.  When first logging in the admin user will be prompted for a license.  The following  script will install the license:
-
-```
-//License
-if ! curl -k \
-  -u $ADMIN_USER:$ADMIN_PASSWORD \
-  -H 'Content-Type: application/json' \
-  -X POST \
-  -d "{\"key\": \"$LICENSE_KEY\"}" \
-  https://$TWISTLOCK_EXTERNAL_ROUTE/api/v1/settings/license; then
-
-    echo "Error uploading Twistlock license to console"
-    exit 1
-fi
-```
-
-Notes: curl has some difficulties with special characters.  During the initial setup using a password without special characters is recommended.  This password needs to be changed to a complex password or the account removed when keycloak is integrated.
-
-#### Install Defender with Twistcli
-
-Defender can be installed from console, script or by command line.  The twistlock CLI is provided as a part of the installation.  This can be found in the Manage/System/Download.  After download ensure the file is made executable.
-
-```
-chmod +x twistcli
-```
-
-The "Bearer" token can be found in the twistlock application Manage/Authorization/User Certificates.  Alternatively, run the following commands
-
-```
-//Windows twistcli:
-
-curl --progress-bar -L -k --header "authorization: Bearer $TOKEN" https://twistlock.fences.dsop.io/api/v1/util/windows/twistcli.exe > twistcli.exe;
-```
-
-```
-Linux twistcli:
-
-curl --progress-bar -L -k --header "authorization: Bearer $TOKEN" https://twistlock.fences.dsop.io/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
-```
-
-```
-Mac OS twistcli:
-
-curl --progress-bar -L -k --header "authorization: Bearer TOKEN" https://twistlock.fences.dsop.io/api/v1/util/osx/twistcli > twistcli; chmod a+x twistcli;
-```
-
-#### Install Defender
-
-1) Download Daemonset
-
-The following command can be authenticated by TOKEN or Username/Password.
-
-```
-./twistcli defender export kubernetes --namespace twistlock --privileged --cri --monitor-service-accounts --monitor-istio --user $ADMIN_USER --password $ADMIN_PASSWORD --address https://$TWISTLOCK_EXTERNAL_ROUTE --cluster-address twistlock-console:8084
-```
-
-##### Download the daemonset.yaml.  The default Image is set to the Prisma server.  The image should be hardened.   To pull images from Platform 1.  The image URL needs to be changed
-
-##### Image: registry.dsop.io/platform-one/apps/twistlock/defender:20.04.163_ib
-
-Note:  The Console and Defender must use the same version.  If your deploymnet is using 20.04.169 then edit the image accordingly.
-
-2) Install Defender
-
-```
-kubectl apply -f defender.yaml
-```
+The initial login will ask you to create an admin user, and set license key. 
 
 ### Install Defender from the Console UI
 
