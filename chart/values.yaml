@@ -2,6 +2,9 @@ prometheus:
   servicemonitor:
     enabled: false
 
+istio:
+  enabled: false
+  
 console:
   hostname: bigbang.dev
 
