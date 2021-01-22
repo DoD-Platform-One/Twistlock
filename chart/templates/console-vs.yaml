@@ -8,7 +8,7 @@ spec:
   hosts:
   - "twistlock.{{ .Values.console.hostname }}"
   gateways:
-  - main.istio-system.svc.cluster.local
+  - istio-system/main
   http:
   - route:
     - destination:
