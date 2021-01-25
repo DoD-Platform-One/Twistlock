@@ -34,7 +34,7 @@ brew install kustomize
 Clone repository
 
 ```
-git clone https://repo1.dsop.io/platform-one/apps/twistlock.git
+git clone https://repo1.dso.mil/platform-one/apps/twistlock.git
 cd twstlock
 ```
 
@@ -54,7 +54,7 @@ The Variables required are as follows:
 //Environment
 $ TWISTLOCK_CONSOLE_USER=Administrator
 $ TWISTLOCK_CONSOLE_PASSWORD=< my password>
-$ TWISTLOCK_EXTERNAL_ROUTE=twistlock.fences.dsop.io
+$ TWISTLOCK_EXTERNAL_ROUTE=twistlock.fences.dso.mil
 $ TWISTLOCK_LICENSE=
 $ TOKEN=<Generated Bearer token Manage/Authentication/User Certificates>
 ```
@@ -107,19 +107,19 @@ The "Bearer" token can be found in the twistlock application Manage/Authorizatio
 ```
 //Windows twistcli:
 
-curl --progress-bar -L -k --header "authorization: Bearer $TOKEN" https://twistlock.fences.dsop.io/api/v1/util/windows/twistcli.exe > twistcli.exe;
+curl --progress-bar -L -k --header "authorization: Bearer $TOKEN" https://twistlock.fences.dso.mil/api/v1/util/windows/twistcli.exe > twistcli.exe;
 ```
 
 ```
 Linux twistcli:
 
-curl --progress-bar -L -k --header "authorization: Bearer $TOKEN" https://twistlock.fences.dsop.io/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
+curl --progress-bar -L -k --header "authorization: Bearer $TOKEN" https://twistlock.fences.dso.mil/api/v1/util/twistcli > twistcli; chmod a+x twistcli;
 ```
 
 ```
 Mac OS twistcli:
 
-curl --progress-bar -L -k --header "authorization: Bearer TOKEN" https://twistlock.fences.dsop.io/api/v1/util/osx/twistcli > twistcli; chmod a+x twistcli;
+curl --progress-bar -L -k --header "authorization: Bearer TOKEN" https://twistlock.fences.dso.mil/api/v1/util/osx/twistcli > twistcli; chmod a+x twistcli;
 ```
 
 #### Install Defender
@@ -134,7 +134,7 @@ The following command can be authenticated by TOKEN or Username/Password.
 
 ##### Download the daemonset.yaml.  The default Image is set to teh Prisma server.  We need to pull images from Platform 1.  The image URL needs to be changed
 
-##### Image: registry.dsop.io/platform-one/apps/twistlock/defender:20.04.169
+##### Image: registry.dso.mil/platform-one/apps/twistlock/defender:20.04.169
 
 2) Install Defender
 
@@ -190,9 +190,9 @@ Integrating Prisma Cloud with SAML consists of setting up your IdP, then configu
 The following information is required to setup up Prisma Cloud in Keycloak:
 
 * The SSO_URI will be the keycloak SAML URI
-SSO_URL=<https://keycloak.fences.dsop.io/auth/realms/your-realm/protocol/saml>
+SSO_URL=<https://keycloak.fences.dso.mil/auth/realms/your-realm/protocol/saml>
 * The issuer URL
-ISSUER_URL=<https://keycloak.fences.dsop.io/auth/realms/your-realm>
+ISSUER_URL=<https://keycloak.fences.dso.mil/auth/realms/your-realm>
 * The Client ID.  THis is the name of the client in keycloak.  For SAML you will need the x509 certificate for this Client
 CLIENT_ID=il2_twistlock (or whatever your client name)
 * X590 certificate from the keycloak client install download  To imput this into twistlock by teh web page or by the api, be aware teh pem format is strictly enforced.  If you are having issues, test the certificate using opensource tools.  Ensure there are 3 lines in the cert; BEGIN/CRLF/Cert/CRLF/END
@@ -224,9 +224,9 @@ X_509_CERT="just the certificate"
 3. Select "SAML" then the enable switch.
 
 4. Open the installation file from keycloak.  
-     a. The Identity Provider SSO is `https://keycloak.fences.dsop.io/auth/realms/your-realm/protocol/saml`
-     b. The Identity Provider is `https://keycloak.fences.dsop.io/auth/realms/your-realm`
-     c. The root URL is `https://twistlock.fences.dsop.io`
+     a. The Identity Provider SSO is `https://keycloak.fences.dso.mil/auth/realms/your-realm/protocol/saml`
+     b. The Identity Provider is `https://keycloak.fences.dso.mil/auth/realms/your-realm`
+     c. The root URL is `https://twistlock.fences.dso.mil`
 
 5. Paste the client certificate token in the x509 area.  The certificate must be in pem format and include the header and footer.  When completed select "Save".  
 
