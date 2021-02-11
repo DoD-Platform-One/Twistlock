@@ -1,6 +1,14 @@
+hostname: bigbang.dev
+istio:
+  enabled: true
+
 imagePullSecrets:
 - name: private-registry-mil
 
 console:
+  hostname: bigbang.dev
+  image:
+    repository: registry1.dso.mil/ironbank/twistlock/console/console
+    tag: 20.12.531
   persistence:
     size: 5Gi
