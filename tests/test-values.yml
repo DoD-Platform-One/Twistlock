@@ -1,17 +1,6 @@
-prometheus:
-  servicemonitor:
-    enabled: false
+imagePullSecrets:
+- name: private-registry-mil
 
-istio:
-  enabled: true
-  
 console:
-  hostname: bigbang.dev
-
-  image:
-    repository: registry.dso.mil/platform-one/big-bang/apps/security-tools/twistlock/console
-    tag: 20.04.163
-
   persistence:
-    size: 100Gi
-    accessMode: ReadWriteOnce
+    size: 5Gi
