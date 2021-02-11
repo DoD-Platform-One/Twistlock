@@ -4,13 +4,16 @@ prometheus:
 
 istio:
   enabled: false
-  
+
+# imagePullSecrets defines the secrets to use when pulling the operator container image.
+imagePullSecrets: []
+
 console:
   hostname: bigbang.dev
 
   image:
-    repository: registry.dso.mil/platform-one/big-bang/apps/security-tools/twistlock/console
-    tag: 20.04.163
+    repository: registry1.dso.mil/ironbank/twistlock/console/console
+    tag: 20.12.531
 
   persistence:
     size: 100Gi
