@@ -1,14 +1,26 @@
-{{- if .Values.istio.enabled }}
+{{- if and .Values.istio.enabled .Values.istio.console.enabled -}}
 apiVersion: networking.istio.io/v1alpha3
 kind: VirtualService
 metadata:
   name: console
   namespace: {{ .Release.Namespace }}
+  {{- if .Values.istio.console.labels }}
+  labels:
+{{ toYaml .Values.istio.console.labels | indent 4 }}
+  {{- end }}
+  {{- if .Values.istio.console.annotations }}
+  annotations:
+{{ toYaml .Values.istio.console.annotations | indent 4 }}
+  {{- end }}
 spec:
-  hosts:
-  - "twistlock.{{ .Values.console.hostname }}"
   gateways:
-  - istio-system/main
+  {{- range .Values.istio.console.gateways }}
+    - {{ . }}
+  {{- end }}
+  hosts:
+  {{- range .Values.istio.console.hosts }}
+    - {{ tpl . $ }}
+  {{- end }}
   http:
   - route:
     - destination:

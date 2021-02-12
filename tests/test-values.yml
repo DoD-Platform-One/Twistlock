@@ -1,12 +1,17 @@
 hostname: bigbang.dev
 istio:
   enabled: true
+  console:
+    enabled: true
+    gateways:
+      - istio-system/main
+    hosts:
+      - twistlock.{{ .Values.hostname }}
 
 imagePullSecrets:
 - name: private-registry-mil
 
 console:
-  hostname: bigbang.dev
   image:
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     tag: 20.12.531

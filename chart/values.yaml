@@ -1,16 +1,26 @@
+hostname: bigbang.dev
 prometheus:
   servicemonitor:
     enabled: false
 
+hostname: bigbang.dev
 istio:
+  # Toggle istio integration
   enabled: false
+  console:
+    # Toggle vs creation
+    enabled: true
+    annotations: {}
+    labels: {}
+    gateways:
+      - istio-system/main
+    hosts:
+      - twistlock.{{ .Values.hostname }}
 
 # imagePullSecrets defines the secrets to use when pulling the operator container image.
 imagePullSecrets: []
-
+  
 console:
-  hostname: bigbang.dev
-
   image:
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     tag: 20.12.531
