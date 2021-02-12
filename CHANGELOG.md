@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.0.3-bb.0] - 2021-02-12
+### Added
+- Options under istio values to control labels, annotations, gateways and full URL modification for twistlock VirtualService.
+
+### Changed
+- Position of "hostname" value in values, from "console.hostname" to toplevel "hostname".
+
 ## [0.0.2-bb.2] - 2021-02-11
 ### Added
 - imagePullSecret array to values.
