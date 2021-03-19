@@ -1,9 +1,8 @@
 hostname: bigbang.dev
-prometheus:
-  servicemonitor:
-    enabled: false
 
-hostname: bigbang.dev
+monitoring:
+  enabled: false
+
 istio:
   # Toggle istio integration
   enabled: false
