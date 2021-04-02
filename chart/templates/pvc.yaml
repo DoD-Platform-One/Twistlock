@@ -1,0 +1,11 @@
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: twistlock-console
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - {{ .Values.console.persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.console.persistence.size }}

@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.0.3-bb.2] - 2021-03-31
+### Added
+- Values passthroughs for affinity and anti-affinity added
+### Changed
+- Split out resources into separate yaml files
+
 ## [0.0.3-bb.0] - 2021-02-12
 ### Added
 - Options under istio values to control labels, annotations, gateways and full URL modification for twistlock VirtualService.

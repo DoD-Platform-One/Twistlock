@@ -27,3 +27,19 @@ console:
   persistence:
     size: 100Gi
     accessMode: ReadWriteOnce
+
+antiAffinity: {}
+  # requiredDuringSchedulingIgnoredDuringExecution:
+  #   - topologyKey: "kubernetes.io/hostname"
+  #     labelSelector:
+  #       matchLabels:
+  #         dont-schedule-with: twistlock
+
+nodeAffinity: {}
+  # requiredDuringSchedulingIgnoredDuringExecution:
+  #   nodeSelectorTerms:
+  #   - matchExpressions:
+  #     - key: node-type
+  #       operator: In
+  #       values:
+  #       - "twistlock"
