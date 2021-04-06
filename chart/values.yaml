@@ -46,3 +46,17 @@ affinity: {}
 
 nodeSelector: {}
   # node-type: twistlock"
+
+tolerations: []
+  # - key: "key1"
+  #   operator: "Equal"
+  #   value: "value1"
+  #   effect: "NoSchedule"
+
+resources:
+  limits: {}
+  #   memory: 256Mi
+  #   cpu: 100m
+  requests: {}
+  #   memory: 256Mi
+  #   cpu: 100m
