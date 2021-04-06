@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.0.3-bb.3] - 2021-04-05
+### Changed
+- Affinity values modified to standardize
+
 ## [0.0.3-bb.2] - 2021-03-31
 ### Added
 - Values passthroughs for affinity and anti-affinity added
