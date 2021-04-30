@@ -1,5 +1,7 @@
 # Twistlock
 
+Note: Twistlock was acquired by Paolo Alto Networks and has been rebranded as [Prisma Cloud](https://blog.paloaltonetworks.com/2019/11/cloud-prisma-cloud-compute-edition/). The names are used interchangeably in these documents.
+
 ## Licensing information should not be in this repo
 
 ## Twistlock under DSOP
@@ -130,4 +132,4 @@ The Collections column shows to which collection a resource belongs. The color
 
 * [How Twistlock Secures the Full Application Lifecycle](https://www.youtube.com/watch?v=KunpU9urBaA)
 * [Twistlock Architecture](https://www.youtube.com/watch?v=Ugxwq43Fy0w)
-* [Twistlock Cloud Security Posture Management Demo](https://www.youtube.com/watch?v=NsEZK5fyloE)
+* [Prisma Cloud: Cloud Security Posture Management Demo](https://www.youtube.com/watch?v=NsEZK5fyloE)
