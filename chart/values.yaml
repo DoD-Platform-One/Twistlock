@@ -22,7 +22,7 @@ imagePullSecrets: []
 console:
   image:
     repository: registry1.dso.mil/ironbank/twistlock/console/console
-    tag: 20.12.531
+    tag: 21.04.412
 
   persistence:
     size: 100Gi
