@@ -134,7 +134,7 @@ The following command can be authenticated by TOKEN or Username/Password.
 
 ##### Download the daemonset.yaml.  The default Image is set to teh Prisma server.  We need to pull images from Platform 1.  The image URL needs to be changed
 
-##### Image: registry.dso.mil/platform-one/apps/twistlock/defender:20.04.169
+##### Image: registry.dso.mil/platform-one/apps/twistlock/defender:21.04.412
 
 2) Install Defender
 

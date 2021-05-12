@@ -4,43 +4,69 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.0.3-bb.4] - 2021-04-06
+## [0.0.4-bb.0] - 2021-05-12
+
 ### Added
+
+- Moved all resources into `chart/templates/console/`
+- Updated twistlock to 21.04.412
+
+## [0.0.3-bb.4] - 2021-04-06
+
+### Added
+
 - Resource and Toleration Values
 
 ## [0.0.3-bb.3] - 2021-04-05
+
 ### Changed
+
 - Affinity values modified to standardize
 
 ## [0.0.3-bb.2] - 2021-03-31
+
 ### Added
+
 - Values passthroughs for affinity and anti-affinity added
+
 ### Changed
+
 - Split out resources into separate yaml files
 
 ## [0.0.3-bb.0] - 2021-02-12
+
 ### Added
+
 - Options under istio values to control labels, annotations, gateways and full URL modification for twistlock VirtualService.
 
 ### Changed
+
 - Position of "hostname" value in values, from "console.hostname" to toplevel "hostname".
 
 ## [0.0.2-bb.2] - 2021-02-11
+
 ### Added
+
 - imagePullSecret array to values.
 
 ### Changed
+
 - Image based on 20.12 version from IronBank.
 
 ## [0.0.2-bb.1] - 2021-01-27
+
 ### Changed
+
 - Updating all "dsop.io" URLs to "dso.mil".
 
 ## [0.0.2-bb.0] - 2020-12-15
+
 ### Added
+
 - Istio flag to enable VirtualService when true.
 
 ## [0.0.1-bb.0] - 2020-06-15
-### Added
-- Initial manifests for deploying Twistlock version 20.04.196.
 
+### Added
+
+- Initial manifests for deploying Twistlock version 20.04.196.
