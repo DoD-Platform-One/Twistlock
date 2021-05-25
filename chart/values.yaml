@@ -16,9 +16,12 @@ istio:
     hosts:
       - twistlock.{{ .Values.hostname }}
 
+networkPolicies:
+  enabled: false
+
 # imagePullSecrets defines the secrets to use when pulling the operator container image.
 imagePullSecrets: []
-  
+
 console:
   image:
     repository: registry1.dso.mil/ironbank/twistlock/console/console
@@ -28,7 +31,8 @@ console:
     size: 100Gi
     accessMode: ReadWriteOnce
 
-affinity: {}
+affinity:
+  {}
   # podAntiAffinity:
   #   requiredDuringSchedulingIgnoredDuringExecution:
   #     - topologyKey: "kubernetes.io/hostname"
@@ -44,10 +48,12 @@ affinity: {}
   #         values:
   #         - "twistlock"
 
-nodeSelector: {}
+nodeSelector:
+  {}
   # node-type: twistlock"
 
-tolerations: []
+tolerations:
+  []
   # - key: "key1"
   #   operator: "Equal"
   #   value: "value1"
