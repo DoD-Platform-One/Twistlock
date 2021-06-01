@@ -1,8 +1,0 @@
-{
-  "pluginsFile": false,
-  "supportFile": false,
-  "fixturesFolder": false,
-  "env": {
-    "twistlock_url": "twistlock.bigbang.dev"
-  }
-}

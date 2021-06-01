@@ -1,0 +1,7 @@
+{{- include "gluon.tests.script-configmap.overrides" (list . "twistlock-test.script-configmap") }}
+{{- define "twistlock-test.script-configmap" }}
+{{- end }}
+---
+{{- include "gluon.tests.script-runner.overrides" (list . "twistlock-test.script-runner") -}}
+{{- define "twistlock-test.script-runner" -}}
+{{- end }}
