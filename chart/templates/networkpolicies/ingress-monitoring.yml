@@ -7,11 +7,17 @@ metadata:
 spec:
   ingress:
     - from:
-        - namespaceSelector: {} # all namespaces for now
+      - namespaceSelector:
+          matchLabels:
+            app.kubernetes.io/name: monitoring
+        podSelector:
+          matchLabels:
+            app: prometheus
       ports:
-        - port: PROMETHEUS_PORT
-          protocol: TCP
-  podSelector: {} # all pods
+      - port: 8081
+  podSelector:
+    matchLabels:
+      name: twistlock-console
   policyTypes:
     - Ingress
 {{- end }}

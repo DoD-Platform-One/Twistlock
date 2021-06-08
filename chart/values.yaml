@@ -18,6 +18,9 @@ istio:
 
 networkPolicies:
   enabled: false
+  ingressLabels:
+    app: istio-ingressgateway
+    istio: ingressgateway
 
 # imagePullSecrets defines the secrets to use when pulling the operator container image.
 imagePullSecrets: []

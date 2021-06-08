@@ -4,6 +4,28 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.0.5-bb.0] - 2021-06-02
+
+### Changed
+
+- Network policy resource Templates
+
+## [0.0.4-bb.3] - 2021-06-01
+
+### Added
+
+- Gluon test library dependency
+
+### Changed
+
+- CI Test infrastructure. Migrating to helm tests with script capabilities.
+
+## [0.0.4-bb.2] - 2021-05-26
+
+### Added
+
+- Network policy resource Templates
+
 ## [0.0.4-bb.0] - 2021-05-12
 
 ### Added

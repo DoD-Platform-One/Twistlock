@@ -2,14 +2,12 @@
 apiVersion: networking.k8s.io/v1
 kind: NetworkPolicy
 metadata:
-  name: ingress-allow-cluster
+  name: ingress-allow-ns
   namespace: "{{ .Release.Namespace }}"
 spec:
   ingress:
     - from:
-        - namespaceSelector: {} # all namespaces for now
-      ports:
-        - port: 8084 # communications port
+      - podSelector: {} # all pods in namespace
   podSelector: {} # all pods
   policyTypes:
     - Ingress
