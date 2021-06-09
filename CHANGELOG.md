@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.0.6-bb.0] - 2021-06-09
+
+### Fixed
+
+- Bug with istio network policy, allow egress in ns
+
+
 ## [0.0.5-bb.0] - 2021-06-02
 
 ### Changed
