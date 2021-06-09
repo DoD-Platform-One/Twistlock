@@ -7,7 +7,7 @@ metadata:
 spec:
   podSelector:
     matchLabels:
-      app: twistlock-console
+      name: twistlock-console
   policyTypes:
     - Ingress
   ingress:
@@ -20,5 +20,7 @@ spec:
             {{- toYaml .Values.networkPolicies.ingressLabels | nindent 12}}
       ports:
       - port: 8081 #Default UI console Port
+        protocol: TCP
       - port: 8083 #TLS configured UI console Port
+        protocol: TCP
 {{- end }}
