@@ -87,3 +87,4 @@ spec:
       - name: syslog-socket
         hostPath:
           path: "/dev/log"
+{{- include "twistlock.resources" .Values.resources | indent 10 }}
