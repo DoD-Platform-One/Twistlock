@@ -40,6 +40,8 @@ spec:
       containers:
       - name: twistlock-console
         image: {{ .Values.console.image.repository }}:{{ .Values.console.image.tag }}
+        resources:
+{{ toYaml .Values.resources | indent 12 }}
         ports:
         - name: mgmt-https
           containerPort: 8083
@@ -87,4 +89,4 @@ spec:
       - name: syslog-socket
         hostPath:
           path: "/dev/log"
-{{- include "twistlock.resources" .Values.resources | indent 10 }}
+
