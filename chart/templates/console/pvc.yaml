@@ -10,3 +10,17 @@ spec:
   resources:
     requests:
       storage: {{ .Values.console.persistence.size }}
+---
+
+---
+kind: PersistentVolumeClaim
+apiVersion: v1
+metadata:
+  name: syslog-socket
+  namespace: {{ .Release.Namespace }}
+spec:
+  accessModes:
+    - {{ .Values.console.syslog-persistence.accessMode }}
+  resources:
+    requests:
+      storage: {{ .Values.console.syslog-persistence.size }}
