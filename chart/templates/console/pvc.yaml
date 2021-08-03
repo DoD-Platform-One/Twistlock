@@ -20,7 +20,7 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   accessModes:
-    - {{ .Values.console.syslog-persistence.accessMode }}
+    - {{ .Values.console.syslogPersistence.accessMode }}
   resources:
     requests:
-      storage: {{ .Values.console.syslog-persistence.size }}
+      storage: {{ .Values.console.syslogPersistence.size }}

@@ -33,7 +33,7 @@ console:
   persistence:
     size: 100Gi
     accessMode: ReadWriteOnce
-  syslog-persistence:
+  syslogPersistence:
     size: 100Gi
     accessMode: ReadWriteOnce
 
