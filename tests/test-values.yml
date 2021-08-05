@@ -10,6 +10,8 @@ imagePullSecrets:
 console:
   persistence:
     size: 5Gi
+  syslogPersistence:
+    size: 5Gi
 
 bbtests:
   enabled: true
