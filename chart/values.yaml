@@ -33,7 +33,9 @@ console:
   persistence:
     size: 100Gi
     accessMode: ReadWriteOnce
- 
+  syslogPersistence:
+    size: 100Gi
+    accessMode: ReadWriteOnce
 
 affinity:
   {}
