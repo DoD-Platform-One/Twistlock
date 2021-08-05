@@ -76,8 +76,7 @@ spec:
         - name: console-persistent-volume
           mountPath: "/var/lib/twistlock-backup"
           subPath: "var/lib/twistlock-backup"
-        - name: syslog-socket
-          mountPath: "/dev/log"
+        
       volumes:
       - name: console-persistent-volume
         persistentVolumeClaim:
@@ -85,7 +84,5 @@ spec:
       - name: twistlock-config-volume
         configMap:
           name: twistlock-console
-      - name: syslog-socket
-        persistentVolumeClaim:
-          claimName: "syslog-socket"
+
 
