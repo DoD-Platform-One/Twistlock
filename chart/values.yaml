@@ -64,10 +64,10 @@ tolerations:
 
 resources:
   limits: 
-     memory: 512Mi
+     memory: 1Gi
      cpu: 250m
   requests: 
-     memory: 1Gi
+     memory: 512Mi
      cpu: 250m
 
 openshift: false
