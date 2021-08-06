@@ -40,6 +40,8 @@ spec:
       containers:
       - name: twistlock-console
         image: {{ .Values.console.image.repository }}:{{ .Values.console.image.tag }}
+        resources:
+          {{ toYaml .Values.resources | nindent 10 }}
         ports:
         - name: mgmt-https
           containerPort: 8083
@@ -47,8 +49,7 @@ spec:
           containerPort: 8084
         - name: mgmt-http
           containerPort: 8081
-        resources:
-          {{ toYaml .Values.resources | nindent 10 }}
+       
         env:
         - name: HIGH_AVAILABILITY_ENABLED
           value: "false"
@@ -87,3 +88,4 @@ spec:
       - name: syslog-socket
         hostPath:
           path: "/dev/log"
+
