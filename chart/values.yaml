@@ -33,6 +33,7 @@ console:
   persistence:
     size: 100Gi
     accessMode: ReadWriteOnce
+# Enable syslog audit feature
   syslogPersistence:
     enabled: false
 

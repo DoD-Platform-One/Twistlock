@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
--  Remove Hostpath violation in opa gatekeeper
+-  Add conditional hostpath for twistlock console.
 
 ## [0.0.6-bb.1] - 2021-07-21
 
