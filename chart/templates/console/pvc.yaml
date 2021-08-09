@@ -10,3 +10,7 @@ spec:
   resources:
     requests:
       storage: {{ .Values.console.persistence.size }}
+---
+
+
+

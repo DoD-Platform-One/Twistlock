@@ -11,6 +11,7 @@ console:
   persistence:
     size: 5Gi
 
+
 bbtests:
   enabled: true
   cypress:
