@@ -66,11 +66,11 @@ tolerations:
   #   effect: "NoSchedule"
 
 resources:
-  limits: {}
-  #   memory: 256Mi
-  #   cpu: 100m
-  requests: {}
-  #   memory: 256Mi
-  #   cpu: 100m
+  limits: 
+     memory: 1Gi
+     cpu: 250m
+  requests: 
+     memory: 512Mi
+     cpu: 250m
 
 openshift: false
