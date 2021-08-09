@@ -86,7 +86,7 @@ spec:
         configMap:
           name: twistlock-console
       - name: syslog-socket
-        {{- if .Values.console.syslogPersistence.enabled}}
+        {{- if .Values.console.syslogAuditIntegration.enabled}}
         hostPath:
           path: "/dev/log"
         {{- else}}
