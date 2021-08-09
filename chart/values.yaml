@@ -33,7 +33,9 @@ console:
   persistence:
     size: 100Gi
     accessMode: ReadWriteOnce
-# Enable syslog audit feature
+# Enable syslog audit feature.
+   ## Make sure when integrating with bigbang - https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/chart/templates/gatekeeper/values.yaml  there 
+   ## is an exception for   twistlock namespace in volumetypes.
   syslogAuditIntegration:
     enabled: false
 
