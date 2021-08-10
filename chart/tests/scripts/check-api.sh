@@ -1,6 +1,6 @@
 #!/bin/bash
 set -ex
-
+sleep 1m
 echo "Hitting Twistlock API endpoint..."
 curl -sISk -H 'Authorization: Basic "${api_auth}"' "${twistlock_host}/" &>/dev/null || export TW_DOWN="true"
 if [[ ${TW_DOWN} == "true" ]]; then
