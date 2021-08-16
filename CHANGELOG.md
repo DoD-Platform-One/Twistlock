@@ -7,7 +7,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ### Added
 
-- Upgrade to twistlock console 21.04.439
+- Upgrade twistlock console  to version 21.04.439
 
 ## [0.0.7-bb.0] - 2021-08-09
 
