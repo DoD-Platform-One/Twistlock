@@ -3,11 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [Unreleased] - 2021-09-03
+## [0.0.9-bb.0] - 2021-09-10
 
 ### Added
 
-- Added link to PCC default configuration for version 21.04.412
+- Documentation link to PCC default configuration for version 21.04.412
+- Network Policy template specifically for Defenders communication
+- networkPolicies.nodeCidr value to explicity set ingress CIDR for Defender WebSocket connections
 
 ## [0.0.8-bb.1] - 2021-08-26
 
