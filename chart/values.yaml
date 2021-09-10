@@ -21,6 +21,9 @@ networkPolicies:
   ingressLabels:
     app: istio-ingressgateway
     istio: ingressgateway
+  # CIDR range of your kubernetes nodes. Must be an IP CIDR range (x.x.x.x/x)
+  # Defaults to include: "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks
+  nodeCidr: null
 
 # imagePullSecrets defines the secrets to use when pulling the operator container image.
 imagePullSecrets: []
