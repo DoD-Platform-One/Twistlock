@@ -21,7 +21,7 @@ networkPolicies:
   ingressLabels:
     app: istio-ingressgateway
     istio: ingressgateway
-  # CIDR range of your kubernetes nodes. Must be an IP CIDR range (x.x.x.x/x)
+  # CIDR range of your kubernetes nodes. Must be an IP CIDR range (x.x.x.x/x). Allows defender to twistlock-console communication.
   # Defaults to include: "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks
   nodeCidr: null
 
