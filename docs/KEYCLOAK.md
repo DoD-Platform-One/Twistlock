@@ -64,10 +64,10 @@ Twistlock SSO integration is manual through the Admnistration UI. When Twistlock
 
 ![SAML Configuration](./img/saml_config.png)
 
-5. Twistlock SAML SSO does not create the users automatically. Unfortunatly, you must manually create the users before they can log in. Navigate to ```Manage -> Authentication``` in the left navigation bar. Select "Users" in the drop down list. Click the ```Add User``` button to create a twistlock user with the same name as the Keycloak user name. There should be a ```SAML``` auth method button to select. If this selection is not visible, go to a different tab, then return to users.
+5. Twistlock SSO does not create the users automatically. You must manually create the users before they can log in. Navigate to ```Manage -> Authentication``` in the left navigation bar. Select "Users" in the drop down list. Click the ```Add User``` button to create a twistlock user with the same name as the Keycloak user name. There should be a ```SAML``` auth method button to select. If this selection is not visible, go to a different tab, then return to users.
 
 ![User Add](./img/populate-user.png)
-![Create New User](./img/create-new-user-screen.png)
+![Create New SAML User](./img/create-saml-user-screen.png)
 
 ## Integrating with OIDC
 
@@ -114,3 +114,8 @@ Within recent versions of 21.04 Twistlock added support for OIDC Authentication.
 ![OIDC Config](./img/oidc-config.png)
 
 5. (Optional) Within the `X.509 certificate` field paste in your PEM Certificate Authority. This will be required the IdP is using a Certificate that is not trusted by the system trust store.
+
+6. Twistlock SSO does not create the users automatically. You must manually create the users before they can log in. Navigate to `Manage -> Authentication` in the left navigation bar. Select "Users" in the drop down list. Click the `Add User` button to create a twistlock user with the same name as the Keycloak user name. There will be an `OpenID Connect` auth method button to select. If this selection is not visible, go to a different tab, then return to users.
+
+![User Add](./img/populate-user.png)
+![Create New OIDC User](./img/create-oidc-user-screen.png)
