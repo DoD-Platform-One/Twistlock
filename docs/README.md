@@ -1,6 +1,6 @@
 # Twistlock
 
-## Licensing information should not be in this repo
+Note: Twistlock was acquired by Paolo Alto Networks and has been rebranded as [Prisma Cloud](https://blog.paloaltonetworks.com/2019/11/cloud-prisma-cloud-compute-edition/). The names are used interchangeably in these documents.
 
 ## Twistlock under DSOP
 
@@ -11,10 +11,11 @@ This installation follows the Twistlock documented guidance.  Twistlock document
 
 The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  For this installation the following information is needed:
 
-### Applicaiton overview
+### Application overview
 
 Twistlock monitors Docker for container deployment and Kubernetes for container orchestration, along with other cloud platforms. Twistlock provides continuous monitoring of containers, in addition to multi-tenancy which allows the user to defend, monitor, and manage multiple projects at once. Twistlock allows for adding firewall rules to individual applications, detecting and blocking anomalies, analyzing events, monitoring memory space, monitoring container compliance, and providing customizable access controls. Continuous Integration provides developers with the status of vulnerabilities found with each build they run, as opposed to running a different tool to see the status of each builds’ CVEs and their severity. ACAS has capability to scan entire servers, however, does not provide the container security Twistlock offers. Container security is a leading issue right now and Twistlock provides the tools necessary to address those.
 
+For more information see the [official documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/technology_overviews.html).
 
 ### Deployment
 
@@ -84,13 +85,14 @@ The roles are as listed:
   - Has no other access to configure Twistlock or view data
   - Minimal amount of access required to run the plugins
 
+For more information see the [official documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/authentication.html).
 #### Collections
 
 Collections can be used to partition views, which provide a convenient way to browse data from related resources. Collections can also be used to optionally enforce which views specific users and groups can see. They can control access to data on a need-to-know bases or assigned collections. While a single Console manages data from Defenders spread across all hosts, collections let you segment that data into different views based on attributes. Collections are created with pattern matching expressions that are evaluated against attributes such as image name, container name, labels, and namespace.  Selecting a collection reduces the scope displayed in Console to just the relevant components.
 
 #### Assigned Collections
 
-When admins create users and groups, they must grant access to at least one collection. By default, users and groups are assigned access to a set called All collections, which contains all objects in the system. All collections is effectively the same as manually creating a collection with a wildcard (*) for every resource type.
+When admins create users and groups, they must grant access to at least one collection. By default, users and groups are assigned access to a set called All collections, which contains all objects in the system. All collections is effectively the same as manually creating a collection with a wildcard (`*`) for every resource type.
 Users with admin or operator roles can always see all resources in the system. They can also see all collections, and utilize them to filter views. When creating users or groups with the admin or operator role, there is no option for assigning collections.
 
 Collections cannot be deleted as long as they’ve been assigned to users or groups. This enforcement mechanism ensures that users and groups are never left stateless. Click on a specific collection to see who is using them.
@@ -123,3 +125,11 @@ Selecting Collection Procedure
 - Multiple collections can be selected
 
 The Collections column shows to which collection a resource belongs. The color assigned to a collection distinguishes objects that belong to specific collections. This is useful when multiple collections are displayed simultaneously. Collections can also be assigned arbitrary text tags to make it easier for users to associate other metadata with a collection.
+
+Please review the BigBang [Architecture Document](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/charter/packages/twistlock/Architecture.md) for more information about it's role within BigBang.
+
+## Additional Links
+
+* [How Twistlock Secures the Full Application Lifecycle](https://www.youtube.com/watch?v=KunpU9urBaA)
+* [Twistlock Architecture](https://www.youtube.com/watch?v=Ugxwq43Fy0w)
+* [Prisma Cloud: Cloud Security Posture Management Demo](https://www.youtube.com/watch?v=NsEZK5fyloE)
