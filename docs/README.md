@@ -2,8 +2,6 @@
 
 Note: Twistlock was acquired by Paolo Alto Networks and has been rebranded as [Prisma Cloud](https://blog.paloaltonetworks.com/2019/11/cloud-prisma-cloud-compute-edition/). The names are used interchangeably in these documents.
 
-## Licensing information should not be in this repo
-
 ## Twistlock under DSOP
 
 The Twistlock Platform provides vulnerability management and compliance across the application lifecycle by scanning images and serverless functions to prevent security and compliance issues from progressing through the development pipeline, and continuously monitoring all registries and environments.
@@ -94,7 +92,7 @@ Collections can be used to partition views, which provide a convenient way to br
 
 #### Assigned Collections
 
-When admins create users and groups, they must grant access to at least one collection. By default, users and groups are assigned access to a set called All collections, which contains all objects in the system. All collections is effectively the same as manually creating a collection with a wildcard (*) for every resource type.
+When admins create users and groups, they must grant access to at least one collection. By default, users and groups are assigned access to a set called All collections, which contains all objects in the system. All collections is effectively the same as manually creating a collection with a wildcard (`*`) for every resource type.
 Users with admin or operator roles can always see all resources in the system. They can also see all collections, and utilize them to filter views. When creating users or groups with the admin or operator role, there is no option for assigning collections.
 
 Collections cannot be deleted as long as they’ve been assigned to users or groups. This enforcement mechanism ensures that users and groups are never left stateless. Click on a specific collection to see who is using them.
@@ -127,6 +125,8 @@ Selecting Collection Procedure
 - Multiple collections can be selected
 
 The Collections column shows to which collection a resource belongs. The color assigned to a collection distinguishes objects that belong to specific collections. This is useful when multiple collections are displayed simultaneously. Collections can also be assigned arbitrary text tags to make it easier for users to associate other metadata with a collection.
+
+Please review the BigBang [Architecture Document](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/charter/packages/twistlock/Architecture.md) for more information about it's role within BigBang.
 
 ## Additional Links
 
