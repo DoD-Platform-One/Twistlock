@@ -9,7 +9,12 @@ The Twistlock Platform provides vulnerability management and compliance across t
 This installation follows the Twistlock documented guidance.  Twistlock documentation can be found at:
 <https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/welcome.html>
 
-The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.  For this installation the following information is needed:
+The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.
+
+## Platform One Prisma Cloud Compute Basic Configuration
+
+Platform One has a minimum configuration required as a result of security findings and compliance.  The basic configuration for Prisma Cloud Compute version 21.04.412 can be found [here](https://repo1.dso.mil/platform-one/cyber/prisma_cloud_config/-/tree/configs-v21.04.412).  This security configuration is not automated nor in gitops due to limitations with the Prisma Cloud Compute product and the Security Operations team is actively working with the Palo Alto Network engineer and product team on the way forward.  The P1 Security Operations team is in the process of moving this to a public repo, in the mean time @jweiler or @aaron.ruse can grant access or answer any questions.
+
 
 ### Application overview
 
