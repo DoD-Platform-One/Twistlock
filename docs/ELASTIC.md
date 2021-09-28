@@ -1,7 +1,6 @@
 ### Elasticsearch configuration
 
-Before running the configuration, be sure to have Defender installed.
-Follow the steps in either 'Install Defender' or 'Install Defender with Twistcli'
+Before running the configuration, be sure to have [Defender installed](overview.md#install-defender-from-the-console-ui).
 
 create an index pattern for fluentd if not already created
 
