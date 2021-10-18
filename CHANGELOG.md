@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.0.9-bb.1] - 2021-10-18
+### Changed
+- VS API version to v1beta1 to solve deprecation
+- @micah.nagel added to CODEOWNERS, @joshwolf removed
+
 ## [0.0.9-bb.0] - 2021-09-10
 
 ### Added
