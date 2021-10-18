@@ -1,0 +1,20 @@
+{
+  "baseBranches": ["main"],
+  "configWarningReuseIssue": false,
+  "dependencyDashboard": true,
+  "dependencyDashboardAutoclose": true,
+  "dependencyDashboardHeader": "- [ ] Sync upstream helm chart version with updated dependencies.",
+  "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
+  "dependencyDashboardLabels": ["twistlock","renovate","Package Sustainment"],
+  "draftPR": true,
+  "enabledManagers": ["helm-values"],
+  "ignorePaths": ["chart/charts/**"],
+  "labels": ["twistlock","renovate"],
+  "packageRules": [
+      {
+          "matchDatasources": ["docker"],
+          "groupName": "Ironbank"
+      }
+  ],
+  "separateMajorMinor": false
+}
