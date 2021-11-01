@@ -1,19 +1,46 @@
 {
   "baseBranches": ["main"],
-  "configWarningReuseIssue": false,
   "dependencyDashboard": true,
   "dependencyDashboardAutoclose": true,
-  "dependencyDashboardHeader": "- [ ] Sync upstream helm chart version with updated dependencies.",
+  "dependencyDashboardHeader": "- [ ] Sync upstream helm chart version with updated dependencies.\n- [ ] Update defender image in [Big Bang synker file](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/scripts/package/synker.yaml)",
   "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
   "draftPR": true,
-  "enabledManagers": ["helm-values"],
   "ignorePaths": ["chart/charts/**"],
   "labels": ["twistlock","renovate"],
   "packageRules": [
-      {
-          "matchDatasources": ["docker"],
-          "groupName": "Ironbank"
-      }
+    {
+        "matchDatasources": ["docker"],
+        "groupName": "Twistlock"
+    }
   ],
-  "separateMajorMinor": false
+  "separateMajorMinor": false,
+  "regexManagers": [
+    {
+      "fileMatch": ["^chart/values\\.yaml$"],
+      "matchStrings": [
+        "tag:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "ironbank/twistlock/console/console",
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://registry1.dso.mil"
+    },
+    {
+      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "matchStrings": [
+        "appVersion:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "ironbank/twistlock/console/console",
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://registry1.dso.mil"
+    },
+    {
+      "fileMatch": ["^tests/images\\.txt$"],
+      "matchStrings": [
+        "registry1.dso.mil/ironbank/twistlock/defender/defender:(?<currentValue>.+)"      
+      ],
+      "depNameTemplate": "ironbank/twistlock/defender/defender",
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://registry1.dso.mil"
+    }
+  ]
 }

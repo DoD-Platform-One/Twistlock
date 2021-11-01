@@ -3,6 +3,14 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.0.10-bb.0] - 2021-10-27
+### Changed
+- Updated console to version `21.08.520`
+- Updated renovate.json for defender image + appVersion
+### Added
+- `tests/images.txt` for package release CI
+- New network policy to allow for egress to twistlock upstream services
+
 ## [0.0.9-bb.1] - 2021-10-18
 ### Changed
 - VS API version to v1beta1 to solve deprecation

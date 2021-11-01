@@ -1,0 +1,1 @@
+registry1.dso.mil/ironbank/twistlock/defender/defender:21.08.520
