@@ -1,25 +1,61 @@
-# Twistlock Documentation
+# twistlock
 
-# Table of Contents
-- [Backup](docs/BACKUP.md)
-- [Deployment](#deployment)
-- [Elasticsearch Configuration](docs/ELASTIC.md)
-- [Keycloak Integration](docs/KEYCLOAK.md)
-- [Monitoring](docs/PROMETHEUS.md)
-- [Node Affinity & Anti-Affinity with Twistlock](docs/AFFINITY.md)
-- [Overview](docs/overview.md)
-- [Prerequisites](#prerequisites)
-- [Troubleshooting](docs/TROUBLESHOOTING.md)
+![Version: 0.0.11-bb.0](https://img.shields.io/badge/Version-0.0.11--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
 
+## Learn More
+* [Application Overview](docs/overview.md)
+* [Other Documentation](docs/)
 
-## Prerequisites
+## Pre-Requisites
+
 * Kubernetes Cluster deployed
 * Kubernetes config installed in `~/.kube/config`
-* [Helm installed](https://helm.sh/docs/intro/install)
+* Helm installed
+
+Install Helm
+
+https://helm.sh/docs/intro/install/
 
 ## Deployment
+
+* Clone down the repository
+* cd into directory
+```bash
+helm install twistlock chart/
 ```
-git clone https://repo1.dso.mil/platform-one/big-bang/apps/security-tools/twistlock.git
-cd twistlock
-helm install twistlock chart
-```
+
+## Values
+
+| Key | Type | Default | Description |
+|-----|------|---------|-------------|
+| hostname | string | `"bigbang.dev"` |  |
+| monitoring.enabled | bool | `false` |  |
+| istio.enabled | bool | `false` |  |
+| istio.console.enabled | bool | `true` |  |
+| istio.console.annotations | object | `{}` |  |
+| istio.console.labels | object | `{}` |  |
+| istio.console.gateways[0] | string | `"istio-system/main"` |  |
+| istio.console.hosts[0] | string | `"twistlock.{{ .Values.hostname }}"` |  |
+| networkPolicies.enabled | bool | `false` |  |
+| networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
+| networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
+| networkPolicies.nodeCidr | string | `nil` |  |
+| imagePullSecrets | list | `[]` |  |
+| console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` |  |
+| console.image.tag | string | `"21.08.520"` |  |
+| console.image.imagePullPolicy | string | `"Always"` |  |
+| console.persistence.size | string | `"100Gi"` |  |
+| console.persistence.accessMode | string | `"ReadWriteOnce"` |  |
+| console.syslogAuditIntegration.enabled | bool | `false` |  |
+| affinity | object | `{}` |  |
+| nodeSelector | object | `{}` |  |
+| tolerations | list | `[]` |  |
+| resources.limits.memory | string | `"1Gi"` |  |
+| resources.limits.cpu | string | `"250m"` |  |
+| resources.requests.memory | string | `"512Mi"` |  |
+| resources.requests.cpu | string | `"250m"` |  |
+| openshift | bool | `false` |  |
+
+## Contributing
+
+Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in contributing.

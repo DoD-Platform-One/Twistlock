@@ -40,6 +40,7 @@ spec:
       containers:
       - name: twistlock-console
         image: {{ .Values.console.image.repository }}:{{ .Values.console.image.tag }}
+        imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
         resources:
           {{ toYaml .Values.resources | nindent 10 }}
         ports:
