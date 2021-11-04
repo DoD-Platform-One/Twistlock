@@ -32,6 +32,7 @@ console:
   image:
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     tag: 21.08.520
+    imagePullPolicy: IfNotPresent
 
   persistence:
     size: 100Gi
