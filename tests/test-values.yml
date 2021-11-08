@@ -1,16 +1,12 @@
-istio:
-  enabled: true
-
 networkPolicies:
   enabled: true
 
 imagePullSecrets:
-  - name: private-registry-mil
+  - name: private-registry
 
 console:
   persistence:
     size: 5Gi
-
 
 bbtests:
   enabled: true
