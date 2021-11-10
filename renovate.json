@@ -1,7 +1,6 @@
 {
   "baseBranches": ["main"],
   "dependencyDashboard": true,
-  "dependencyDashboardAutoclose": true,
   "dependencyDashboardHeader": "- [ ] Sync upstream helm chart version with updated dependencies.\n- [ ] Update defender image in [Big Bang synker file](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/scripts/package/synker.yaml)",
   "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
   "draftPR": true,
