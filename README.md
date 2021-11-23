@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.0.11-bb.0](https://img.shields.io/badge/Version-0.0.11--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
+![Version: 0.0.12-bb.0](https://img.shields.io/badge/Version-0.0.12--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -28,14 +28,14 @@ helm install twistlock chart/
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| hostname | string | `"bigbang.dev"` |  |
+| domain | string | `"bigbang.dev"` |  |
 | monitoring.enabled | bool | `false` |  |
 | istio.enabled | bool | `false` |  |
 | istio.console.enabled | bool | `true` |  |
 | istio.console.annotations | object | `{}` |  |
 | istio.console.labels | object | `{}` |  |
 | istio.console.gateways[0] | string | `"istio-system/main"` |  |
-| istio.console.hosts[0] | string | `"twistlock.{{ .Values.hostname }}"` |  |
+| istio.console.hosts[0] | string | `"twistlock.{{ .Values.domain }}"` |  |
 | networkPolicies.enabled | bool | `false` |  |
 | networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
 | networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
@@ -43,7 +43,7 @@ helm install twistlock chart/
 | imagePullSecrets | list | `[]` |  |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` |  |
 | console.image.tag | string | `"21.08.520"` |  |
-| console.image.imagePullPolicy | string | `"Always"` |  |
+| console.image.imagePullPolicy | string | `"IfNotPresent"` |  |
 | console.persistence.size | string | `"100Gi"` |  |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` |  |
 | console.syslogAuditIntegration.enabled | bool | `false` |  |
