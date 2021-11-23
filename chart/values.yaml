@@ -1,4 +1,4 @@
-hostname: bigbang.dev
+domain: bigbang.dev
 
 monitoring:
   enabled: false
@@ -14,7 +14,7 @@ istio:
     gateways:
       - istio-system/main
     hosts:
-      - twistlock.{{ .Values.hostname }}
+      - twistlock.{{ .Values.domain }}
 
 networkPolicies:
   enabled: false
