@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.1.0-bb.0] - 2021-12-14
+### Added
+- Add annotations to console deployment
+
 ## [0.0.12-bb.0] - 2021-11-22
 ### Changed
 - Rename hostname to domain
