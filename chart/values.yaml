@@ -71,6 +71,10 @@ tolerations:
   #   value: "value1"
   #   effect: "NoSchedule"
 
+annotations:
+  {}
+  # bigbang.dev/istioVersion: 1.10.3
+
 resources:
   limits: 
      memory: 1Gi

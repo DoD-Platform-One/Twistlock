@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.0.12-bb.0](https://img.shields.io/badge/Version-0.0.12--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
+![Version: 0.1.0-bb.0](https://img.shields.io/badge/Version-0.1.0--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -50,6 +50,7 @@ helm install twistlock chart/
 | affinity | object | `{}` |  |
 | nodeSelector | object | `{}` |  |
 | tolerations | list | `[]` |  |
+| annotations | object | `{}` |  |
 | resources.limits.memory | string | `"1Gi"` |  |
 | resources.limits.cpu | string | `"250m"` |  |
 | resources.requests.memory | string | `"512Mi"` |  |
