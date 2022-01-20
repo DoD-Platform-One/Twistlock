@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.1.0-bb.0](https://img.shields.io/badge/Version-0.1.0--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
+![Version: 0.2.0-bb.0](https://img.shields.io/badge/Version-0.2.0--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -56,6 +56,12 @@ helm install twistlock chart/
 | resources.requests.memory | string | `"512Mi"` |  |
 | resources.requests.cpu | string | `"250m"` |  |
 | openshift | bool | `false` |  |
+| bbtests.enabled | bool | `false` |  |
+| bbtests.cypress.artifacts | bool | `true` |  |
+| bbtests.cypress.envs.cypress_baseUrl | string | `"http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081"` |  |
+| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` |  |
+| bbtests.scripts.envs.twistlock_host | string | `"https://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8083"` |  |
+| bbtests.scripts.envs.desired_version | string | `"{{ .Values.console.image.tag }}"` |  |
 
 ## Contributing
 
