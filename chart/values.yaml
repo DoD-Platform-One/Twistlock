@@ -84,3 +84,16 @@ resources:
      cpu: 250m
 
 openshift: false
+
+
+bbtests:
+  enabled: false
+  cypress:
+    artifacts: true
+    envs:
+      cypress_baseUrl: "http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081"
+  scripts:
+    image: registry1.dso.mil/ironbank/stedolan/jq:1.6
+    envs:
+      twistlock_host: "https://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8083"
+      desired_version: "{{ .Values.console.image.tag }}"
