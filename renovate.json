@@ -40,6 +40,15 @@
       "depNameTemplate": "ironbank/twistlock/defender/defender",
       "datasourceTemplate": "docker",
       "registryUrlTemplate": "https://registry1.dso.mil"
+    },
+    {
+      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "matchStrings": [
+        "- Twistlock:\\s+(?<currentValue>.+)"
+      ],
+      "depNameTemplate": "ironbank/twistlock/console/console",
+      "datasourceTemplate": "docker",
+      "registryUrlTemplate": "https://registry1.dso.mil"
     }
   ]
 }
