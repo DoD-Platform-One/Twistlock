@@ -1,7 +1,7 @@
 {
   "baseBranches": ["main"],
   "dependencyDashboard": true,
-  "dependencyDashboardHeader": "- [ ] Sync upstream helm chart version with updated dependencies.\n- [ ] Update defender image in [Big Bang synker file](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/scripts/package/synker.yaml)\nNOTE: Reference the [k3d docs](./docs/k3d.md) for assistance in running on k3d.",
+  "dependencyDashboardHeader": "- [ ] Update defender image in [Big Bang synker file](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/scripts/package/synker.yaml)\nNOTE: Reference the [k3d docs](./docs/k3d.md) for assistance in running on k3d.",
   "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
   "draftPR": true,
   "ignorePaths": ["chart/charts/**"],
