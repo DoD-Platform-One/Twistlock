@@ -1,10 +1,10 @@
 apiVersion: v2
 name: twistlock
-version: 0.3.0-bb.0
+version: 0.4.0-bb.0
 appVersion: 22.01.840
 dependencies:
   - name: gluon
-    version: 0.1.1
+    version: 0.2.5
     repository: oci://registry.dso.mil/platform-one/big-bang/apps/library-charts/gluon
 annotations:
   bigbang.dev/applicationVersions: |
