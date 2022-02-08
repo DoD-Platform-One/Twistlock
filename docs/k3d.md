@@ -65,7 +65,7 @@ For the Twistlock Defender config you will also want to override some of the def
 
 10: `/run/k3s/containerd/containderd.sock`
 
-11, 12: On
+12: On
 
 14: Off
 
@@ -79,3 +79,4 @@ NOTE: This config is not without some small issues, since we are working around 
 - `failed to save iptables Twistlock defender completed with an error: exec: "iptables-save": executable file not found in $PATH exit status 1`: `iptables-save` is not in the defender pod, may be able to mount it in but not worth the effort
 - `Failed to create firewall manager: lstat /proc/1/root/sys/fs/cgroup/memory/docker: no such file or directory`: This one is odd but essentially due to some of the hacks with how we configure the defenders they will fail to find the docker process file here
 - `Failed to download feed /feeds/*.json - stop retry downloading due to an unexpected error: open /var/lib/twistlock/data/*.json: no such file or directory`: Not sure why this one happens but `/var/lib/twistlock` is a mounted path from the host, may occur due to reuse across multiple clusters
+- `Failed to start runc proxy: listen unix /var/run/tw.runc.sock: bind: read-only file system`: Again not perfectly clear since this is a mounted path from the host
