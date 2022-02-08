@@ -75,7 +75,7 @@ For the Twistlock Defender config you will also want to override some of the def
 
 16: `private-registry`
 
-17: Privileged ON, CRI ON, Containerized ON
+17: SELinux ON, Privileged OFF, CRI ON, Containerized ON
 
 NOTE: This config is not without some small issues, since we are working around some of the limitations of the dockerized cluster and volumes. You will see some errors in the logs of the defender, including:
 - `failed to save iptables Twistlock defender completed with an error: exec: "iptables-save": executable file not found in $PATH exit status 1`: `iptables-save` is not in the defender pod, may be able to mount it in but not worth the effort
