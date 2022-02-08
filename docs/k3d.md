@@ -4,6 +4,8 @@ There are some special considerations for Twistlock on k3d that require both a s
 
 By following the sections below to configure your cluster and the defenders you should end up with a Twistlock instance and defender functioning much like they would in a normal cluster (i.e. able to view all pods in the cluster, nodes, scan images, etc).
 
+This document was written and tested against Twistlock 22.01.840, newer versions *may* need additional configuration but start with this as a baseline.
+
 ## k3d setup
 
 Below is a k3d config that provides many of the necessary overrides for Twistlock, namely:
