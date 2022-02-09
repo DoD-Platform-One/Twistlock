@@ -16,7 +16,7 @@ The Twistlock Console is deployed as a part of the gitops.  Once deployed the pr
 Platform One has a minimum configuration required as a result of security findings and compliance.  The basic configuration for Prisma Cloud Compute version 21.04.412 can be found [here](https://repo1.dso.mil/platform-one/cyber/prisma_cloud_config/-/tree/configs-v21.04.412).  This security configuration is not automated nor in gitops due to limitations with the Prisma Cloud Compute product and the Security Operations team is actively working with the Palo Alto Network engineer and product team on the way forward.  The P1 Security Operations team is in the process of moving this to a public repo, in the mean time @jweiler or @aaron.ruse can grant access or answer any questions.
 
 
-### Application overview
+## Application overview
 
 Twistlock monitors Docker for container deployment and Kubernetes for container orchestration, along with other cloud platforms. Twistlock provides continuous monitoring of containers, in addition to multi-tenancy which allows the user to defend, monitor, and manage multiple projects at once. Twistlock allows for adding firewall rules to individual applications, detecting and blocking anomalies, analyzing events, monitoring memory space, monitoring container compliance, and providing customizable access controls. Continuous Integration provides developers with the status of vulnerabilities found with each build they run, as opposed to running a different tool to see the status of each builds’ CVEs and their severity. ACAS has capability to scan entire servers, however, does not provide the container security Twistlock offers. Container security is a leading issue right now and Twistlock provides the tools necessary to address those.
 
@@ -24,7 +24,7 @@ For more information see the [official documentation](https://docs.paloaltonetwo
 
 ### Deployment
 
-This package chart is delpoyed as part of the BigBang Umbrella chart.
+This package chart is deployed as part of the BigBang Umbrella chart. When deploying on k3d make sure to follow the configuration provided in [k3d docs](./k3d.md) for assistance in getting up and running.
 
 ### Initial Configuration
 

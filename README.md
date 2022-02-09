@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.3.0-bb.0](https://img.shields.io/badge/Version-0.3.0--bb.0-informational?style=flat-square) ![AppVersion: 21.08.520](https://img.shields.io/badge/AppVersion-21.08.520-informational?style=flat-square)
+![Version: 0.4.0-bb.0](https://img.shields.io/badge/Version-0.4.0--bb.0-informational?style=flat-square) ![AppVersion: 22.01.840](https://img.shields.io/badge/AppVersion-22.01.840-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -42,7 +42,7 @@ helm install twistlock chart/
 | networkPolicies.nodeCidr | string | `nil` |  |
 | imagePullSecrets | list | `[]` |  |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` |  |
-| console.image.tag | string | `"21.08.520"` |  |
+| console.image.tag | string | `"22.01.840"` |  |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` |  |
 | console.persistence.size | string | `"100Gi"` |  |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` |  |
