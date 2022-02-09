@@ -81,6 +81,6 @@ NOTE: This config is not without some small issues, since we are working around 
 - `failed to save iptables Twistlock defender completed with an error: exec: "iptables-save": executable file not found in $PATH exit status 1`: `iptables-save` is not in the defender pod, may be able to mount it in but not worth the effort
 - `Failed to create firewall manager: lstat /proc/1/root/sys/fs/cgroup/memory/docker: no such file or directory`: This one is odd but essentially due to some of the hacks with how we configure the defenders they will fail to find the docker process file here
 - `Failed to download feed /feeds/*.json - stop retry downloading due to an unexpected error: open /var/lib/twistlock/data/*.json: no such file or directory`: Not sure why this one happens but `/var/lib/twistlock` is a mounted path from the host, may occur due to reuse across multiple clusters
-- `Failed to start runc proxy: listen unix /var/run/tw.runc.sock: bind: read-only file system`: runc socket does not exist on k3d nodes (another quirk of the hacky config)
+- `Failed to start runc proxy: listen unix /var/run/tw.runc.sock: bind: read-only file system`: This is due to the read-only file system of the defenders, CAN be mitigated by modifying the defender daemonset yaml to set `readOnlyRootFilesystem` to `false` (which will result in defender reporting fully healthy in console)
 
 Despite seeing these issues in logs/console reporting the defenders should be functioning at this point and reporting on the cluster health in console.
