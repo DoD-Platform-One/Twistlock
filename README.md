@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.4.0-bb.0](https://img.shields.io/badge/Version-0.4.0--bb.0-informational?style=flat-square) ![AppVersion: 22.01.840](https://img.shields.io/badge/AppVersion-22.01.840-informational?style=flat-square)
+![Version: 0.4.0-bb.1](https://img.shields.io/badge/Version-0.4.0--bb.1-informational?style=flat-square) ![AppVersion: 22.01.840](https://img.shields.io/badge/AppVersion-22.01.840-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -31,6 +31,7 @@ helm install twistlock chart/
 | domain | string | `"bigbang.dev"` |  |
 | monitoring.enabled | bool | `false` |  |
 | istio.enabled | bool | `false` |  |
+| istio.mtls.mode | string | `"STRICT"` |  |
 | istio.console.enabled | bool | `true` |  |
 | istio.console.annotations | object | `{}` |  |
 | istio.console.labels | object | `{}` |  |
