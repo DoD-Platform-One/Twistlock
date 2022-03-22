@@ -1,0 +1,13 @@
+{{- if and .Values.istio.enabled (eq .Values.istio.mtls.mode "STRICT") }}
+apiVersion: "security.istio.io/v1beta1"
+kind: PeerAuthentication
+metadata:
+  name: twistlock-defender-exception
+  namespace: {{ .Release.Namespace }}
+spec:
+  mtls:
+    mode: PERMISSIVE
+  selector:
+    matchLabels:
+      app: twistlock-defender
+{{- end }}
