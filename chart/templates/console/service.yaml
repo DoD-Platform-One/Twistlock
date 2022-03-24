@@ -8,11 +8,11 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   ports:
-  - name: communication-port
+  - name: tcp-communication-port
     port: 8084
-  - name: management-port-https
+  - name: http-management-port-https
     port: 8083
-  - name: mgmt-http
+  - name: http-mgmt-http
     port: 8081
   selector:
     name: twistlock-console
