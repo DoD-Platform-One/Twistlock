@@ -8,9 +8,9 @@ metadata:
   namespace: {{ .Release.Namespace }}
 spec:
   ports:
-  - name: https-communication-port
+  - name: tcp-communication-port
     port: 8084
-  - name: https-management-port-https
+  - name: http-management-port-https
     port: 8083
   - name: http-mgmt-http
     port: 8081
