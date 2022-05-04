@@ -36,7 +36,7 @@ imagePullSecrets: []
 console:
   image:
     repository: registry1.dso.mil/ironbank/twistlock/console/console
-    tag: 22.01.840
+    tag: 22.01.880
     imagePullPolicy: IfNotPresent
 
   persistence:
