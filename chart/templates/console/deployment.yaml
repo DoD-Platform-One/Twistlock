@@ -1,30 +1,27 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: twistlock-console
+  name: {{ template "twistlock-console.name" . }}
   namespace: {{ .Release.Namespace }}
-  labels:
-    name: twistlock-console
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 spec:
   replicas: 1
   selector:
-    matchLabels:
-      name: twistlock-console
+    matchLabels: {{- include "twistlock-console.selector" . | nindent 6 }}
   strategy:
     type: Recreate
   template:
     metadata:
-      name: twistlock-console
+      name: {{ template "twistlock-console.name" . }}
       namespace: {{ .Release.Namespace }}
-      labels:
-        name: twistlock-console
+      labels: {{- include "twistlock-console.selector" . | nindent 8 }}
       {{- if .Values.annotations }}
       annotations:
         {{ toYaml .Values.annotations | nindent 8 }}
       {{- end }}
     spec:
       restartPolicy: Always
-      serviceAccountName: twistlock-console
+      serviceAccountName: {{ template "twistlock-console.name" . }}
       {{- with .Values.imagePullSecrets }}
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
@@ -42,11 +39,11 @@ spec:
         {{ toYaml .Values.affinity | nindent 8 }}
       {{- end }}
       containers:
-      - name: twistlock-console
+      - name: {{ template "twistlock-console.name" . }}
         image: {{ .Values.console.image.repository }}:{{ .Values.console.image.tag }}
         imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
         resources:
-          {{ toYaml .Values.resources | nindent 10 }}
+          {{- toYaml .Values.resources | nindent 10 }}
         ports:
         - name: mgmt-https
           containerPort: 8083
@@ -54,7 +51,6 @@ spec:
           containerPort: 8084
         - name: mgmt-http
           containerPort: 8081
-       
         env:
         - name: HIGH_AVAILABILITY_ENABLED
           value: "false"
@@ -86,10 +82,10 @@ spec:
       volumes:
       - name: console-persistent-volume
         persistentVolumeClaim:
-          claimName: "twistlock-console"
+          claimName: {{ template "twistlock-console.name" . }}
       - name: twistlock-config-volume
         configMap:
-          name: twistlock-console
+          name: {{ template "twistlock-console.name" . }}
       - name: syslog-socket
         {{- if .Values.console.syslogAuditIntegration.enabled}}
         hostPath:

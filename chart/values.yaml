@@ -26,11 +26,15 @@ networkPolicies:
   ingressLabels:
     app: istio-ingressgateway
     istio: ingressgateway
-  # CIDR range of your kubernetes nodes. Must be an IP CIDR range (x.x.x.x/x). Allows defender to twistlock-console communication.
-  # Defaults to include: "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks
+  # -- Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster
+  controlPlaneCidr: 0.0.0.0/0
+  # -- Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks.
+  # use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range.
+  # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
   nodeCidr: null
 
-# imagePullSecrets defines the secrets to use when pulling the operator container image.
+# -- Defines the secrets to use when pulling the container images
+# NOTE: Only first entry in the list will be used for Defender deployment
 imagePullSecrets: []
 
 console:
@@ -42,14 +46,129 @@ console:
   persistence:
     size: 100Gi
     accessMode: ReadWriteOnce
-# Enable syslog audit feature.
-   ## Make sure when integrating with bigbang - https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/chart/templates/gatekeeper/values.yaml  there 
-   ## is an exception for   twistlock namespace in volumetypes.
+  # -- Enable syslog audit feature
+  # When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types.
   syslogAuditIntegration:
     enabled: false
 
-affinity:
-  {}
+  # -- The license key to use.  If not specified, the license must be installed manually.
+  license: ""
+
+  # -- Required if init is enabled.  Admin account to use for configuration through API.  Will create account if Twistlock is a new install.  Otherwise, an existing account needs to be provided.
+  credentials:
+    # -- Username of account
+    username: "admin"
+    # -- Password of account
+    password: "change_this_password"
+
+  # -- Additional users to setup.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
+  additionalUsers: []
+  # - # -- Username for the additional user (required)
+  #   username: ""
+  #   # -- Password if the user's authType is basic (a local user).  Password will never be updated if the user already exists.
+  #   password: ""
+  #   # -- Role based permissions for the user (required).  Valid values include 'admin', 'operator', 'auditor', 'devSecOps', 'vulnerabilityManager', 'devOps', 'defenderManager', 'user', and 'ci'.  See https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-reference-architecture-compute/rbac/access_twistlock.
+  #   role: ""
+  #   # -- Auth type for the user (default is 'basic').  Valid values include 'basic', 'ldap', 'oauth', 'oidc', or 'saml'.
+  #   authType: ""
+  # -- Toggles whether to update the `additionalUsers` if the user is already created (e.g. on upgrades).  This would overwrite the existing user configuration.
+  updateUsers: false
+
+  options:
+    # -- Toggle setting all options in this section
+    enabled: true
+    # -- Network monitoring options
+    network:
+      # -- Toggle network monitoring of containers
+      container: true
+      # -- Toggle network monitoring of hosts
+      host: true
+    # -- Toggle logging Prisma Cloud events to standard output
+    logging: true
+    # -- Toggle sending product usage data to Palo Alto Networks
+    telemetry: false
+    # NOTE: Prometheus metrics instrumentation is controlled by .monitoring.enabled
+
+# -- Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
+defender:
+  enabled: true
+  # -- Image for Twistlock defender.  Leave blank to use twistlock official repo.
+  image:
+    # -- Repository and path for defender image
+    repository: registry1.dso.mil/ironbank/twistlock/defender/defender
+    # -- Image tag for defender
+    tag: 22.01.880
+  # -- Name of cluster
+  clusterName: ""
+  # -- Collect Deployment and Namespace labels
+  collectLabels: true
+  # -- Use Container Runtime Interface (CRI) instead of Docker
+  cri: true
+  # -- Path to Docker socket.  Leave blank to use /var/run/docker.sock
+  dockerSocket: ""
+  # -- Monitor service accounts
+  monitorServiceAccounts: true
+  # -- Run as privileged.  If `selinux` is `true`, this automatically gets set to `false`
+  privileged: false
+  # -- Proxy settings
+  proxy: {}
+    # address: "" # Address and port of the proxy
+    # ca: "" # CA certificate to trust (optional)
+    # username: "" # Proxy username (optional)
+    # password: "" # Proxy password (optional)
+  # -- Deploy with SELinux Policy
+  selinux: true
+  # -- Assign globally unique names to hosts
+  uniqueHostName: false
+
+# -- Configures defender policies.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
+policies:
+  # -- Toggles configuration of defender policies
+  enabled: true
+  # -- Name to use as prefix to policy rules.
+  # NOTE: If you change the name after the initial deployment, you may end up with duplicate policy sets and need to manually cleanup old policies.
+  name: Default
+
+  # -- Vulnerabilitiy policies
+  vulnerabilities:
+    # -- Toggle deployment and updating of vulnerability policies
+    enabled: true
+    # -- The minimum severity to alert on
+    alertThreshold: medium
+
+  # -- Compliance policies
+  compliance:
+    # -- Toggle deployment and updating of compliance policies
+    enabled: true
+    # -- The policy templates to use.  Valid values are 'GDPR', 'DISA STIG', 'PCI', 'NIST SP 800-190', or 'HIPAA'
+    templates:
+    # - GDPR
+    - DISA STIG
+    # - PCI
+    - NIST SP 800-190
+    # - HIPAA
+    # -- If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'.
+    alertThreshold: medium
+
+  # Runtime policies
+  runtime:
+    # -- Toggle deployment and updating of runtime policies
+    enabled: true
+
+# -- Initialization job.  Sets up users, license, container defenders, default policies, and other settings.
+init:
+  # -- Toggles the initialization on or off
+  enabled: true
+  # -- Initializtion job image configuration
+  image:
+    # -- Repository and path to initialization image.  Image must contain `jq` and `kubectl`
+    repository: registry1.dso.mil/ironbank/big-bang/base
+    # -- Initialization image tag
+    tag: 1.1.0
+    # -- Initialization image pull policy
+    imagePullPolicy: IfNotPresent
+
+affinity: {}
   # podAntiAffinity:
   #   requiredDuringSchedulingIgnoredDuringExecution:
   #     - topologyKey: "kubernetes.io/hostname"
@@ -65,31 +184,28 @@ affinity:
   #         values:
   #         - "twistlock"
 
-nodeSelector:
-  {}
+nodeSelector: {}
   # node-type: twistlock"
 
-tolerations:
-  []
+tolerations: []
   # - key: "key1"
   #   operator: "Equal"
   #   value: "value1"
   #   effect: "NoSchedule"
 
-annotations:
-  {}
+annotations: {}
   # bigbang.dev/istioVersion: 1.10.3
 
 resources:
-  limits: 
+  limits:
      memory: 1Gi
      cpu: 250m
-  requests: 
+  requests:
      memory: 512Mi
      cpu: 250m
 
+# -- Toggle to setup special configuration for OpenShift clusters
 openshift: false
-
 
 bbtests:
   enabled: false

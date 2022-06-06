@@ -4,10 +4,10 @@ kind: NetworkPolicy
 metadata:
   name: istio-ingress
   namespace: "{{ .Release.Namespace }}"
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 spec:
   podSelector:
-    matchLabels:
-      name: twistlock-console
+    matchLabels: {{- include "twistlock-console.selector" . | nindent 6 }}
   policyTypes:
     - Ingress
   ingress:

@@ -2,14 +2,13 @@
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
-  name: twistlock
+  name: {{ template "twistlock-console.name" . }}
   namespace: {{ .Release.Namespace }}
-  labels:
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
     release: monitoring
 spec:
   selector:
-    matchLabels:
-      name: console
+    matchLabels: {{- include "twistlock-console.selector" . | nindent 6 }}
   namespaceSelector:
     matchNames:
       - {{ .Release.Namespace }}

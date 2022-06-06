@@ -1,0 +1,10 @@
+{
+  "advancedProtection": true,
+  "processes": {
+    "checkCryptoMiners": true,
+    "blockAllBinaries": true
+  },
+  "network": {
+    "skipRawSockets": false
+  }
+}

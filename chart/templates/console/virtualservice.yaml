@@ -2,10 +2,10 @@
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:
-  name: console
+  name: {{ template "twistlock-console.name" . }}
   namespace: {{ .Release.Namespace }}
   {{- if .Values.istio.console.labels }}
-  labels:
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 {{ toYaml .Values.istio.console.labels | indent 4 }}
   {{- end }}
   {{- if .Values.istio.console.annotations }}
@@ -26,5 +26,5 @@ spec:
     - destination:
         port:
           number: 8081
-        host: twistlock-console.{{ .Release.Namespace }}.svc.cluster.local
+        host: {{ template "twistlock-console.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
 {{- end }}

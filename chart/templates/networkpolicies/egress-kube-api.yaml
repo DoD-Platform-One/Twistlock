@@ -1,0 +1,23 @@
+{{- if and .Values.networkPolicies.enabled .Values.init.enabled .Values.defender.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: allow-kube-api-egress
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "twistlock-init.labels" . | nindent 4 }}
+spec:
+  # Only init job needs access
+  podSelector:
+    matchLabels: {{- include "twistlock-init.selector" . | nindent 6 }}
+  egress:
+    - to:
+      - ipBlock:
+          cidr: {{ .Values.networkPolicies.controlPlaneCidr }}
+          {{- if eq .Values.networkPolicies.controlPlaneCidr "0.0.0.0/0" }}
+          # ONLY Block requests to cloud metadata IP
+          except:
+          - 169.254.169.254/32
+          {{- end }}
+  policyTypes:
+    - Egress
+{{- end }}

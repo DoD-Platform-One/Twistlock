@@ -9,6 +9,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-helm-test-egress
   namespace: {{ .Release.Namespace }}
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 spec:
   podSelector:
     matchLabels:

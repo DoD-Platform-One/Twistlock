@@ -4,6 +4,7 @@ kind: NetworkPolicy
 metadata:
   name: allow-tempo-egress
   namespace: "{{ .Release.Namespace }}"
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 spec:
   podSelector: {}
   policyTypes:
