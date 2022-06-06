@@ -1,0 +1,8 @@
+{{- if .Values.init.enabled }}
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ template "twistlock-init.name" . }}
+  labels: {{- include "twistlock-init.labels" . | nindent 4 }}
+data: {{- (.Files.Glob "scripts/*").AsConfig | nindent 2 }}
+{{- end }}

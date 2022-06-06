@@ -4,6 +4,7 @@ kind: NetworkPolicy
 metadata:
   name: egress-kube-dns
   namespace: "{{ .Release.Namespace }}"
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 spec:
   egress:
     - to:

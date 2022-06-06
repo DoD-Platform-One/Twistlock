@@ -1,0 +1,174 @@
+{
+  "forensic": {
+    "activitiesDisabled": false,
+    "sshdEnabled": true,
+    "sudoEnabled": true,
+    "dockerEnabled": true,
+    "readonlyDockerEnabled": true
+  },
+  "customRules": [
+    {
+      "_id": 15
+    },
+    {
+      "_id": 16
+    },
+    {
+      "_id": 17
+    },
+    {
+      "_id": 18
+    },
+    {
+      "_id": 19
+    },
+    {
+      "_id": 20
+    },
+    {
+      "_id": 21
+    },
+    {
+      "_id": 22
+    },
+    {
+      "_id": 23
+    },
+    {
+      "_id": 24
+    },
+    {
+      "_id": 25
+    },
+    {
+      "_id": 26
+    },
+    {
+      "_id": 27
+    },
+    {
+      "_id": 28
+    },
+    {
+      "_id": 29
+    }
+  ],
+  "logInspectionRules": [
+    {
+      "path": "/var/log/auth.log",
+      "regex": [
+        "Bad protocol version identification",
+        "POSSIBLE BREAK-IN ATTEMPT",
+        "Did not receive identification string from",
+        "(llegal|Invalid) user",
+        "authentication error",
+        "PAM: Authentication failure",
+        "Corrupted check bytes on input",
+        "not allowed because account is locked",
+        "maximum authentication attempts exceeded"
+      ]
+    },
+    {
+      "path": "/var/log/nginx/error.log",
+      "regex": [
+        "password mismatch",
+        "user .* was not found"
+      ]
+    },
+    {
+      "path": "/var/log/mongodb/mongod.log",
+      "regex": [
+        " E ACCESS ",
+        "authentication failed",
+        "not authorized on"
+      ]
+    },
+    {
+      "path": "/var/log/postgresql/postgresql-*.log",
+      "regex": [
+        "Peer authentication failed",
+        "terminating connection"
+      ]
+    },
+    {
+      "path": "/var/log/mysql.err",
+      "regex": [
+        "Access denied",
+        "Fatal error:",
+        "Authorization ID .* does not exist",
+        "Maximum number of authentication attempts reached"
+      ]
+    },
+    {
+      "path": "/var/log/apache2/error.log",
+      "regex": [
+        "directory index forbidden",
+        "user .* not found",
+        "Invalid URI in request",
+        "URI too long",
+        "client.*denied by server configuration:",
+        "Authorization of user \\S* to access \\S* failed",
+        "authentication fail"
+      ]
+    }
+  ],
+  "antiMalware": {
+    "deniedProcesses": {
+      "paths": [
+        "cisco-ocs",
+        "crackle",
+        "yersinia",
+        "cryptcat",
+        "cymothoa",
+        "dbd",
+        "dns2tcpc",
+        "dns2tcpd",
+        "htc",
+        "hts",
+        "pwnat",
+        "sbd",
+        "chntpw",
+        "cmospwd",
+        "crunch",
+        "hashcat",
+        "hydra",
+        "pw-inspector",
+        "john",
+        "mp32",
+        "mp64",
+        "ncrack",
+        "ophcrack",
+        "pd",
+        "sp32",
+        "sp64",
+        "thc-pptp-bruter",
+        "truecrack",
+        "bettercap",
+        "fiked",
+        "hamster",
+        "hexinject",
+        "prettypacket",
+        "hex2raw",
+        "iaxflood",
+        "inviteflood",
+        "mitmproxy",
+        "ohrwurm",
+        "dns-rebind",
+        "rtpbreak",
+        "sctpscan",
+        "sipp",
+        "sniffjoke",
+        "sniffjokectl",
+        "sslsplit",
+        "wireshark",
+        "tshark",
+        "amap",
+        "amapcrap",
+        "nmap",
+        "ncat",
+        "nping"
+      ]
+    },
+    "skipSSHTracking": false
+  }
+}

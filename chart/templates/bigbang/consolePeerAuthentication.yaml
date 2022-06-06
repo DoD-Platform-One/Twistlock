@@ -4,12 +4,13 @@ kind: PeerAuthentication
 metadata:
   name: twistlock-console-exception
   namespace: {{ .Release.Namespace }}
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
 spec:
   mtls:
     mode: {{ .Values.istio.mtls.mode }}
   selector:
     matchLabels:
-      name: twistlock-console
+      {{- include "twistlock-console.selector" . | nindent 8 }}
   portLevelMtls:
     "8084":
       mode: PERMISSIVE

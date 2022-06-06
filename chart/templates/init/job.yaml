@@ -1,0 +1,89 @@
+{{- if .Values.init.enabled }}
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ template "twistlock-init.name" . }}-{{ now | date "20060102150405" }}
+  labels: {{- include "twistlock-init.labels" . | nindent 4 }}
+spec:
+  activeDeadlineSeconds: 900
+  ttlSecondsAfterFinished: 150
+  template:
+    metadata:
+      labels: {{- include "twistlock-init.selector" . | nindent 8 }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      serviceAccountName: {{ template "twistlock-init.name" . }}
+      {{- if .Values.nodeSelector }}
+      nodeSelector:
+        {{ toYaml .Values.nodeSelector | nindent 8 }}
+      {{- end }}
+      {{- if .Values.tolerations }}
+      tolerations:
+        {{ toYaml .Values.tolerations | nindent 8 }}
+      {{- end }}
+      {{- if .Values.affinity }}
+      affinity:
+        {{ toYaml .Values.affinity | nindent 8 }}
+      {{- end }}
+      containers:
+      {{- $scriptPath := "/opt/twistlock" }}
+      - name: {{ template "twistlock-init.name" . }}
+        image: {{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}
+        imagePullPolicy: {{ .Values.init.image.imagePullPolicy }}
+        command: ["/bin/bash", "{{ $scriptPath }}/twistlock-init.sh"]
+        env:
+        - name: TWISTLOCK_CONFIG_DIR
+          value: /etc{{ $scriptPath }}
+        {{- if .Values.istio.enabled }}
+        - name: ISTIO_SIDECAR
+          value: "true"
+        {{- end }}
+        resources:
+          limits:
+            cpu: 0.5
+            memory: 128Mi
+          requests:
+            cpu: 0.5
+            memory: 128Mi
+        securityContext:
+          capabilities:
+            drop: ["ALL"]
+          readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 1000
+          runAsGroup: 1000
+        volumeMounts:
+        - name: console
+          mountPath: /etc{{ $scriptPath }}/console
+        {{- if .Values.defender.enabled }}
+        - name: defenders
+          mountPath: /etc{{ $scriptPath }}/defenders
+        {{- end }}
+        {{- if .Values.policies.enabled }}
+        - name: policies
+          mountPath: /etc{{ $scriptPath }}/policies
+        {{- end }}
+        - name: scripts
+          mountPath: {{ $scriptPath }}
+      volumes:
+        - name: console
+          secret:
+            secretName: {{ template "twistlock-console.name" . }}
+        {{- if .Values.defender.enabled }}
+        - name: defenders
+          secret:
+            secretName: {{ template "twistlock-defender.name" . }}
+        {{- end }}
+        {{- if .Values.policies.enabled }}
+        - name: policies
+          secret:
+            secretName: {{ template "twistlock-defender.name" . }}-policies
+        {{- end }}
+        - name: scripts
+          configMap:
+            name: {{ template "twistlock-init.name" . }}
+      restartPolicy: Never
+{{- end }}
