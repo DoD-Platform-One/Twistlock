@@ -28,27 +28,26 @@ helm install twistlock chart/
 
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
-| domain | string | `"bigbang.dev"` |  |
-| monitoring.enabled | bool | `false` |  |
-| istio.enabled | bool | `false` |  |
+| domain | string | `"bigbang.dev"` | domain to use for virtual service |
+| monitoring.enabled | bool | `false` | Toggle monitoring integration |
+| istio.enabled | bool | `false` | Toggle istio integration |
 | istio.mtls | object | `{"mode":"STRICT"}` | Default twistlock peer authentication |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
-| istio.console.enabled | bool | `true` |  |
-| istio.console.annotations | object | `{}` |  |
-| istio.console.labels | object | `{}` |  |
-| istio.console.gateways[0] | string | `"istio-system/main"` |  |
-| istio.console.hosts[0] | string | `"twistlock.{{ .Values.domain }}"` |  |
-| networkPolicies.enabled | bool | `false` |  |
-| networkPolicies.ingressLabels.app | string | `"istio-ingressgateway"` |  |
-| networkPolicies.ingressLabels.istio | string | `"ingressgateway"` |  |
+| istio.console.enabled | bool | `true` | Toggle vs creation |
+| istio.console.annotations | object | `{}` | Annotations for VS |
+| istio.console.labels | object | `{}` | Labels for VS |
+| istio.console.gateways | list | `["istio-system/main"]` | Gateways for VS |
+| istio.console.hosts | list | `["twistlock.{{ .Values.domain }}"]` | Hosts for VS |
+| networkPolicies.enabled | bool | `false` | Toggle network policies |
+| networkPolicies.ingressLabels | object | `{"app":"istio-ingressgateway","istio":"ingressgateway"}` | Labels for ingress pods to allow traffic |
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` | Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster |
 | networkPolicies.nodeCidr | string | `nil` | Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks. use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range. Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs) |
 | imagePullSecrets | list | `[]` | Defines the secrets to use when pulling the container images NOTE: Only first entry in the list will be used for Defender deployment |
-| console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` |  |
-| console.image.tag | string | `"22.01.880"` |  |
-| console.image.imagePullPolicy | string | `"IfNotPresent"` |  |
-| console.persistence.size | string | `"100Gi"` |  |
-| console.persistence.accessMode | string | `"ReadWriteOnce"` |  |
+| console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
+| console.image.tag | string | `"22.01.880"` | Full image tag for console |
+| console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
+| console.persistence.size | string | `"100Gi"` | Size of Twistlock PVC |
+| console.persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for Twistlock PVC |
 | console.syslogAuditIntegration | object | `{"enabled":false}` | Enable syslog audit feature When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types. |
 | console.license | string | `""` | The license key to use.  If not specified, the license must be installed manually. |
 | console.credentials | object | `{"password":"change_this_password","username":"admin"}` | Required if init is enabled.  Admin account to use for configuration through API.  Will create account if Twistlock is a new install.  Otherwise, an existing account needs to be provided. |
@@ -92,21 +91,17 @@ helm install twistlock chart/
 | init.image.repository | string | `"registry1.dso.mil/ironbank/big-bang/base"` | Repository and path to initialization image.  Image must contain `jq` and `kubectl` |
 | init.image.tag | string | `"1.1.0"` | Initialization image tag |
 | init.image.imagePullPolicy | string | `"IfNotPresent"` | Initialization image pull policy |
-| affinity | object | `{}` |  |
-| nodeSelector | object | `{}` |  |
-| tolerations | list | `[]` |  |
-| annotations | object | `{}` |  |
-| resources.limits.memory | string | `"1Gi"` |  |
-| resources.limits.cpu | string | `"250m"` |  |
-| resources.requests.memory | string | `"512Mi"` |  |
-| resources.requests.cpu | string | `"250m"` |  |
+| affinity | object | `{}` | affinity for console pod |
+| nodeSelector | object | `{}` | nodeSelector for console pod |
+| tolerations | list | `[]` | tolerations for console pod |
+| annotations | object | `{}` | annotations for console pod |
+| resources | object | `{"limits":{"cpu":"250m","memory":"1Gi"},"requests":{"cpu":"250m","memory":"512Mi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
-| bbtests.enabled | bool | `false` |  |
-| bbtests.cypress.artifacts | bool | `true` |  |
-| bbtests.cypress.envs.cypress_baseUrl | string | `"http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081"` |  |
-| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` |  |
-| bbtests.scripts.envs.twistlock_host | string | `"https://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8083"` |  |
-| bbtests.scripts.envs.desired_version | string | `"{{ .Values.console.image.tag }}"` |  |
+| bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
+| bbtests.cypress.artifacts | bool | `true` | Toggle creation of cypress artifacts |
+| bbtests.cypress.envs | object | `{"cypress_baseUrl":"http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081"}` | Set envs for use in cypress tests |
+| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` | Image to use for script tests |
+| bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"https://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8083"}` | Set envs for use in script tests |
 
 ## Contributing
 

@@ -1,10 +1,12 @@
+# -- domain to use for virtual service
 domain: bigbang.dev
 
 monitoring:
+  # -- Toggle monitoring integration
   enabled: false
 
 istio:
-  # Toggle istio integration
+  # -- Toggle istio integration
   enabled: false
   # -- Default twistlock peer authentication
   mtls:
@@ -12,17 +14,23 @@ istio:
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
   console:
-    # Toggle vs creation
+    # -- Toggle vs creation
     enabled: true
+    # -- Annotations for VS
     annotations: {}
+    # -- Labels for VS
     labels: {}
+    # -- Gateways for VS
     gateways:
       - istio-system/main
+    # -- Hosts for VS
     hosts:
       - twistlock.{{ .Values.domain }}
 
 networkPolicies:
+  # -- Toggle network policies
   enabled: false
+  # -- Labels for ingress pods to allow traffic
   ingressLabels:
     app: istio-ingressgateway
     istio: ingressgateway
@@ -39,12 +47,17 @@ imagePullSecrets: []
 
 console:
   image:
+    # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
+    # -- Full image tag for console
     tag: 22.01.880
+    # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
 
   persistence:
+    # -- Size of Twistlock PVC
     size: 100Gi
+    # -- Access mode for Twistlock PVC
     accessMode: ReadWriteOnce
   # -- Enable syslog audit feature
   # When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types.
@@ -168,6 +181,7 @@ init:
     # -- Initialization image pull policy
     imagePullPolicy: IfNotPresent
 
+# -- affinity for console pod
 affinity: {}
   # podAntiAffinity:
   #   requiredDuringSchedulingIgnoredDuringExecution:
@@ -184,18 +198,22 @@ affinity: {}
   #         values:
   #         - "twistlock"
 
+# -- nodeSelector for console pod
 nodeSelector: {}
   # node-type: twistlock"
 
+# -- tolerations for console pod
 tolerations: []
   # - key: "key1"
   #   operator: "Equal"
   #   value: "value1"
   #   effect: "NoSchedule"
 
+# -- annotations for console pod
 annotations: {}
   # bigbang.dev/istioVersion: 1.10.3
 
+# -- resources for console pod
 resources:
   limits:
      memory: 1Gi
@@ -208,13 +226,18 @@ resources:
 openshift: false
 
 bbtests:
+  # -- Toggle bbtests on/off for CI/Dev
   enabled: false
   cypress:
+    # -- Toggle creation of cypress artifacts
     artifacts: true
+    # -- Set envs for use in cypress tests
     envs:
       cypress_baseUrl: "http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081"
   scripts:
+    # -- Image to use for script tests
     image: registry1.dso.mil/ironbank/stedolan/jq:1.6
+    # -- Set envs for use in script tests
     envs:
       twistlock_host: "https://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8083"
       desired_version: "{{ .Values.console.image.tag }}"
