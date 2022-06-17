@@ -50,7 +50,7 @@ console:
     # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     # -- Full image tag for console
-    tag: 22.01.880
+    tag: 22.06.179
     # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
 
@@ -110,7 +110,7 @@ defender:
     # -- Repository and path for defender image
     repository: registry1.dso.mil/ironbank/twistlock/defender/defender
     # -- Image tag for defender
-    tag: 22.01.880
+    tag: 22.06.179
   # -- Name of cluster
   clusterName: ""
   # -- Collect Deployment and Namespace labels
@@ -177,7 +177,7 @@ init:
     # -- Repository and path to initialization image.  Image must contain `jq` and `kubectl`
     repository: registry1.dso.mil/ironbank/big-bang/base
     # -- Initialization image tag
-    tag: 1.1.0
+    tag: 1.18.0
     # -- Initialization image pull policy
     imagePullPolicy: IfNotPresent
 

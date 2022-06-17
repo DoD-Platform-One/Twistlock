@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.8.0-bb.0](https://img.shields.io/badge/Version-0.8.0--bb.0-informational?style=flat-square) ![AppVersion: 22.01.880](https://img.shields.io/badge/AppVersion-22.01.880-informational?style=flat-square)
+![Version: 0.9.0-bb.0](https://img.shields.io/badge/Version-0.9.0--bb.0-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -44,7 +44,7 @@ helm install twistlock chart/
 | networkPolicies.nodeCidr | string | `nil` | Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks. use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range. Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs) |
 | imagePullSecrets | list | `[]` | Defines the secrets to use when pulling the container images NOTE: Only first entry in the list will be used for Defender deployment |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
-| console.image.tag | string | `"22.01.880"` | Full image tag for console |
+| console.image.tag | string | `"22.06.179"` | Full image tag for console |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
 | console.persistence.size | string | `"100Gi"` | Size of Twistlock PVC |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for Twistlock PVC |
@@ -61,10 +61,10 @@ helm install twistlock chart/
 | console.options.network.host | bool | `true` | Toggle network monitoring of hosts |
 | console.options.logging | bool | `true` | Toggle logging Prisma Cloud events to standard output |
 | console.options.telemetry | bool | `false` | Toggle sending product usage data to Palo Alto Networks |
-| defender | object | `{"clusterName":"","collectLabels":true,"cri":true,"dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.01.880"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
-| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.01.880"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
+| defender | object | `{"clusterName":"","collectLabels":true,"cri":true,"dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
-| defender.image.tag | string | `"22.01.880"` | Image tag for defender |
+| defender.image.tag | string | `"22.06.179"` | Image tag for defender |
 | defender.clusterName | string | `""` | Name of cluster |
 | defender.collectLabels | bool | `true` | Collect Deployment and Namespace labels |
 | defender.cri | bool | `true` | Use Container Runtime Interface (CRI) instead of Docker |
@@ -85,11 +85,11 @@ helm install twistlock chart/
 | policies.compliance.templates | list | `["DISA STIG","NIST SP 800-190"]` | The policy templates to use.  Valid values are 'GDPR', 'DISA STIG', 'PCI', 'NIST SP 800-190', or 'HIPAA' |
 | policies.compliance.alertThreshold | string | `"medium"` | If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'. |
 | policies.runtime.enabled | bool | `true` | Toggle deployment and updating of runtime policies |
-| init | object | `{"enabled":true,"image":{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"1.1.0"}}` | Initialization job.  Sets up users, license, container defenders, default policies, and other settings. |
+| init | object | `{"enabled":true,"image":{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"1.17.0"}}` | Initialization job.  Sets up users, license, container defenders, default policies, and other settings. |
 | init.enabled | bool | `true` | Toggles the initialization on or off |
-| init.image | object | `{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"1.1.0"}` | Initializtion job image configuration |
+| init.image | object | `{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"1.17.0"}` | Initializtion job image configuration |
 | init.image.repository | string | `"registry1.dso.mil/ironbank/big-bang/base"` | Repository and path to initialization image.  Image must contain `jq` and `kubectl` |
-| init.image.tag | string | `"1.1.0"` | Initialization image tag |
+| init.image.tag | string | `"1.17.0"` | Initialization image tag |
 | init.image.imagePullPolicy | string | `"IfNotPresent"` | Initialization image pull policy |
 | affinity | object | `{}` | affinity for console pod |
 | nodeSelector | object | `{}` | nodeSelector for console pod |
