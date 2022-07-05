@@ -7,9 +7,9 @@ metadata:
 spec:
   ports:
   - name: tcp-communication-port
-    port: 8084
+    port: {{ .Values.console.ports.communication }}
   - name: http-management-port-https
-    port: 8083
+    port: {{ .Values.console.ports.managementHttps }}
   - name: http-mgmt-http
-    port: 8081
+    port: {{ .Values.console.ports.managementHttp }}
   selector: {{- include "twistlock-console.selector" . | nindent 4 }}

@@ -25,6 +25,6 @@ spec:
   - route:
     - destination:
         port:
-          number: 8081
+          number: {{ .Values.console.ports.managementHttp }}
         host: {{ template "twistlock-console.name" . }}.{{ .Release.Namespace }}.svc.cluster.local
 {{- end }}

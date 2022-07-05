@@ -19,8 +19,8 @@ spec:
           matchLabels:
             {{- toYaml .Values.networkPolicies.ingressLabels | nindent 12}}
       ports:
-      - port: 8081 #Default UI console Port
+      - port: {{ .Values.console.ports.managementHttp }} #Default UI console Port
         protocol: TCP
-      - port: 8083 #TLS configured UI console Port
+      - port: {{ .Values.console.ports.managementHttps }} #TLS configured UI console Port
         protocol: TCP
 {{- end }}
