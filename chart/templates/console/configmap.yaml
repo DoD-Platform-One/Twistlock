@@ -27,12 +27,12 @@ data:
     # The system that you use to configure Twistlock must be able to connect to the Twistlock Console on these ports
     # To enable the HTTP listener, set the value of MANAGEMENT_PORT_HTTP (e.g. MANAGEMENT_PORT_HTTP=8081)
     # Accessing Console over plain, unencrypted HTTP isn't recommended, as sensitive information can be exposed
-    MANAGEMENT_PORT_HTTP=${MANAGEMENT_PORT_HTTP:-8081}
-    MANAGEMENT_PORT_HTTPS=8083
+    MANAGEMENT_PORT_HTTP={{ .Values.console.ports.managementHttp }}
+    MANAGEMENT_PORT_HTTPS={{ .Values.console.ports.managementHttps }}
 
     ##### Inter-system communication port #####
     # Sets the port for communication between the Defender(s) and the Console
-    COMMUNICATION_PORT=8084
+    COMMUNICATION_PORT={{ .Values.console.ports.communication }}
 
     ##### Certificate common names (optional) #####
     # Determines how to construct the CN in the Console's certificate
@@ -41,7 +41,7 @@ data:
     # Determines how to construct the CN in the Defenders' certificates
     # Each Defender authenticates to the Console with this certificate and each cert must have a unique CN
     # These values should not be modified unless instructed to by Twistlock Support
-    DEFENDER_CN=${DEFENDER_CN:-}
+    DEFENDER_CN={{ default "" .Values.defender.certCn }}
 
     #############################################
     #     Twistlock system configuration
@@ -51,7 +51,7 @@ data:
     # Daily, weekly, and monthly snapshots are retained
     # The exported configuration can be stored on durable storage or backed up remotely with other tools
     # Sets data recovery state (enabled or disabled)
-    DATA_RECOVERY_ENABLED=true
+    DATA_RECOVERY_ENABLED={{ .Values.console.dataRecovery }}
     # Sets the directory to which Twistlock data is exported
     DATA_RECOVERY_VOLUME=/var/lib/twistlock-backup
 
@@ -65,35 +65,35 @@ data:
 
     ##### Docker socket #####
     # Sets the location of the Docker socket file
-    DOCKER_SOCKET=${DOCKER_SOCKET:-/var/run/docker.sock}
+    DOCKER_SOCKET={{ default "/var/run/docker.sock" .Values.defender.dockerSocket }}
     # Sets the type of the Docker listener (TCP or NONE)
-    DEFENDER_LISTENER_TYPE=${DEFENDER_LISTENER_TYPE:-NONE}
+    DEFENDER_LISTENER_TYPE={{ default "NONE" .Values.defender.dockerListenerType }}
 
     #### systemd configuration ####
     # Installs Twistlock as systemd service
-    SYSTEMD_ENABLED=${SYSTEMD_ENABLED:-false}
+    SYSTEMD_ENABLED={{ .Values.systemd.enabled }}
 
     #### userid configuration ####
     # Run Twistlock Console processes as root (default, twistlock user account)
     # Typically used to run Console on standard (tcp/443) privileged port for TLS
-    RUN_CONSOLE_AS_ROOT=${RUN_CONSOLE_AS_ROOT:-false}
+    RUN_CONSOLE_AS_ROOT={{ .Values.console.runAsRoot }}
 
     #### SELinux configuration ####
     # If SELinux is enabled in dockerd, enable running Twistlock Console and Defender with a dedicated SELinux label
     # See https://docs.docker.com/engine/reference/run/#security-configuration
-    SELINUX_LABEL=disable
+    SELINUX_LABEL={{ .Values.selinuxLabel }}
 
     #### Console cgroup limits ####
     # Controls console container's resource constraints. Set to "true" to run without limits.
     # See https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources
-    DISABLE_CONSOLE_CGROUP_LIMITS=false
+    DISABLE_CONSOLE_CGROUP_LIMITS={{ .Values.console.disableCgroupLimits }}
 
     #############################################
     #      Twistlock repository configuration
     #############################################
     # Sets the version tag of the Twistlock containers
     # Do not modify unless instructed to by Twistlock Support
-    DOCKER_TWISTLOCK_TAG=_22_01_880
+    DOCKER_TWISTLOCK_TAG=_{{ regexReplaceAll "\\." .Values.console.image.tag "_" }}
 metadata:
   name: {{ template "twistlock.name" . }}-console
   namespace: {{ .Release.Namespace }}

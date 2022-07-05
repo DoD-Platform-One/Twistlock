@@ -22,5 +22,5 @@ spec:
       {{- end }}
   {{- end }}
       ports:
-      - port: 8084
+      - port: {{ .Values.console.ports.communication }}
 {{- end }}

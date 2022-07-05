@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.9.0-bb.1](https://img.shields.io/badge/Version-0.9.0--bb.1-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
+![Version: 0.9.0-bb.2](https://img.shields.io/badge/Version-0.9.0--bb.2-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -43,13 +43,22 @@ helm install twistlock chart/
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` | Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster |
 | networkPolicies.nodeCidr | string | `nil` | Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks. use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range. Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs) |
 | imagePullSecrets | list | `[]` | Defines the secrets to use when pulling the container images NOTE: Only first entry in the list will be used for Defender deployment |
+| selinuxLabel | string | `"disable"` | Run Twistlock Console and Defender with a dedicated SELinux label. See https://docs.docker.com/engine/reference/run/#security-configuration |
+| systemd | object | `{"enabled":false}` | systemd configuration |
+| systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
+| console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
 | console.image.tag | string | `"22.06.179"` | Full image tag for console |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
+| console.ports.managementHttp | int | `8081` | Enables the management HTTP listener. |
+| console.ports.managementHttps | int | `8083` | Enables the management HTTPS listener. |
+| console.ports.communication | int | `8084` | Sets the port for communication between the Defender(s) and the Console |
 | console.persistence.size | string | `"100Gi"` | Size of Twistlock PVC |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for Twistlock PVC |
 | console.syslogAuditIntegration | object | `{"enabled":false}` | Enable syslog audit feature When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types. |
+| console.disableCgroupLimits | bool | `false` | Controls console container's resource constraints. Set to "true" to run without limits. See https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources |
 | console.license | string | `""` | The license key to use.  If not specified, the license must be installed manually. |
+| console.runAsRoot | bool | `false` | Run Twistlock Console processes as root (default false, twistlock user account). Values: true or false |
 | console.credentials | object | `{"password":"change_this_password","username":"admin"}` | Required if init is enabled.  Admin account to use for configuration through API.  Will create account if Twistlock is a new install.  Otherwise, an existing account needs to be provided. |
 | console.credentials.username | string | `"admin"` | Username of account |
 | console.credentials.password | string | `"change_this_password"` | Password of account |
@@ -61,7 +70,7 @@ helm install twistlock chart/
 | console.options.network.host | bool | `true` | Toggle network monitoring of hosts |
 | console.options.logging | bool | `true` | Toggle logging Prisma Cloud events to standard output |
 | console.options.telemetry | bool | `false` | Toggle sending product usage data to Palo Alto Networks |
-| defender | object | `{"clusterName":"","collectLabels":true,"cri":true,"dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
 | defender.image.tag | string | `"22.06.179"` | Image tag for defender |
@@ -69,6 +78,7 @@ helm install twistlock chart/
 | defender.collectLabels | bool | `true` | Collect Deployment and Namespace labels |
 | defender.cri | bool | `true` | Use Container Runtime Interface (CRI) instead of Docker |
 | defender.dockerSocket | string | `""` | Path to Docker socket.  Leave blank to use /var/run/docker.sock |
+| defender.dockerListenerType | string | `""` | Sets the type of the Docker listener (TCP or NONE) |
 | defender.monitorServiceAccounts | bool | `true` | Monitor service accounts |
 | defender.privileged | bool | `false` | Run as privileged.  If `selinux` is `true`, this automatically gets set to `false` |
 | defender.proxy | object | `{}` | Proxy settings |

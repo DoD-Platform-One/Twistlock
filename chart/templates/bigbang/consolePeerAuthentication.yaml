@@ -12,6 +12,6 @@ spec:
     matchLabels:
       {{- include "twistlock-console.selector" . | nindent 8 }}
   portLevelMtls:
-    "8084":
+    "{{ .Values.console.ports.communication }}":
       mode: PERMISSIVE
 {{- end }}

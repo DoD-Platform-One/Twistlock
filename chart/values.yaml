@@ -45,7 +45,17 @@ networkPolicies:
 # NOTE: Only first entry in the list will be used for Defender deployment
 imagePullSecrets: []
 
+# -- Run Twistlock Console and Defender with a dedicated SELinux label. See https://docs.docker.com/engine/reference/run/#security-configuration
+selinuxLabel: disable
+
+# -- systemd configuration
+systemd:  
+  # -- option to install Twistlock as systemd service. true or false
+  enabled: false
+
 console:
+  # -- Enables or Disables data recovery. Values: true or false.
+  dataRecovery: true
   image:
     # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
@@ -53,19 +63,34 @@ console:
     tag: 22.06.179
     # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
+  ports:
+    # -- Enables the management HTTP listener.
+    managementHttp: 8081
+    # -- Enables the management HTTPS listener.
+    managementHttps: 8083
+    # -- Sets the port for communication between the Defender(s) and the Console
+    communication: 8084
 
   persistence:
     # -- Size of Twistlock PVC
     size: 100Gi
     # -- Access mode for Twistlock PVC
     accessMode: ReadWriteOnce
+
   # -- Enable syslog audit feature
   # When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types.
   syslogAuditIntegration:
     enabled: false
 
+  # -- Controls console container's resource constraints. Set to "true" to run without limits.
+  # See https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources
+  disableCgroupLimits: false
+
   # -- The license key to use.  If not specified, the license must be installed manually.
   license: ""
+
+  # -- Run Twistlock Console processes as root (default false, twistlock user account). Values: true or false
+  runAsRoot: false
 
   # -- Required if init is enabled.  Admin account to use for configuration through API.  Will create account if Twistlock is a new install.  Otherwise, an existing account needs to be provided.
   credentials:
@@ -111,6 +136,8 @@ defender:
     repository: registry1.dso.mil/ironbank/twistlock/defender/defender
     # -- Image tag for defender
     tag: 22.06.179
+  # This value should not be modified unless instructed to by Twistlock Support
+  certCn: ""
   # -- Name of cluster
   clusterName: ""
   # -- Collect Deployment and Namespace labels
@@ -119,6 +146,10 @@ defender:
   cri: true
   # -- Path to Docker socket.  Leave blank to use /var/run/docker.sock
   dockerSocket: ""
+  
+  # -- Sets the type of the Docker listener (TCP or NONE)
+  dockerListenerType: ""
+
   # -- Monitor service accounts
   monitorServiceAccounts: true
   # -- Run as privileged.  If `selinux` is `true`, this automatically gets set to `false`
@@ -129,8 +160,10 @@ defender:
     # ca: "" # CA certificate to trust (optional)
     # username: "" # Proxy username (optional)
     # password: "" # Proxy password (optional)
+
   # -- Deploy with SELinux Policy
   selinux: true
+
   # -- Assign globally unique names to hosts
   uniqueHostName: false
 
