@@ -6,7 +6,7 @@ metadata:
   labels: {{- include "twistlock-init.labels" . | nindent 4 }}
 spec:
   activeDeadlineSeconds: 900
-  ttlSecondsAfterFinished: 150
+  ttlSecondsAfterFinished: 1800
   template:
     metadata:
       labels: {{- include "twistlock-init.selector" . | nindent 8 }}
@@ -62,6 +62,10 @@ spec:
         - name: defenders
           mountPath: /etc{{ $scriptPath }}/defenders
         {{- end }}
+        {{- if .Values.monitoring.enabled }}
+        - name: metrics
+          mountPath: /etc{{ $scriptPath }}/metrics
+        {{- end }}
         {{- if .Values.policies.enabled }}
         - name: policies
           mountPath: /etc{{ $scriptPath }}/policies
@@ -76,6 +80,11 @@ spec:
         - name: defenders
           secret:
             secretName: {{ template "twistlock-defender.name" . }}
+        {{- end }}
+        {{- if .Values.monitoring.enabled }}
+        - name: metrics
+          secret:
+            secretName: {{ template "twistlock-console.name" . }}-metrics-auth
         {{- end }}
         {{- if .Values.policies.enabled }}
         - name: policies

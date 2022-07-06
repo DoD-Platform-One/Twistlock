@@ -55,12 +55,14 @@ helm.sh/chart: {{ template "twistlock.chart" . }}
 {{/* Init specific labels */}}
 {{- define "twistlock-init.labels" -}}
 app.kubernetes.io/name: {{ template "twistlock-init.name" . }}
+name: {{ template "twistlock-init.name" . }}
 {{ template "base.labels" . }}
 {{- end -}}
 
 {{/* Console specific labels */}}
 {{- define "twistlock-console.labels" -}}
 app.kubernetes.io/name: {{ template "twistlock-console.name" . }}
+name: {{ template "twistlock-console.name" . }}
 {{ template "base.labels" . }}
 {{- end -}}
 

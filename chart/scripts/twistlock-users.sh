@@ -33,7 +33,9 @@ for TWISTLOCK_USER in "${TWISTLOCK_USERS[@]}"; do
   # Check if user already exists
   existing_user=$(jq ".[] | select (.username == \"$username\")" < <(echo "$existing_users"))
 
-  if [ -z "$existing_user" ] || [ "$TWISTLOCK_USERS_UPDATE" == "true" ]; then
+  if [ "${username}" == "${TWISTLOCK_METRICS_USER}" ]; then
+    logwarn "Using 'additionalUsers' to modify the metrics user is not supported."
+  elif [ -z "$existing_user" ] || [ "$TWISTLOCK_USERS_UPDATE" == "true" ]; then
     if [ -z "$existing_user" ]; then
       echo -n "Adding"
       req="POST"

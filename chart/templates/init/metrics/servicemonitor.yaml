@@ -1,11 +1,11 @@
-{{- if .Values.monitoring.enabled }}
+{{- if and .Values.monitoring.enabled .Values.init.enabled }}
 apiVersion: monitoring.coreos.com/v1
 kind: ServiceMonitor
 metadata:
   name: {{ template "twistlock-console.name" . }}
   namespace: {{ .Release.Namespace }}
   labels: {{- include "twistlock-console.labels" . | nindent 4 }}
-    release: monitoring
+    app.kubernetes.io/component: monitoring
 spec:
   selector:
     matchLabels: {{- include "twistlock-console.selector" . | nindent 6 }}
@@ -13,16 +13,14 @@ spec:
     matchNames:
       - {{ .Release.Namespace }}
   endpoints:
-    - interval: 30s
-      path: /api/v1/metrics
-      port: mgmt-http
-      scheme: http
-      basicAuth:
-        password:
-          name: twistlock-basic-auth
-          key: password
-        username:
-          name: twistlock-basic-auth
-          key: user
+  - basicAuth:
+      password:
+        key: TWISTLOCK_METRICS_PASSWORD
+        name: {{ template "twistlock-console.name" . }}-metrics-auth
+      username:
+        key: TWISTLOCK_METRICS_USER
+        name: {{ template "twistlock-console.name" . }}-metrics-auth
+    path: api/v1/metrics
+    port: http-mgmt-http
   jobLabel: twistlock-metrics
 {{- end }}

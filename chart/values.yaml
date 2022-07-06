@@ -2,7 +2,8 @@
 domain: bigbang.dev
 
 monitoring:
-  # -- Toggle monitoring integration
+  # -- Toggle monitoring integration, only used if init job is enabled,
+  # creates required metrics user, serviceMonitor, networkPolicy, etc
   enabled: false
 
 istio:
