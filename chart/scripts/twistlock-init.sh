@@ -63,6 +63,13 @@ else
   echo "Skipping Defender deployment."
 fi
 
+# Monitoring user creation
+if [ "$TWISTLOCK_MONITORING" == "true" ]; then
+  source "$MYDIR/twistlock-metrics.sh"
+else
+  echo "Skipping metrics user creation."
+fi
+
 # Policies Deployment
 if [ "$TWISTLOCK_POLICY_ENABLED" == "true" ]; then
   source "$MYDIR/twistlock-policies.sh"

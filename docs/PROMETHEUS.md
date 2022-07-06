@@ -1,26 +1,31 @@
 # Monitoring
 
-- Configuration items
-- List of metrics gathered
-- Useful queries [living list]
+While Twistlock does expose metrics for scraping via Prometheus, authentication is required to be able to access the metrics.
 
-## Prometheus Monitoring
+The init job provided in the chart will handle creation of a metrics "service account" along with the proper configuration for the service monitor.
 
-Twistlock Prometheus metrics collection is implemented following the documentation:
+## Setup
 
-<https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/audit/prometheus.html>
+Provided you have deployed both Twistlock and Monitoring from the Big Bang chart, the rest of the configuration is handled for you. The only pre-requisite is enabling the init job (see more details in [init doc](./initialization.md)) so that the user can be created for you.
 
-NOTE:
+The username for the "service account user" will be `bigbang-metrics-sa`. The password for this user is a randomly generated 32 character string and the role of the user is "auditor", which is the least privilege role that provides metrics capabilities. If you need to access the user account for some reason the password is accessible via the `twistlock-metrics-auth` secret. The password will be re-generated on every upgrade as a security best practice since this a service account only.
 
-1. For twistlock monitoring, credentials are required to access the endpoint metrics.
-2. Current metrics is coming null, as current deployment has no ways to enable prometheus metrics.  To turn on Promethius from the console:
- ``Console -> Manage -> Alerts -> Logging -> Enable Prometheus Monitoring``
+If you want additional flexibility in the monitoring setup (configuring your own user, etc) you can disable the Big Bang provided monitoring setup via values:
 
-To enable prometheus metrics in twistlock:
+```yaml
+# when deploying standalone chart
+monitoring:
+  enabled: false
 
+# When deploying via Big Bang
+twistlock:
+  values:
+    monitoring:
+      enabled: false
 ```
-cd app/monitoring/prometheus
-```
 
-```
-kubectl apply -k .
+You will then be able to customize the monitoring setup which will require at minimum a network policy to allow scraping, a secret with credentials for an auditor account (or higher privilege), and a service monitor configured to use the credentials secret.
+
+## Exposed Metrics
+
+Palo Alto provides a document with a list of exposed metrics [here](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/audit/prometheus).

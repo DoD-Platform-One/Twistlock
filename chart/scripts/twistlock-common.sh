@@ -79,6 +79,15 @@ if [ "$(type -t callapi)" != "function" ]; then
   logok() { echo -e "[\e[32m\xE2\x9C\x94\e[0m OK] $*"; }
 
   #######################################
+  # Logs a yellow warning symbol and "WARNING" before the provided string
+  # Arguments:
+  #   String to log
+  # Outputs:
+  #   Writes log to STOUT
+  #######################################
+  logwarn() { echo -e "[\e[33m\xE2\x9A\xA0\e[0m WARNING] $*"; }
+
+  #######################################
   # Logs a red cross and "ERROR" before the provided string
   # Arguments:
   #   String to log
