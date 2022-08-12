@@ -8,15 +8,13 @@ This document was written and tested against Twistlock 22.01.840, newer versions
 
 ## k3d setup
 
-Below is a k3d config that provides many of the necessary overrides for Twistlock, namely:
-
-- Volume mounts of directories needed by Defenders
-- Single server setup (due to shared docker sock and other volumes, only a single defender is possible on k3d)
+Below is a k3d config that provides many of the necessary overrides for Twistlock, namely adding volume mounts of directories needed by Defenders.
 
 ```yaml
 apiVersion: k3d.io/v1alpha4
 kind: Simple
 servers: 1
+agents: 3
 options:
   k3s:
     extraArgs:
@@ -29,12 +27,15 @@ volumes:
   - volume: /etc:/etc
     nodeFilters:
       - server:*
+      - agents:*
   - volume: /dev/log:/dev/log
     nodeFilters:
       - server:*
+      - agents:*
   - volume: /run/systemd/private:/run/systemd/private
     nodeFilters:
       - server:*
+      - agents:*
 ports:
   - port: 80:80
     nodeFilters:
@@ -62,6 +63,8 @@ defender:
 > If you are performing an upgrade, you will also need to update `console.credentials` with a valid username and password for accessing the API.
 
 ### Manual Deployment
+
+NOTE: This method is no longer recommended since you will want to make use of the chart init job. Instead follow the above helm chart deployment and these steps will be completed for you automatically.
 
 For the Twistlock Defender config you will also want to override some of the defaults. The below settings seem to work best on k3d (numbered based on their setting number on the Manage -> Defenders -> Deploy page). If a config is not listed use the default:
 
@@ -93,4 +96,4 @@ The configuration deployed by the init job or manually is not without some small
 - `Failed to start log inspection for /var/log/*/*.log: failed to add watch to tracked file directory no such file or directory`: Twistlock is looking for specific logs to track, like Apache, MongoDB, and NGINX. We don't use these in Big Bang development, so they can be ignored.  You could mount `/var/log` as shared, but this would result in `monitoring/node-exporter` pods to error on startup.
 - `Failed to initialize image client: 'overlay' is not supported over overlayfs: backing file system is unsupported for this graph driver`: This is a result of attempting to an overlay on `/var/lib`.  Mounting `/var/lib` from the host will get rid of this, but causes a problem with more than one defender connecting to the console.
 
-Despite seeing these issues in logs/console reporting the defenders should be functioning at this point and reporting on the cluster health in console.
+Despite seeing these issues in logs/console reporting the defenders should be functioning sufficiently for baseline testing at this point and reporting on the cluster health in console.
