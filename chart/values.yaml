@@ -147,6 +147,9 @@ defender:
   cri: true
   # -- Path to Docker socket.  Leave blank to use /var/run/docker.sock
   dockerSocket: ""
+
+  # -- List of tolerations to be added to the Defender DaemonSet retrieved during the init script
+  tolerations: []
   
   # -- Sets the type of the Docker listener (TCP or NONE)
   dockerListenerType: ""
