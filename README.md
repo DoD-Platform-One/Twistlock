@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.9.0-bb.3](https://img.shields.io/badge/Version-0.9.0--bb.3-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
+![Version: 0.9.0-bb.4](https://img.shields.io/badge/Version-0.9.0--bb.4-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -29,7 +29,7 @@ helm install twistlock chart/
 | Key | Type | Default | Description |
 |-----|------|---------|-------------|
 | domain | string | `"bigbang.dev"` | domain to use for virtual service |
-| monitoring.enabled | bool | `false` | Toggle monitoring integration, will create required user if the init job is enabled |
+| monitoring.enabled | bool | `false` | Toggle monitoring integration, only used if init job is enabled, creates required metrics user, serviceMonitor, networkPolicy, etc |
 | istio.enabled | bool | `false` | Toggle istio integration |
 | istio.mtls | object | `{"mode":"STRICT"}` | Default twistlock peer authentication |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
@@ -70,7 +70,7 @@ helm install twistlock chart/
 | console.options.network.host | bool | `true` | Toggle network monitoring of hosts |
 | console.options.logging | bool | `true` | Toggle logging Prisma Cloud events to standard output |
 | console.options.telemetry | bool | `false` | Toggle sending product usage data to Palo Alto Networks |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
 | defender.image.tag | string | `"22.06.179"` | Image tag for defender |
@@ -78,6 +78,7 @@ helm install twistlock chart/
 | defender.collectLabels | bool | `true` | Collect Deployment and Namespace labels |
 | defender.cri | bool | `true` | Use Container Runtime Interface (CRI) instead of Docker |
 | defender.dockerSocket | string | `""` | Path to Docker socket.  Leave blank to use /var/run/docker.sock |
+| defender.tolerations | list | `[]` | List of tolerations to be added to the Defender DaemonSet retrieved during the init script |
 | defender.dockerListenerType | string | `""` | Sets the type of the Docker listener (TCP or NONE) |
 | defender.monitorServiceAccounts | bool | `true` | Monitor service accounts |
 | defender.privileged | bool | `false` | Run as privileged.  If `selinux` is `true`, this automatically gets set to `false` |
