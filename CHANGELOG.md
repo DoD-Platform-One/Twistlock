@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.9.1-bb.0] - 2022-09-01
+### Added
+- Conditional PrometheusRule template for Defender count alerts fulfilled by the monitoring stack
+
 ## [0.9.0-bb.4] - 2022-08-15
 ### Fixed
 - Update Defender's daemonSet to support/add tolerations

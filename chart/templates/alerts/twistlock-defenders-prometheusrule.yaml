@@ -1,0 +1,19 @@
+{{- if and .Values.monitoring.enabled .Values.defender.enabled }}
+apiVersion: monitoring.coreos.com/v1
+kind: PrometheusRule
+metadata:
+  name: twistlock-defender-alerts
+  namespace: {{ .Release.Namespace }}
+spec:
+  groups:
+  - name: twistlock.rules
+    rules:
+    - alert: TwistlockDefenderMissing
+      annotations:
+        description: One or more Defender has not started or is not running
+        summary: There is not an equal number of Nodes in your Cluster as healthy Twistlock Defender pods
+      expr: twistlock_total_defenders{} < count(kube_node_info)
+      for: 10m
+      labels:
+        severity: critical
+{{- end }}
