@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.9.0-bb.4](https://img.shields.io/badge/Version-0.9.0--bb.4-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
+![Version: 0.9.1-bb.0](https://img.shields.io/badge/Version-0.9.1--bb.0-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
