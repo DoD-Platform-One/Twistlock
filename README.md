@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.9.1-bb.0](https://img.shields.io/badge/Version-0.9.1--bb.0-informational?style=flat-square) ![AppVersion: 22.06.179](https://img.shields.io/badge/AppVersion-22.06.179-informational?style=flat-square)
+![Version: 0.10.0-bb.0](https://img.shields.io/badge/Version-0.10.0--bb.0-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -48,7 +48,7 @@ helm install twistlock chart/
 | systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
 | console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
-| console.image.tag | string | `"22.06.179"` | Full image tag for console |
+| console.image.tag | string | `"22.06.197"` | Full image tag for console |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
 | console.ports.managementHttp | int | `8081` | Enables the management HTTP listener. |
 | console.ports.managementHttps | int | `8083` | Enables the management HTTPS listener. |
@@ -70,10 +70,10 @@ helm install twistlock chart/
 | console.options.network.host | bool | `true` | Toggle network monitoring of hosts |
 | console.options.logging | bool | `true` | Toggle logging Prisma Cloud events to standard output |
 | console.options.telemetry | bool | `false` | Toggle sending product usage data to Palo Alto Networks |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
-| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.179"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
-| defender.image.tag | string | `"22.06.179"` | Image tag for defender |
+| defender.image.tag | string | `"22.06.197"` | Image tag for defender |
 | defender.clusterName | string | `""` | Name of cluster |
 | defender.collectLabels | bool | `true` | Collect Deployment and Namespace labels |
 | defender.cri | bool | `true` | Use Container Runtime Interface (CRI) instead of Docker |

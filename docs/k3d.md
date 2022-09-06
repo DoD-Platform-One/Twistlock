@@ -8,7 +8,7 @@ This document was written and tested against Twistlock 22.01.840, newer versions
 
 ## k3d setup
 
-Below is a k3d config that provides many of the necessary overrides for Twistlock, namely adding volume mounts of directories needed by Defenders.
+Below is a k3d config that provides many of the necessary overrides for Twistlock, namely adding volume mounts of directories needed by Defenders. If you are deploying a k3d instance with the dev script this will be handled for you by default.
 
 ```yaml
 apiVersion: k3d.io/v1alpha4
