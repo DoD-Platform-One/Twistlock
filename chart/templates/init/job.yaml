@@ -70,6 +70,10 @@ spec:
         - name: policies
           mountPath: /etc{{ $scriptPath }}/policies
         {{- end }}
+        {{- if .Values.sso.enabled }}
+        - name: sso
+          mountPath: /etc{{ $scriptPath }}/sso
+        {{- end }}
         - name: scripts
           mountPath: {{ $scriptPath }}
       volumes:
@@ -80,6 +84,11 @@ spec:
         - name: defenders
           secret:
             secretName: {{ template "twistlock-defender.name" . }}
+        {{- end }}
+        {{- if .Values.sso.enabled }}
+        - name: sso
+          secret:
+            secretName: {{ template "twistlock-sso.name" . }}
         {{- end }}
         {{- if .Values.monitoring.enabled }}
         - name: metrics

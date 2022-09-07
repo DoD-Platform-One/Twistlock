@@ -33,9 +33,11 @@ Setting up Prisma Cloud in Keycloak
 
 6. Create a test user in Keycloak for testing the Twistlock SSO authentication and ensure they are part of the group matching the hash in the client_id eg: `00eb8904-5b88-4c68-ad67-cec0d2e07aa6`
 
-## Twistlock manual SAML configuration
+## Twistlock SAML configuration
 
-Twistlock SSO integration is manual through the Admnistration UI. When Twistlock is deployed for the first time the login will ask you to create an admin user. Login with the admin user and follow these instructions:
+With the init script, Twistlock SAML SSO integration along with creating additional users can be automated via `sso.enabled: true` and `console.additionalUsers`. Refer to [here](./initialization.md#sso) for more information.
+
+Alternatively you can manually configure Twistlock SSO integration through the Administration UI. When Twistlock is deployed for the first time the login will ask you to create an admin user. Login with the admin user and follow these instructions:
 
 1. Navigate to the Twistlock console URL. After installation you will be asked to create an admin user and enter license key.
 
@@ -44,7 +46,7 @@ Twistlock SSO integration is manual through the Admnistration UI. When Twistlock
 3. Navigate to `Manage -> Authentication` in the left navigation bar. Click on `Identity providers` Tab & select `SAML` (it might be in a drop down list if your browser is narrow). Then turn on the enabled switch. Use identity provider "Shibboleth". This provider selection was recommended by Twistlock support.
 
 4. Fill in the form. Example values are shown below. Use the values for your specific IdP. You can get the values from the installation files ```idp-metadata.xml``` and ```sp-metadata.xml``` in the zip archive downloaded from Keycloak from step #6 in the previous section.  
-     a. Identity provider single sign-on URL: this is the Keycleak SAML authentication endpoint. The value can be found inside the ```<SingleSignOnService>``` tag in the ```idp-metadata.xml``` installation file.
+     a. Identity provider single sign-on URL: this is the Keycloak SAML authentication endpoint. The value can be found inside the ```<SingleSignOnService>``` tag in the ```idp-metadata.xml``` installation file.
         ```https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml```  
      b. Identity provider issuer: enter the Keycloak URL path to the realm. The value can be found inside the ```<EntityDescriptor>``` tag in the ```idp-metadata.xml``` installation file.
         ```https://keycloak.bigbang.dev/auth/realms/baby-yoda```  
