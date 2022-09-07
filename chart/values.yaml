@@ -6,6 +6,35 @@ monitoring:
   # creates required metrics user, serviceMonitor, networkPolicy, etc
   enabled: false
 
+# -- Configuration of Twistlock's SAML SSO capability.  This requires `init.enabled`=`true`, valid credentials, and a valid license. Refer to docs/KEYCLOAK.md for additional information.
+sso:
+  # -- Toggle SAML SSO
+  enabled: false
+
+  # -- SAML client ID
+  client_id: ""
+
+  # -- SAML Povider Alias (optional)
+  provider_name: ""
+
+  # -- SAML Identity Provider. `shibboleth` is recommended by Twistlock support for Keycloak
+  provider_type: "shibboleth"
+
+  # -- Identity Provider url with path to realm, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda
+  issuer_uri: ""
+
+  # -- SAML Identity Provider SSO URL, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml"
+  idp_url: ""
+
+  # -- Console URL of the Twistlock app. Example: `https://twistlock.bigbang.dev` (optional)
+  console_url: ""
+
+  # -- Groups attribute (optional)
+  groups: ""
+
+  # -- X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string
+  cert: ""
+
 istio:
   # -- Toggle istio integration
   enabled: false

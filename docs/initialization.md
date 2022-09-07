@@ -38,6 +38,18 @@ init:
 
 Additionally, a valid license is required to interact with the API.  This can be provided in `console.license` or manually installed.
 
+## SSO
+
+By setting `sso.enabled: true`, you can configure SAML SSO without manually logging into the console. The provider type `shibboleth` is set as default since this is recommended by Twistlock support. For SAML SSO to work with Twistlock, local Twistlock users have to be created after configuring SSO via the console (`Manage -> Authentication -> Users`). Click the `Add User` button to create a Twistlock user with the same name as the Keycloak user name and specify `SAML` as the `Authentication Method`. With the init script, SAML users can automatically be created by setting `console.additionalUsers`.
+
+Example:
+```yaml
+additionalUsers:
+  - username: "test"
+    role: "devOps"
+    authType: "saml"
+```
+
 ## Users
 
 By setting `console.additionalUsers`, you can setup more users in Twistlock with various authentication types and roles.  Refer to [Prisma Cloud's RBAC Guide](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-reference-architecture-compute/rbac/access_twistlock) for more information.

@@ -20,6 +20,11 @@
 {{- printf "%s-defender" (include "twistlock.name" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/* SSO specific name */}}
+{{- define "twistlock-sso.name" -}}
+{{- printf "%s-sso" (include "twistlock.name" .) | trunc 63 | trimSuffix "-" -}}
+{{- end -}}
+
 {{/* Create a default fully qualified app name.
 We truncate at 63 chars because some Kubernetes name fields are limited to this (by the DNS naming spec).
 If release name contains chart name it will be used as a full name. */}}

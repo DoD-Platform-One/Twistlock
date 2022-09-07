@@ -51,6 +51,11 @@ source "$MYDIR/twistlock-auth.sh"
 # Apply/check License.  A valid license is required for all other configuration
 source "$MYDIR/twistlock-license.sh"
 
+# Configure SSO
+if [ "$TWISTLOCK_SSO_ENABLED" == "true" ]; then
+  source "$MYDIR/twistlock-sso.sh"
+fi
+
 # Add console users
 if [ -n "$TWISTLOCK_USERS" ]; then
   source "$MYDIR/twistlock-users.sh"
