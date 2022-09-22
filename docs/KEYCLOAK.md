@@ -41,26 +41,26 @@ Alternatively you can manually configure Twistlock SSO integration through the A
 
 1. Navigate to the Twistlock console URL. After installation you will be asked to create an admin user and enter license key.
 
-2. (Optional) Navigate to ```Manage -> Authentication``` in the left navigation bar. Select ```System Certificates``` (it might be in a drop down list if your browser is narrow). Enter the contatenated certificate and private key that matches your console domian. This is necessary so that the twistlock server can do TLS to Keycloak. When you click the ```Save``` button you will be logged out. You will have to log in again with the admin credentials.
+2. (Optional) Navigate to ```Manage -> Authentication``` in the left navigation bar. Select ```System Certificates``` (it might be in a drop down list if your browser is narrow). Enter the concatenated certificate and private key that matches your console domain. This is necessary so that the twistlock server can do TLS to Keycloak. When you click the ```Save``` button you will be logged out. You will have to log in again with the admin credentials.
 
 3. Navigate to `Manage -> Authentication` in the left navigation bar. Click on `Identity providers` Tab & select `SAML` (it might be in a drop down list if your browser is narrow). Then turn on the enabled switch. Use identity provider "Shibboleth". This provider selection was recommended by Twistlock support.
 
-4. Fill in the form. Example values are shown below. Use the values for your specific IdP. You can get the values from the installation files ```idp-metadata.xml``` and ```sp-metadata.xml``` in the zip archive downloaded from Keycloak from step #6 in the previous section.  
+4. Fill in the form. Example values are shown below. Use the values for your specific IdP. You can get the values from the installation files ```idp-metadata.xml``` and ```sp-metadata.xml``` in the zip archive downloaded from Keycloak from step #6 in the previous section.
      a. Identity provider single sign-on URL: this is the Keycloak SAML authentication endpoint. The value can be found inside the ```<SingleSignOnService>``` tag in the ```idp-metadata.xml``` installation file.
-        ```https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml```  
+        ```https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml```
      b. Identity provider issuer: enter the Keycloak URL path to the realm. The value can be found inside the ```<EntityDescriptor>``` tag in the ```idp-metadata.xml``` installation file.
-        ```https://keycloak.bigbang.dev/auth/realms/baby-yoda```  
+        ```https://keycloak.bigbang.dev/auth/realms/baby-yoda```
      c. Audience:  this is the Keycloak Client ID. The value can be found inside the ```<EntityDescriptor>``` tag as ```entityID``` in the ```sp-metadata.xml``` installation file.
-        ```il2_00eb8904-5b88-4c68-ad67-cec0d2e07aa6_twistlock```  
+        ```il2_00eb8904-5b88-4c68-ad67-cec0d2e07aa6_twistlock```
      d. Console URL: This is the console URL of the Twistlock app. It is optional
-        ```https://twistlock.bigbang.dev```  
+        ```https://twistlock.bigbang.dev```
      e. x509 certificate: This is the certificate from Keycloak. The value can be found inside the ```<dsig:X509Certificate>``` tag in the ```idp-metadata.xml``` installation file.  The field must contain 3 lines with the begin and end certificate as show below. Do not leave any blank spaces at the beginning or ending of the 3 lines. If this is not followed exactly the SAML authentication will fail.
      ```
      -----BEGIN CERTIFICATE-----
      (certificate from the install file)
      -----END CERTIFICATE-----
      ```
-     f. When all fields in the web form are completed select "Save".  
+     f. When all fields in the web form are completed select "Save".
 
    *note: after SAML is added, the twistlock console will default to the keycloak login page. If you need to bypass the saml auth process add ```#!/login``` the the end of the root url.*
 
@@ -107,7 +107,7 @@ Within recent versions of 21.04 Twistlock added support for OIDC Authentication.
 
 1. Navigate to the Twistlock console URL. After installation you will be asked to create an admin user and enter license key.
 
-2. (Optional) Navigate to ```Manage -> Authentication``` in the left navigation bar. Select ```System Certificates``` (it might be in a drop down list if your browser is narrow). Enter the contatenated certificate and private key that matches your console domian. This is necessary so that the twistlock server can do TLS to Keycloak. When you click the ```Save``` button you will be logged out. You will have to log in again with the admin credentials.
+2. (Optional) Navigate to ```Manage -> Authentication``` in the left navigation bar. Select ```System Certificates``` (it might be in a drop down list if your browser is narrow). Enter the concatenated certificate and private key that matches your console domain. This is necessary so that the twistlock server can do TLS to Keycloak. When you click the ```Save``` button you will be logged out. You will have to log in again with the admin credentials.
 
 3. Navigate to `Manage -> Authentication` in the left navigation bar. Click on the `Identity providers` Tab & select `OpenID connect` (it might be in a drop down list if your browser is narrow). Then turn on the enable switch.
 

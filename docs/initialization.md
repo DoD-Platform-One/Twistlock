@@ -60,7 +60,7 @@ Setting `console.updateUsers: true` will force the init job to update the user's
 
 By setting `defender.enabled: true`, Twistlock defender containers will be deployed on every node using a Daemonset.  It is recommended that you set `defender.clusterName` to help identify the defenders.
 
-> On Kuberentes systems that do not use the Docker daemon, you will need to change `defender.dockerSocket`.  For example, with `k3s`, this is set to `/run/k3s/containerd/containerd.sock`
+> On Kubernetes systems that do not use the Docker daemon, you will need to change `defender.dockerSocket`.  For example, with `k3s`, this is set to `/run/k3s/containerd/containerd.sock`
 
 After successful deployment, you should see  `twistlock-defender-ds` pods running in your cluster.
 
