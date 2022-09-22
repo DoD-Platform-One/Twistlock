@@ -32,7 +32,7 @@ twistlock-defender-random-number     1/1     Running   0          5s
 ```
 
 :warning: **CAUTION**:
-If you only have one pod in the twistlock namespace, the defender did not install properly or at all. Run the steps to install defender again before continuing on.
+If you only have one pod in the twistlock namespace, the defender did not install properly or at all. Run the steps to install defender again before continuing.
 
 Here are some examples of a filter for specific containers
 
