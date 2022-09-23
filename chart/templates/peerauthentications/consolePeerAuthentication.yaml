@@ -14,9 +14,4 @@ spec:
   portLevelMtls:
     "{{ .Values.console.ports.communication }}":
       mode: PERMISSIVE
-    {{- if and .Values.monitoring.enabled .Values.init.enabled }}
-    # Allow Prometheus scraping non-TLS (temporary)
-    "{{ .Values.console.ports.managementHttp }}":
-      mode: PERMISSIVE
-    {{- end }}
 {{- end }}

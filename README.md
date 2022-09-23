@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.10.0-bb.1](https://img.shields.io/badge/Version-0.10.0--bb.1-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
+![Version: 0.10.0-bb.2](https://img.shields.io/badge/Version-0.10.0--bb.2-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -30,13 +30,15 @@ helm install twistlock chart/
 |-----|------|---------|-------------|
 | domain | string | `"bigbang.dev"` | domain to use for virtual service |
 | monitoring.enabled | bool | `false` | Toggle monitoring integration, only used if init job is enabled, creates required metrics user, serviceMonitor, networkPolicy, etc |
-| sso | object | `{"cert":"","client_id":"","console_url":"","enabled":false,"groups":"","idp_url":"https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/saml","issuer_uri":"https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}","provider_name":"","provider_type":"shibboleth"}` | Configuration of Twistlock's SAML SSO capability.  This requires `init.enabled`=`true`, valid credentials, and a valid license. Refer to docs/KEYCLOAK.md for additional information. |
+| serviceMonitor.scheme | string | `""` |  |
+| serviceMonitor.tlsConfig | object | `{}` |  |
+| sso | object | `{"cert":"","client_id":"","console_url":"","enabled":false,"groups":"","idp_url":"","issuer_uri":"","provider_name":"","provider_type":"shibboleth"}` | Configuration of Twistlock's SAML SSO capability.  This requires `init.enabled`=`true`, valid credentials, and a valid license. Refer to docs/KEYCLOAK.md for additional information. |
 | sso.enabled | bool | `false` | Toggle SAML SSO |
 | sso.client_id | string | `""` | SAML client ID |
 | sso.provider_name | string | `""` | SAML Povider Alias (optional) |
 | sso.provider_type | string | `"shibboleth"` | SAML Identity Provider. `shibboleth` is recommended by Twistlock support for Keycloak |
-| sso.issuer_uri | string | `"https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}"` | Identity Provider url with path to realm |
-| sso.idp_url | string | `"https://{{ .Values.sso.oidc.host }}/auth/realms/{{ .Values.sso.oidc.realm }}/protocol/saml"` | SAML Identity Provider SSO URL |
+| sso.issuer_uri | string | `""` | Identity Provider url with path to realm, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda |
+| sso.idp_url | string | `""` | SAML Identity Provider SSO URL, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml" |
 | sso.console_url | string | `""` | Console URL of the Twistlock app. Example: `https://twistlock.bigbang.dev` (optional) |
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string |
