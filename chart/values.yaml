@@ -6,6 +6,10 @@ monitoring:
   # creates required metrics user, serviceMonitor, networkPolicy, etc
   enabled: false
 
+serviceMonitor:
+  scheme: ""
+  tlsConfig: {}
+
 # -- Configuration of Twistlock's SAML SSO capability.  This requires `init.enabled`=`true`, valid credentials, and a valid license. Refer to docs/KEYCLOAK.md for additional information.
 sso:
   # -- Toggle SAML SSO

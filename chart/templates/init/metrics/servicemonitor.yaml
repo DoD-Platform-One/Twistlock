@@ -22,5 +22,12 @@ spec:
         name: {{ template "twistlock-console.name" . }}-metrics-auth
     path: api/v1/metrics
     port: http-mgmt-http
+    {{- if .Values.monitoring.serviceMonitor.scheme }}
+    scheme: {{ .Values.monitoring.serviceMonitor.scheme }}
+    {{- end }}
+    {{- if .Values.monitoring.serviceMonitor.tlsConfig }}
+    tlsConfig:
+      {{- toYaml .Values.monitoring.serviceMonitor.tlsConfig | nindent 6 }}
+    {{- end }}
   jobLabel: twistlock-metrics
 {{- end }}
