@@ -7,6 +7,7 @@ imagePullSecrets:
 console:
   persistence:
     size: 5Gi
+  localVolumeUpgrade: true
 
 bbtests:
   enabled: true

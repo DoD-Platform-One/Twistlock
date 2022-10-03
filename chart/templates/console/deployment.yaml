@@ -26,6 +26,11 @@ spec:
       imagePullSecrets:
         {{- toYaml . | nindent 8 }}
       {{- end }}
+      securityContext:
+        runAsUser: 2674
+        runAsGroup: 2674
+        fsGroup: 2674
+        fsGroupChangePolicy: Always
       {{- if .Values.nodeSelector }}
       nodeSelector:
         {{ toYaml .Values.nodeSelector | nindent 8 }}
@@ -60,6 +65,9 @@ spec:
           value: "true"
         securityContext:
           readOnlyRootFilesystem: true
+          runAsNonRoot: true
+          runAsUser: 2674
+          runAsGroup: 2674
         volumeMounts:
         - name: twistlock-config-volume
           mountPath: "/data/config/"
@@ -85,4 +93,3 @@ spec:
         {{- else}}
         emptyDir: {}
         {{- end}}
-

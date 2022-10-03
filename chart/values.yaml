@@ -160,6 +160,9 @@ console:
     # -- Toggle sending product usage data to Palo Alto Networks
     telemetry: false
     # NOTE: Prometheus metrics instrumentation is controlled by .monitoring.enabled
+  
+  # -- This value should be enabled when upgrading from a version <=0.10.0-bb.1 and only when you have locally created volumes
+  localVolumeUpgrade: false
 
 # -- Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
 defender:

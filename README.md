@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.10.0-bb.2](https://img.shields.io/badge/Version-0.10.0--bb.2-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
+![Version: 0.11.0-bb.0](https://img.shields.io/badge/Version-0.11.0--bb.0-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -82,6 +82,7 @@ helm install twistlock chart/
 | console.options.network.host | bool | `true` | Toggle network monitoring of hosts |
 | console.options.logging | bool | `true` | Toggle logging Prisma Cloud events to standard output |
 | console.options.telemetry | bool | `false` | Toggle sending product usage data to Palo Alto Networks |
+| console.localVolumeUpgrade | bool | `false` | This value should be enabled when upgrading from a version <=0.10.0-bb.1 and only when you have locally created volumes |
 | defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
