@@ -1,0 +1,93 @@
+{{- if and .Values.console.localVolumeUpgrade .Release.IsUpgrade }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: volume-upgrade-job-net-exception
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-2"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  egress:
+    - to:
+      - ipBlock:
+          cidr: {{ .Values.networkPolicies.controlPlaneCidr }}
+          {{- if eq .Values.networkPolicies.controlPlaneCidr "0.0.0.0/0" }}
+          # ONLY Block requests to AWS metadata IP
+          except:
+          - 169.254.169.254/32
+          {{- end }}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: twistlock-volume-upgrade-job
+  policyTypes:
+    - Egress
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: volume-upgrade-job
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
+    name: twistlock-volume-upgrade-job
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-1"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed
+spec:
+  template:
+    metadata:
+      name: {{ template "twistlock-console.name" . }}
+      namespace: {{ .Release.Namespace }}
+      labels: {{- include "twistlock-console.selector" . | nindent 8 }}
+        app.kubernetes.io/name: twistlock-volume-upgrade-job
+      {{- if .Values.annotations }}
+      annotations:
+        {{ toYaml .Values.annotations | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecrets }}
+      imagePullSecrets:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      restartPolicy: OnFailure
+      serviceAccountName: volume-upgrade-svc-acct
+      securityContext:
+        runAsUser: 2674
+        runAsGroup: 2674
+        fsGroup: 2674
+        fsGroupChangePolicy: Always
+      containers:
+      - name: init-pvc-permissions-change
+        image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+        imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
+        securityContext:
+          runAsNonRoot: false
+          runAsUser: 0
+          runAsGroup: 0
+        command:
+          - /bin/bash
+          - -xc
+          - |
+            if ! id -u "twistlock" &>/dev/null; then kubectl scale --replicas=0 deployment/twistlock-console -n twistlock && while [[ $(kubectl get deployment twistlock-console -n twistlock -o jsonpath='{.status.readyReplicas}') -gt 0 ]]; do sleep 10; done && useradd -u 2674 twistlock && chown -R 2674:2674 /var/lib/twistlock /var/lib/twistlock-backup; fi
+            {{- if .Values.istio.enabled }}
+            until curl -fsI http://localhost:15021/healthz/ready; do
+              echo "Waiting for Istio sidecar proxy..."
+              sleep 3
+            done
+            sleep 5
+            echo "Stopping the istio proxy..."
+            curl -X POST http://localhost:15020/quitquitquit
+            {{- end }}
+        volumeMounts:
+        - name: console-persistent-volume
+          mountPath: "/var/lib/twistlock"
+          subPath: "var/lib/twistlock"
+        - name: console-persistent-volume
+          mountPath: "/var/lib/twistlock-backup"
+          subPath: "var/lib/twistlock-backup"
+      volumes:
+      - name: console-persistent-volume
+        persistentVolumeClaim:
+          claimName: {{ template "twistlock-console.name" . }}
+{{- end }}

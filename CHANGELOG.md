@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.11.0-bb.0] - 2022-09-27
+### Added
+- Set Twistlock console to run as nonroot
+- Added upgrade option for those with local volumes through the volume-upgrade-job
+
 ## [0.10.0-bb.2] - 2022-09-22
 ### Added
 - Enable mTLS for Twistlock metrics
