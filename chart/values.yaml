@@ -83,7 +83,7 @@ imagePullSecrets: []
 selinuxLabel: disable
 
 # -- systemd configuration
-systemd:  
+systemd:
   # -- option to install Twistlock as systemd service. true or false
   enabled: false
 
@@ -186,7 +186,7 @@ defender:
 
   # -- List of tolerations to be added to the Defender DaemonSet retrieved during the init script
   tolerations: []
-  
+
   # -- Sets the type of the Docker listener (TCP or NONE)
   dockerListenerType: ""
 
@@ -228,10 +228,10 @@ policies:
     enabled: true
     # -- The policy templates to use.  Valid values are 'GDPR', 'DISA STIG', 'PCI', 'NIST SP 800-190', or 'HIPAA'
     templates:
-    # - GDPR
-    - DISA STIG
-    # - PCI
-    - NIST SP 800-190
+      # - GDPR
+      - DISA STIG
+      # - PCI
+      - NIST SP 800-190
     # - HIPAA
     # -- If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'.
     alertThreshold: medium
@@ -289,11 +289,11 @@ annotations: {}
 # -- resources for console pod
 resources:
   limits:
-     memory: 1Gi
-     cpu: 250m
+    memory: 2Gi
+    cpu: 250m
   requests:
-     memory: 512Mi
-     cpu: 250m
+    memory: 2Gi
+    cpu: 250m
 
 # -- Toggle to setup special configuration for OpenShift clusters
 openshift: false
