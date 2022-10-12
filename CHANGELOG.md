@@ -3,10 +3,15 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.11.2-bb.0] - 2022-10-06
+### Fixed
+- Added affinity for volume upgrade job
+- Set job to run by default
+- Add resources for volume job, modify wait logic to handle edge cases with unhealthy console
+
 ## [0.11.1-bb.0] - 2022-10-02
 ### Changed
 - increase Mem for console to 2gb
-
 
 ## [0.11.0-bb.0] - 2022-09-27
 ### Added
