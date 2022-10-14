@@ -82,6 +82,13 @@ else
   echo "Skipping policy configuration."
 fi
 
+# Trusted images configuration
+if [ "$TWISTLOCK_TRUSTED_IMAGE_ENABLED" == "true" ]; then
+  source "$MYDIR/twistlock-trusted-images.sh"
+else
+  echo "Skipping trusted images configuration."
+fi
+
 # Misc Options
 if [ "$TWISTLOCK_OPTIONS_ENABLED" == "true" ]; then
   source "$MYDIR/twistlock-options.sh"

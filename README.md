@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.11.2-bb.0](https://img.shields.io/badge/Version-0.11.2--bb.0-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
+![Version: 0.11.3-bb.0](https://img.shields.io/badge/Version-0.11.3--bb.0-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -83,6 +83,11 @@ helm install twistlock chart/
 | console.options.logging | bool | `true` | Toggle logging Prisma Cloud events to standard output |
 | console.options.telemetry | bool | `false` | Toggle sending product usage data to Palo Alto Networks |
 | console.volumeUpgrade | bool | `true` | This value should be enabled when upgrading from a version <=0.10.0-bb.1 in order to allow the console to run as non-root |
+| console.trustedImages | object | `{"defaultEffect":"alert","enabled":true,"name":"BigBang-Trusted","registryMatches":["registry1.dso.mil/ironbank/*"]}` | Trusted images settings |
+| console.trustedImages.enabled | bool | `true` | Toggle deployment and updating of trusted image settings |
+| console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
+| console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
+| console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
 | defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
@@ -101,17 +106,18 @@ helm install twistlock chart/
 | policies | object | `{"compliance":{"alertThreshold":"medium","enabled":true,"templates":["DISA STIG","NIST SP 800-190"]},"enabled":true,"name":"Default","runtime":{"enabled":true},"vulnerabilities":{"alertThreshold":"medium","enabled":true}}` | Configures defender policies.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | policies.enabled | bool | `true` | Toggles configuration of defender policies |
 | policies.name | string | `"Default"` | Name to use as prefix to policy rules. NOTE: If you change the name after the initial deployment, you may end up with duplicate policy sets and need to manually cleanup old policies. |
-| policies.vulnerabilities | object | `{"alertThreshold":"medium","enabled":true}` | Vulnerabilitiy policies |
+| policies.vulnerabilities | object | `{"alertThreshold":"medium","enabled":true}` | Vulnerability policies |
 | policies.vulnerabilities.enabled | bool | `true` | Toggle deployment and updating of vulnerability policies |
 | policies.vulnerabilities.alertThreshold | string | `"medium"` | The minimum severity to alert on |
 | policies.compliance | object | `{"alertThreshold":"medium","enabled":true,"templates":["DISA STIG","NIST SP 800-190"]}` | Compliance policies |
 | policies.compliance.enabled | bool | `true` | Toggle deployment and updating of compliance policies |
 | policies.compliance.templates | list | `["DISA STIG","NIST SP 800-190"]` | The policy templates to use.  Valid values are 'GDPR', 'DISA STIG', 'PCI', 'NIST SP 800-190', or 'HIPAA' |
 | policies.compliance.alertThreshold | string | `"medium"` | If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'. |
+| policies.runtime | object | `{"enabled":true}` | Runtime policies |
 | policies.runtime.enabled | bool | `true` | Toggle deployment and updating of runtime policies |
 | init | object | `{"enabled":true,"image":{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.0.0"}}` | Initialization job.  Sets up users, license, container defenders, default policies, and other settings. |
 | init.enabled | bool | `true` | Toggles the initialization on or off |
-| init.image | object | `{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.0.0"}` | Initializtion job image configuration |
+| init.image | object | `{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.0.0"}` | Initialization job image configuration |
 | init.image.repository | string | `"registry1.dso.mil/ironbank/big-bang/base"` | Repository and path to initialization image.  Image must contain `jq` and `kubectl` |
 | init.image.tag | string | `"2.0.0"` | Initialization image tag |
 | init.image.imagePullPolicy | string | `"IfNotPresent"` | Initialization image pull policy |
