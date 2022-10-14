@@ -164,6 +164,18 @@ console:
   # -- This value should be enabled when upgrading from a version <=0.10.0-bb.1 in order to allow the console to run as non-root
   volumeUpgrade: true
 
+  # -- Trusted images settings
+  trustedImages:
+    # -- Toggle deployment and updating of trusted image settings
+    enabled: true
+    # -- List of regex matches for images to trust
+    registryMatches:
+      - "registry1.dso.mil/ironbank/*"
+    # -- Name for the group/rule to display in console
+    name: "BigBang-Trusted"
+    # -- Effect for images that do not match the trusted registry, can be "alert" or "block"
+    defaultEffect: "alert"
+
 # -- Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
 defender:
   enabled: true
@@ -215,7 +227,7 @@ policies:
   # NOTE: If you change the name after the initial deployment, you may end up with duplicate policy sets and need to manually cleanup old policies.
   name: Default
 
-  # -- Vulnerabilitiy policies
+  # -- Vulnerability policies
   vulnerabilities:
     # -- Toggle deployment and updating of vulnerability policies
     enabled: true
@@ -236,7 +248,7 @@ policies:
     # -- If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'.
     alertThreshold: medium
 
-  # Runtime policies
+  # -- Runtime policies
   runtime:
     # -- Toggle deployment and updating of runtime policies
     enabled: true
@@ -245,7 +257,7 @@ policies:
 init:
   # -- Toggles the initialization on or off
   enabled: true
-  # -- Initializtion job image configuration
+  # -- Initialization job image configuration
   image:
     # -- Repository and path to initialization image.  Image must contain `jq` and `kubectl`
     repository: registry1.dso.mil/ironbank/big-bang/base

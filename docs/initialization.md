@@ -11,6 +11,7 @@ The initialization job will use the Twistlock API to perform various deployment 
 - Creating vulnerability policies to alert on a severity threshold
 - Creating compliance policies that align with templates (e.g. DISA STIG, NIST)
 - Creating runtime policies
+- Creating trusted image policies
 - Enabling stdout logging
 - Turning off telemetry
 
@@ -230,6 +231,26 @@ The serverless policy runtime rule will force the following settings:
 All other settings will be preserved
 
 Additional runtime details can be found in [Prisma Cloud's Runtime Defense Documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/runtime_defense).
+
+## Trusted Images
+
+[Trusted image policy](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/compliance/trusted_images) provides a way to explicitly trust images in your environment (from a given registry) and configure behavior for other images.
+
+By setting `console.trustedImages.enabled: true`, a trusted image policy will be configured and set as the highest precedence rule. By default a group will be set up with the name `Ironbank-Trusted` and a registry regex match of `registry1.dso.mil/ironbank/*` that will be set as trusted. All other images will have the default effect of "Alert".
+
+The name, registries (list), and effect can be adjusted if you are mirroring Ironbank to a different registry, want to trust a different set of images, or want to block all other images:
+
+```yaml
+console:
+  trustedImages:
+    registryMatches:
+      - "registry1.dso.mil/ironbank/*"
+      - "my-apps-registry.com/*"
+    name: "My-Trusted"
+    defaultEffect: "block"
+```
+
+Existing rules/groups will be preserved if they exist. If an existing rule/group exists with the same name (`name`) it will be deleted and replaced with an updated rule/group.
 
 ## Misc Settings
 

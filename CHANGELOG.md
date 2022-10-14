@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.11.3-bb.0] - 2022-10-12
+### Added
+- Configurable trusted image policy via init job
+
 ## [0.11.2-bb.0] - 2022-10-06
 ### Fixed
 - Added affinity for volume upgrade job
