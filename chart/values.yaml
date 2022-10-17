@@ -104,7 +104,15 @@ console:
     managementHttps: 8083
     # -- Sets the port for communication between the Defender(s) and the Console
     communication: 8084
-
+  # -- Sets the container security context for the console
+  securityContext:
+    readOnlyRootFilesystem: true
+    runAsNonRoot: true
+    runAsUser: 2674
+    runAsGroup: 2674
+    capabilities:
+      drop:
+        - ALL
   persistence:
     # -- Size of Twistlock PVC
     size: 100Gi
@@ -198,7 +206,10 @@ defender:
 
   # -- List of tolerations to be added to the Defender DaemonSet retrieved during the init script
   tolerations: []
-
+  # -- Sets the container security context dropped capabilities for the defenders
+  securityCapabilitiesDrop:
+    - ALL
+  
   # -- Sets the type of the Docker listener (TCP or NONE)
   dockerListenerType: ""
 
