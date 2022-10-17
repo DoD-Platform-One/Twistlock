@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.11.3-bb.0](https://img.shields.io/badge/Version-0.11.3--bb.0-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
+![Version: 0.11.3-bb.1](https://img.shields.io/badge/Version-0.11.3--bb.1-informational?style=flat-square) ![AppVersion: 22.06.197](https://img.shields.io/badge/AppVersion-22.06.197-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -65,6 +65,7 @@ helm install twistlock chart/
 | console.ports.managementHttp | int | `8081` | Enables the management HTTP listener. |
 | console.ports.managementHttps | int | `8083` | Enables the management HTTPS listener. |
 | console.ports.communication | int | `8084` | Sets the port for communication between the Defender(s) and the Console |
+| console.securityContext | object | `{"capabilities":{"drop":["ALL"]},"readOnlyRootFilesystem":true,"runAsGroup":2674,"runAsNonRoot":true,"runAsUser":2674}` | Sets the container security context for the console |
 | console.persistence.size | string | `"100Gi"` | Size of Twistlock PVC |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for Twistlock PVC |
 | console.syslogAuditIntegration | object | `{"enabled":false}` | Enable syslog audit feature When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types. |
@@ -88,7 +89,7 @@ helm install twistlock chart/
 | console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
 | console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
 | console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.06.197"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
 | defender.image.tag | string | `"22.06.197"` | Image tag for defender |
@@ -97,6 +98,7 @@ helm install twistlock chart/
 | defender.cri | bool | `true` | Use Container Runtime Interface (CRI) instead of Docker |
 | defender.dockerSocket | string | `""` | Path to Docker socket.  Leave blank to use /var/run/docker.sock |
 | defender.tolerations | list | `[]` | List of tolerations to be added to the Defender DaemonSet retrieved during the init script |
+| defender.securityCapabilitiesDrop | list | `["ALL"]` | Sets the container security context dropped capabilities for the defenders |
 | defender.dockerListenerType | string | `""` | Sets the type of the Docker listener (TCP or NONE) |
 | defender.monitorServiceAccounts | bool | `true` | Monitor service accounts |
 | defender.privileged | bool | `false` | Run as privileged.  If `selinux` is `true`, this automatically gets set to `false` |

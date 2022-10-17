@@ -49,6 +49,8 @@ spec:
         imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
         resources:
           {{- toYaml .Values.resources | nindent 10 }}
+        securityContext:
+      {{- toYaml .Values.console.securityContext | nindent 10 }}
         ports:
         - name: mgmt-https
           containerPort: {{ .Values.console.ports.managementHttps }}
@@ -63,11 +65,6 @@ spec:
           value: /data/config/twistlock.cfg
         - name: LOG_PROD
           value: "true"
-        securityContext:
-          readOnlyRootFilesystem: true
-          runAsNonRoot: true
-          runAsUser: 2674
-          runAsGroup: 2674
         volumeMounts:
         - name: twistlock-config-volume
           mountPath: "/data/config/"
