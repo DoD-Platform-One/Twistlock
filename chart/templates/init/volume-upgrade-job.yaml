@@ -62,13 +62,8 @@ spec:
             topologyKey: "kubernetes.io/hostname"
       restartPolicy: OnFailure
       serviceAccountName: volume-upgrade-svc-acct
-      securityContext:
-        runAsUser: 2674
-        runAsGroup: 2674
-        fsGroup: 2674
-        fsGroupChangePolicy: Always
-      containers:
-      - name: init-pvc-permissions-change
+      initContainers:
+      - name: init-scale-console
         image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
         imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
         securityContext:
@@ -80,15 +75,47 @@ spec:
           - -c
           - |
             useradd -u 2674 twistlock
-            if [[ ! "$(stat --format '%U' /var/lib/twistlock)" == "twistlock" ]]; then
+            if [[ ! "$(stat --format '%U' /pvc/var/lib/twistlock)" == "twistlock" ]]; then
               echo "Scaling down console deployment to prepare for permissions changes..."
               kubectl scale --replicas=0 deployment/twistlock-console -n twistlock
               while [[ $(kubectl get pod -l name="{{ template "twistlock-console.name" . }}" -n twistlock --output name | wc -l) -gt 0 ]]; do
                 sleep 10
               done
+            else
+              echo "No permissions changes required."
+            fi
+        resources:
+          requests:
+            cpu: 100m
+            memory: 256Mi
+          limits:
+            cpu: 100m
+            memory: 256Mi
+        volumeMounts:
+        - name: console-persistent-volume
+          mountPath: "/pvc"
+      containers:
+      - name: pvc-permissions-change
+        image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+        imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
+        securityContext:
+          runAsNonRoot: false
+          runAsUser: 0
+          runAsGroup: 0
+        command:
+          - /bin/bash
+          - -c
+          - |
+            useradd -u 2674 twistlock
+            if [[ ! "$(stat --format '%U' /pvc/var/lib/twistlock)" == "twistlock" ]]; then
               echo "Updating PVC permissions to twistlock user ownership..."
-              chown -R 2674:2674 /var/lib/twistlock /var/lib/twistlock-backup
-              echo "Permissions update complete!"
+              chown -R 2674:2674 /pvc/var/lib/twistlock /pvc/var/lib/twistlock-backup && export chown_success=0 || export chown_success=$?
+              if [[ ${chown_success} == 0 ]]; then
+                echo "Permissions update complete!"
+              else
+                echo "Permissions update failed."
+                exit 1
+              fi
             else
               echo "No permissions changes required."
             fi
@@ -110,11 +137,7 @@ spec:
             memory: 256Mi
         volumeMounts:
         - name: console-persistent-volume
-          mountPath: "/var/lib/twistlock"
-          subPath: "var/lib/twistlock"
-        - name: console-persistent-volume
-          mountPath: "/var/lib/twistlock-backup"
-          subPath: "var/lib/twistlock-backup"
+          mountPath: "/pvc"
       volumes:
       - name: console-persistent-volume
         persistentVolumeClaim:
