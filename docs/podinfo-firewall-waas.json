@@ -1,0 +1,383 @@
+{
+  "rules": [
+    {
+      "modified": "2022-12-01T16:18:32.478Z",
+      "owner": "admin",
+      "name": "podinfo",
+      "previousName": "",
+      "notes": "podinfo",
+      "collections": [
+        {
+          "hosts": [
+            "*"
+          ],
+          "images": [
+            "registry.dso.mil/platform-one/big-bang/apps/sandbox/podinfo/podinfo:6.0.0"
+          ],
+          "labels": [
+            "*"
+          ],
+          "containers": [
+            "*"
+          ],
+          "functions": [
+            "*"
+          ],
+          "namespaces": [
+            "*"
+          ],
+          "appIDs": [
+            "*"
+          ],
+          "accountIDs": [
+            "*"
+          ],
+          "codeRepos": [
+            "*"
+          ],
+          "clusters": [
+            "*"
+          ],
+          "name": "podinfo",
+          "owner": "admin",
+          "modified": "2022-12-01T16:07:49.893Z",
+          "color": "#D89DC4",
+          "description": "podinfo",
+          "system": false,
+          "prisma": false,
+          "$$hashKey": "object:2115"
+        }
+      ],
+      "applicationsSpec": [
+        {
+          "appID": "app-719F",
+          "sessionCookieSameSite": "Lax",
+          "customBlockResponse": {},
+          "banDurationMinutes": 5,
+          "certificate": {
+            "encrypted": ""
+          },
+          "tlsConfig": {
+            "minTLSVersion": "1.2",
+            "metadata": {
+              "notAfter": "0001-01-01T00:00:00Z",
+              "issuerName": "",
+              "subjectName": ""
+            },
+            "HSTSConfig": {
+              "enabled": false,
+              "maxAgeSeconds": 31536000,
+              "includeSubdomains": false,
+              "preload": false
+            }
+          },
+          "dosConfig": {
+            "enabled": false,
+            "alert": {},
+            "ban": {}
+          },
+          "apiSpec": {
+            "description": "Go microservice template for Kubernetes.",
+            "endpoints": [
+              {
+                "host": "*",
+                "basePath": "/*",
+                "exposedPort": 0,
+                "internalPort": 9898,
+                "tls": false,
+                "http2": false,
+                "grpc": false
+              }
+            ],
+            "paths": [
+              {
+                "path": "/version",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/ws/echo",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              },
+              {
+                "path": "/store/{hash}",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/api/info",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/readyz/enable",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              },
+              {
+                "path": "/api/echo",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              },
+              {
+                "path": "/panic",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/env",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/status/{code}",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/chunked/{seconds}",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/store",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              },
+              {
+                "path": "/readyz/disable",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              },
+              {
+                "path": "/metrics",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/cache/{key}",
+                "methods": [
+                  {
+                    "method": "POST"
+                  },
+                  {
+                    "method": "GET"
+                  },
+                  {
+                    "method": "DELETE"
+                  }
+                ]
+              },
+              {
+                "path": "/readyz",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/token/validate",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              },
+              {
+                "path": "/headers",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/delay/{seconds}",
+                "methods": [
+                  {
+                    "method": "GET"
+                  }
+                ]
+              },
+              {
+                "path": "/token",
+                "methods": [
+                  {
+                    "method": "POST"
+                  }
+                ]
+              }
+            ],
+            "effect": "prevent",
+            "fallbackEffect": "prevent",
+            "queryParamFallbackEffect": "prevent"
+          },
+          "botProtectionSpec": {
+            "userDefinedBots": [],
+            "knownBotProtectionsSpec": {
+              "searchEngineCrawlers": "disable",
+              "businessAnalytics": "disable",
+              "educational": "disable",
+              "news": "disable",
+              "financial": "disable",
+              "contentFeedClients": "disable",
+              "archiving": "disable",
+              "careerSearch": "disable",
+              "mediaSearch": "disable"
+            },
+            "unknownBotProtectionSpec": {
+              "generic": "disable",
+              "webAutomationTools": "disable",
+              "webScrapers": "disable",
+              "apiLibraries": "disable",
+              "httpLibraries": "disable",
+              "botImpersonation": "disable",
+              "browserImpersonation": "disable",
+              "requestAnomalies": {
+                "threshold": 9,
+                "effect": "disable"
+              }
+            },
+            "sessionValidation": "disable",
+            "interstitialPage": false,
+            "jsInjectionSpec": {
+              "enabled": false,
+              "timeoutEffect": "disable"
+            },
+            "reCAPTCHASpec": {
+              "enabled": false,
+              "siteKey": "",
+              "secretKey": {
+                "encrypted": ""
+              },
+              "type": "checkbox",
+              "allSessions": true,
+              "successExpirationHours": 24
+            }
+          },
+          "networkControls": {
+            "advancedProtectionEffect": "alert",
+            "subnets": {
+              "enabled": false,
+              "allowMode": true,
+              "fallbackEffect": "alert"
+            },
+            "countries": {
+              "enabled": false,
+              "allowMode": true,
+              "fallbackEffect": "alert"
+            }
+          },
+          "body": {
+            "inspectionSizeBytes": 131072,
+            "inspectionLimitExceededEffect": "disable"
+          },
+          "intelGathering": {
+            "infoLeakageEffect": "disable",
+            "removeFingerprintsEnabled": true
+          },
+          "maliciousUpload": {
+            "effect": "disable",
+            "allowedFileTypes": [],
+            "allowedExtensions": []
+          },
+          "csrfEnabled": true,
+          "clickjackingEnabled": true,
+          "sqli": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "xss": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "attackTools": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "shellshock": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "malformedReq": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "cmdi": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "lfi": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "codeInjection": {
+            "effect": "alert",
+            "exceptionFields": []
+          },
+          "remoteHostForwarding": {},
+          "$$hashKey": "object:2171"
+        }
+      ],
+      "readTimeoutSeconds": 5,
+      "windows": false,
+      "skipAPILearning": false,
+      "autoProtectPorts": true,
+      "trafficMirroring": {},
+      "$$hashKey": "object:2088",
+      "expandDetails": true
+    }
+  ],
+  "policyType": "containerAppFirewall",
+  "exportTime": "12_01_22_10_21_48",
+  "exportBy": "admin"
+}
