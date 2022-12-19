@@ -9,3 +9,12 @@ dependencies:
 annotations:
   bigbang.dev/applicationVersions: |
     - Twistlock: 22.06.197
+  helm.sh/images: |
+    - name: base
+      image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+      condition: init.enabled
+    - name: console
+      image: registry1.dso.mil/ironbank/twistlock/console/console:22.06.197
+    - name: defender
+      image: registry1.dso.mil/ironbank/twistlock/defender/defender:22.06.197
+      condition: defender.enabled
