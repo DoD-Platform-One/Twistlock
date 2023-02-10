@@ -276,6 +276,14 @@ init:
     tag: 2.0.0
     # -- Initialization image pull policy
     imagePullPolicy: IfNotPresent
+  # -- Configure Resources of the init Job -- #
+  resources:
+    limits:
+      cpu: 0.5
+      memory: 128Mi
+    requests:
+      cpu: 0.5
+      memory: 128Mi
 
 # -- affinity for console pod
 affinity: {}

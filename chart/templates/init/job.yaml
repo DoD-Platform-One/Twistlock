@@ -42,12 +42,7 @@ spec:
           value: "true"
         {{- end }}
         resources:
-          limits:
-            cpu: 0.5
-            memory: 128Mi
-          requests:
-            cpu: 0.5
-            memory: 128Mi
+          {{- toYaml .Values.init.resources | nindent 10 }}
         securityContext:
           capabilities:
             drop: ["ALL"]
