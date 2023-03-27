@@ -1,26 +1,54 @@
 {
-  "advancedProtection": true,
+  "advancedProtectionEffect": "alert",
+  "kubernetesEnforcementEffect": "alert",
+  "cloudMetadataEnforcementEffect": "alert",
+  "wildFireAnalysis": "alert",
   "processes": {
-    "skipModified": false,
-    "checkCryptoMiners": true,
-    "checkLateralMovement": true,
-    "checkParentChild": true,
-    "skipReverseShell": false,
-    "checkSuidBinaries": true
+    "modifiedProcessEffect": "alert",
+    "cryptoMinersEffect": "alert",
+    "lateralMovementEffect": "alert",
+    "reverseShellEffect": "alert",
+    "suidBinariesEffect": "alert",
+    "defaultEffect": "alert",
+    "checkParentChild": false,
+    "deniedList": {
+      "effect": "alert"
+    },
+    "disabled": false
   },
   "network": {
-    "skipModifiedProc": false,
-    "detectPortScan": true,
-    "skipRawSockets": false
+    "modifiedProcEffect": "alert",
+    "portScanEffect": "alert",
+    "rawSocketsEffect": "alert",
+    "defaultEffect": "alert",
+    "listeningPorts": {
+      "effect": "alert"
+    },
+    "outboundPorts": {
+      "effect": "alert"
+    },
+    "deniedIPsEffect": "alert",
+    "disabled": false
+  },
+  "dns": {
+    "disabled": false,
+    "defaultEffect": "alert",
+    "domainList": {
+      "effect": "alert"
+    },
+    "effect": "alert"
   },
   "filesystem": {
-    "checkNewFiles": true,
-    "backdoorFiles": true,
-    "skipEncryptedBinaries": false,
-    "suspiciousELFHeaders": true
+    "newFilesEffect": "alert",
+    "backdoorFilesEffect": "alert",
+    "encryptedBinariesEffect": "alert",
+    "suspiciousELFHeadersEffect": "alert",
+    "defaultEffect": "alert",
+    "deniedList": {
+      "effect": "alert"
+    },
+    "disabled": false
   },
-  "kubernetesEnforcement": true,
-  "cloudMetadataEnforcement": true,
   "customRules": [
     {
       "_id": 15

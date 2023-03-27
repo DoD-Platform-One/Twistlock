@@ -281,3 +281,5 @@ The [Twistlock API](https://cdn.twistlock.com/docs/api/twistlock_api.html) provi
 The Helm chart values for initialization are stored in a few secrets that get mounted into the initialization container.  In addition, the scripts are stored in a configmap and volume mounted.
 
 The bash scripts heavily use `curl` and `jq` to interact with the API.  The main script is `twistlock-init.sh` and will call the other scripts based on whether each one is enabled.  At a minimum, the credentials are used to retrieve an auth token and the license is verified to be current.
+
+For development it can be helpful to interact with the Twistlock Console UI / webpage and use browser development tools to capture the requests thats are made to the API. The can be used to help edit the scripts under `chart/scripts` or the JSON data under `chart/policies` depending on issues that you encounter. The API does change across updates sometimes, resulting in required changes to the scripts/data.
