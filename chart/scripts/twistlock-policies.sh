@@ -224,7 +224,8 @@ runtime_rule() {
     overlay=$(jq -c -n --argjson "logInspectionRules" "[]" "$overlay | .logInspectionRules=\$logInspectionRules")
   fi
 
-  # Merge all fields
+  # Merge all fields - favor the "base rule"
+  # This is done to preserve any user overrides/changes to defaults
   merge_json "$baserule" "$overlay"
 
   # Each custom rule requires default keys for "effect" and "action".  Add them if needed
@@ -239,7 +240,7 @@ runtime_rule() {
 #######################################
 # Merges two JSON strings recursively
 #  See https://stackoverflow.com/a/68362041
-#  If key=value, 'overlay' is used over 'base' value
+#  If key=value, 'base' is used over 'overlay' value
 #  If key=array, arrays from 'base' and 'overlay' are added and duplicates removed
 # Arguments (positional):
 #   1) base - the base json
@@ -264,7 +265,7 @@ merge_json() {
           end
         )
       ); deepmerge({}; .)')
-  json=$(jq "${args[@]}" < <(echo "$base" "$overlay"))
+  json=$(jq "${args[@]}" < <(echo "$overlay" "$base"))
 }
 
 #######################################

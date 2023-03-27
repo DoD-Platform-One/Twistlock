@@ -1,20 +1,20 @@
 apiVersion: v2
 name: twistlock
-version: 0.11.4-bb.3
-appVersion: 22.06.197
+version: 0.12.0-bb.0
+appVersion: 22.12.415
 dependencies:
   - name: gluon
     version: 0.3.2
     repository: oci://registry1.dso.mil/bigbang
 annotations:
   bigbang.dev/applicationVersions: |
-    - Twistlock: 22.06.197
+    - Twistlock: 22.12.415
   helm.sh/images: |
     - name: base
       image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
       condition: init.enabled
     - name: console
-      image: registry1.dso.mil/ironbank/twistlock/console/console:22.06.197
+      image: registry1.dso.mil/ironbank/twistlock/console/console:22.12.415
     - name: defender
-      image: registry1.dso.mil/ironbank/twistlock/defender/defender:22.06.197
+      image: registry1.dso.mil/ironbank/twistlock/defender/defender:22.12.415
       condition: defender.enabled
