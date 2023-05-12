@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+# [0.12.0-bb.1] - 2023-05-11
+### Added 
+- Added TLDR documentation for Container Models 
+
 # [0.12.0-bb.0] - 2023-02-17
 ### Changed
 - ironbank/twistlock/console/console updated from 22.06.197 to 22.12.415
