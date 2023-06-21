@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.12.0-bb.2](https://img.shields.io/badge/Version-0.12.0--bb.2-informational?style=flat-square) ![AppVersion: 22.12.415](https://img.shields.io/badge/AppVersion-22.12.415-informational?style=flat-square)
+![Version: 0.12.0-bb.3](https://img.shields.io/badge/Version-0.12.0--bb.3-informational?style=flat-square) ![AppVersion: 22.12.415](https://img.shields.io/badge/AppVersion-22.12.415-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -30,8 +30,8 @@ helm install twistlock chart/
 |-----|------|---------|-------------|
 | domain | string | `"bigbang.dev"` | domain to use for virtual service |
 | monitoring.enabled | bool | `false` | Toggle monitoring integration, only used if init job is enabled, creates required metrics user, serviceMonitor, networkPolicy, etc |
-| serviceMonitor.scheme | string | `""` |  |
-| serviceMonitor.tlsConfig | object | `{}` |  |
+| monitoring.serviceMonitor.scheme | string | `""` |  |
+| monitoring.serviceMonitor.tlsConfig | object | `{}` |  |
 | sso | object | `{"cert":"","client_id":"","console_url":"","enabled":false,"groups":"","idp_url":"","issuer_uri":"","provider_name":"","provider_type":"shibboleth"}` | Configuration of Twistlock's SAML SSO capability.  This requires `init.enabled`=`true`, valid credentials, and a valid license. Refer to docs/KEYCLOAK.md for additional information. |
 | sso.enabled | bool | `false` | Toggle SAML SSO |
 | sso.client_id | string | `""` | SAML client ID |
