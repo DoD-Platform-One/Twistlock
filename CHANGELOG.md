@@ -3,13 +3,17 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.12.0-bb.4] - 2023-06-22
+### Changed 
+- Updated gluon from 0.3.2 -> 0.4.0
+
 # [0.12.0-bb.3] - 2023-06-20
 ### Changed 
 - Changed chart/values.yaml to nest serviceMonitor under monitoring
 
 # [0.12.0-bb.2] - 2023-05-31
-### Changed 
-- Changed chart/Chart.yaml condition 
+### Changed
+- Changed chart/Chart.yaml condition
 
 # [0.12.0-bb.1] - 2023-05-11
 ### Added 
