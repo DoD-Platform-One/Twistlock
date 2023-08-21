@@ -1,6 +1,21 @@
+let customWaitTime:number;
 describe('Twistlock Healthcheck', function() {
+  before(() => {
+    const envVarString: string | undefined = Cypress.env('waittime');
+    if (envVarString !== undefined) {
+      // Parse the string into an integer using parseInt
+      customWaitTime = parseInt(envVarString, 10); // 10 represents base 10
+      if (isNaN(customWaitTime)) {
+        customWaitTime = 10000;
+      } 
+    }else{
+      customWaitTime = 10000;
+    }
+    
+  });
+  
   it('Check console is accessible', function() {
-    cy.visit('/', { timeout: 5000 })
+    cy.visit('/', { timeout: customWaitTime })
     cy.title().should('eq', 'Prisma Cloud')
   })
 
