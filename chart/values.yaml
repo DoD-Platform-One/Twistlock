@@ -337,6 +337,7 @@ bbtests:
     # -- Set envs for use in cypress tests
     envs:
       cypress_baseUrl: "http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081"
+      cypress_waittime: "20000"
   scripts:
     # -- Image to use for script tests
     image: registry1.dso.mil/ironbank/stedolan/jq:1.6
