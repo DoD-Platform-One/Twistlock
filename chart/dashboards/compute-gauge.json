@@ -19,9 +19,7 @@
     "links": [
       {
         "icon": "info",
-        "tags": [
-          "twistlock"
-        ],
+        "tags": [],
         "targetBlank": true,
         "title": "Grafana Docs",
         "tooltip": "",
@@ -30,9 +28,7 @@
       },
       {
         "icon": "info",
-        "tags": [
-          "twistlock"
-        ],
+        "tags": [],
         "targetBlank": true,
         "title": "Prometheus Docs",
         "type": "link",
