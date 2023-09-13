@@ -8,7 +8,7 @@
 #   TWISTLOCK_CLUSTER                   (optional)
 #   TWISTLOCK_COLLECT_LABELS            (optional)
 #   TWISTLOCK_CONSOLE_SERVICE
-#   TWISTLOCK_CRI                       (optional)
+#   TWISTLOCK_RUNTIME
 #   TWISTLOCK_DOCKER_SOCKET             (optional)
 #   TWISTLOCK_DEFENDER_IMAGE            (optional)
 #   TWISTLOCK_MONITOR_ISTIO             (optional)
@@ -43,7 +43,7 @@ filter=("{}")
 if [ -n "$TWISTLOCK_CLUSTER" ]; then args+=("--arg" "cluster" "$TWISTLOCK_CLUSTER"); filter+=('| .cluster=$cluster'); fi
 if [ -n "$TWISTLOCK_COLLECT_LABELS" ]; then args+=("--argjson" "collectPodLabels" "$TWISTLOCK_COLLECT_LABELS"); filter+=('| .collectPodLabels=$collectPodLabels'); fi
 args+=("--arg" "consoleAddr" "$TWISTLOCK_CONSOLE_SERVICE"); filter+=('| .consoleAddr=$consoleAddr')
-if [ -n "$TWISTLOCK_CRI" ]; then args+=("--argjson" "cri" "$TWISTLOCK_CRI"); filter+=('| .cri=$cri'); fi
+if [ -n "$TWISTLOCK_RUNTIME" ]; then args+=("--arg" "containerRuntime" "$TWISTLOCK_RUNTIME"); filter+=('| .containerRuntime=$containerRuntime'); fi
 if [ -n "$TWISTLOCK_DOCKER_SOCKET" ]; then args+=("--arg" "dockerSocketPath" "$TWISTLOCK_DOCKER_SOCKET"); filter+=('| .dockerSocketPath=$dockerSocketPath'); fi
 if [ -n "$TWISTLOCK_DEFENDER_IMAGE" ]; then args+=("--arg" "image" "$TWISTLOCK_DEFENDER_IMAGE"); filter+=('| .image=$image'); fi
 if [ -n "$TWISTLOCK_MONITOR_ISTIO" ]; then args+=("--argjson" "istio" "$TWISTLOCK_MONITOR_ISTIO"); filter+=('| .istio=$istio'); fi

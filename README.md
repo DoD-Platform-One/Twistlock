@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.12.0-bb.5](https://img.shields.io/badge/Version-0.12.0--bb.5-informational?style=flat-square) ![AppVersion: 22.12.415](https://img.shields.io/badge/AppVersion-22.12.415-informational?style=flat-square)
+![Version: 0.13.0-bb.0](https://img.shields.io/badge/Version-0.13.0--bb.0-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -60,7 +60,7 @@ helm install twistlock chart/
 | systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
 | console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
-| console.image.tag | string | `"22.12.415"` | Full image tag for console |
+| console.image.tag | string | `"30.02.123"` | Full image tag for console |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
 | console.ports.managementHttp | int | `8081` | Enables the management HTTP listener. |
 | console.ports.managementHttps | int | `8083` | Enables the management HTTPS listener. |
@@ -89,13 +89,13 @@ helm install twistlock chart/
 | console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
 | console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
 | console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"cri":true,"dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.12.415"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
-| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"22.12.415"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"30.02.123"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"30.02.123"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
-| defender.image.tag | string | `"22.12.415"` | Image tag for defender |
+| defender.image.tag | string | `"30.02.123"` | Image tag for defender |
 | defender.clusterName | string | `""` | Name of cluster |
 | defender.collectLabels | bool | `true` | Collect Deployment and Namespace labels |
-| defender.cri | bool | `true` | Use Container Runtime Interface (CRI) instead of Docker |
+| defender.containerRuntime | string | `"containerd"` | Set containerRuntime option for Defenders ("docker", "containerd", or "crio") |
 | defender.dockerSocket | string | `""` | Path to Docker socket.  Leave blank to use /var/run/docker.sock |
 | defender.tolerations | list | `[]` | List of tolerations to be added to the Defender DaemonSet retrieved during the init script |
 | defender.securityCapabilitiesDrop | list | `["ALL"]` | Sets the container security context dropped capabilities for the defenders |
@@ -131,9 +131,9 @@ helm install twistlock chart/
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
 | bbtests.cypress.artifacts | bool | `true` | Toggle creation of cypress artifacts |
-| bbtests.cypress.envs | object | `{"cypress_baseUrl":"http://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8081","cypress_waittime":"20000"}` | Set envs for use in cypress tests |
+| bbtests.cypress.envs | object | `{"cypress_url":"http://twistlock-console.twistlock.svc.cluster.local:8081"}` | Set envs for use in cypress tests |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` | Image to use for script tests |
-| bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"https://{{ .Release.Name }}-console.{{ .Release.Namespace }}.svc.cluster.local:8083"}` | Set envs for use in script tests |
+| bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"https://twistlock-console.twistlock.svc.cluster.local:8083"}` | Set envs for use in script tests |
 
 ## Contributing
 

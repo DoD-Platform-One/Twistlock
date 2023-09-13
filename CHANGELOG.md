@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.13.0-bb.0] - 2023-09-01
+### Changed
+- ironbank/twistlock/console/console updated from 22.12.415 to 30.02.123
+- ironbank/twistlock/defender/defender updated from 22.12.415 to 30.02.123
+
 ## [0.12.0-bb.5] - 2023-06-22
 ### Changed 
 - Setting new variable for cypress test timeout
