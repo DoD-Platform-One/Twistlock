@@ -61,6 +61,12 @@ if [ -n "$TWISTLOCK_USERS" ]; then
   source "$MYDIR/twistlock-users.sh"
 fi
 
+# Add Groups	
+if [ -n "$TWISTLOCK_GROUPS" ]; then	
+  source "$MYDIR/twistlock-groups.sh"	
+fi
+
+
 # Defender Deployment
 if [ "$TWISTLOCK_DEFENDER_ENABLED" == "true" ]; then
   source "$MYDIR/twistlock-defenders.sh"

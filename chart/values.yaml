@@ -152,7 +152,16 @@ console:
   #   authType: ""
   # -- Toggles whether to update the `additionalUsers` if the user is already created (e.g. on upgrades).  This would overwrite the existing user configuration.
   updateUsers: false
-
+  # -- Additional users to setup.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
+  groups: []
+  # - # -- name for the group (required)
+  #   group: ""
+  #   # -- Role based permissions for the group (required).  Valid values include 'admin', 'operator', 'cloudAccountManager', 'auditor', 'devSecOps', 'vulnerabilityManager', 'devOps', 'defenderManager', 'user', and 'ci'.  See https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-reference-architecture-compute/rbac/access_twistlock.
+  #   role: ""
+  #   # -- Auth type for the group (required).  Valid values include 'ldapGroup', 'samlGroup', 'oauthGroup', or 'oidcGroup'. authType must already be configured as an identity provider in Twistlock a SSO groups are hidden until the associated authType is configured
+  #   authType: ""
+  
+  
   options:
     # -- Toggle setting all options in this section
     enabled: true

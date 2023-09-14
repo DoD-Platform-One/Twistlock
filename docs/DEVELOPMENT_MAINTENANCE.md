@@ -85,3 +85,61 @@ to:
     Defenders will scale with the number of nodes in the cluster. If there is a defender that is offline, check whether the node exists in cluster anymore.
     Cluster autoscaler will often scale up/down nodes which can result in defenders spinning up and getting torn down.
     As long as the number of defenders online is equal to the number of nodes everything is working as expected.
+
+# Twistlock Accounts Group Documentation
+
+You can use Account Groups to combine access to multiple cloud accounts with similar or different applications that span multiple divisions or business units, so that you can manage administrative access to these accounts from Prisma Cloud.
+
+When you onboard a cloud account to Prisma Cloud, you can assign the cloud account to one or more account groups, and then assign the account group to Prisma Cloud Administrator Roles. Assigning an account group to an administrative user on Prisma Cloud allows you to restrict access only to the resources and data that pertain to the cloud account(s) within an account group. Alerts on Prisma Cloud are applied at the cloud account group level, which means you can set up separate alert rules and notification flows for different cloud environments. In addition, you can also create nested account groups which provides you more flexibility in mapping out your internal hierarchy.
+
+Twistlock supports group based authentication. Each group
+can be assigned one of the following roles:
+
+Role             | Access Level
+-----------------|------------------------------------------------------------------------------
+| Administrator    | Full read-write access to all Twistlock settings and data |
+| Operator         | Read-write access to all rules and data Read-only access to user and group management and role assignments
+|Defender Manager | Read-only access to all rules and data Can install / uninstall Twistlock Defenders. Used for Automating Defender installs via Bearer Token or Basic Auth
+|Auditor          | Read-only access to all Twistlock rules and data |
+|DevOps User      | Read-only access to vulnerability scan data.| 
+| Access User      | Install personal certificates required for access to Defender protected nodes |
+| CI User          | Run the Continuous Integration plugin .No Twistlock Console access |
+
+## How to set arguments in values.yaml?
+
+Following arguments are used in `values.yaml` file.
+Please set the values as per your need.
+```
+  1. group: ""
+  -- name fof the group (required)
+
+  2. role: ""
+  -- Role based permissions for the user (required).  Valid values include 'admin', 'operator', 'cloudAccountManager', 'auditor', 'devSecOps', 'vulnerabilityManager', 'devOps', 'defenderManager', 'user', and 'ci'.  See https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/authentication/user_roles
+
+  3. authType: ""
+  -- Auth type for the groups  Valid values include 'ldapGroup', 'samlGroup', 'oauthGroup', or 'oidcGroup'. authType must already be configured as an identity provider in Twistlock a SSO groups are hidden until the associated authType is configured
+```
+## Testing Twistlock Groups Version
+
+- The below values are an example, you will need to request the development license from someone on the team.
+
+  ```yaml
+  twistlock:
+  enabled: true
+  sso:
+    enabled: true
+    client_id: "platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-twistlock"
+  values:
+    console:
+      license: "license_here"
+      credentials:
+        password: "admin"
+      groups:
+        - group: test
+          authType: oidcGroup
+          role: admin
+    defender:
+      dockerSocket: "/run/k3s/containerd/containderd.sock"
+      selinux: false
+      privileged: true
+  ```
