@@ -345,7 +345,8 @@ bbtests:
     artifacts: true
     # -- Set envs for use in cypress tests
     envs:
-      cypress_url: "http://twistlock-console.twistlock.svc.cluster.local:8081"
+      cypress_url: "http://twistlock-console:8081"
+      cypress_twistlock_password: "change_this_password"
       #cypress_waittime: "20000"
   scripts:
     # -- Image to use for script tests

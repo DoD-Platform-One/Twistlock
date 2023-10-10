@@ -13,7 +13,7 @@ certs/
 *terraform.lock*
 
 # dependencies
-/node_modules
+node_modules
 
 # debug
 npm-debug.log*
