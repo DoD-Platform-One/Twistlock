@@ -10,6 +10,7 @@ spec:
     port: {{ .Values.console.ports.communication }}
   - name: http-management-port-https
     port: {{ .Values.console.ports.managementHttps }}
+    appProtocol: https
   - name: http-mgmt-http
     port: {{ .Values.console.ports.managementHttp }}
   selector: {{- include "twistlock-console.selector" . | nindent 4 }}

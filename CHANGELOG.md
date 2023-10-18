@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.13.0-bb.4] - 2023-10-17
+### Added 
+- Added appProtocol to service.yaml port 8083 definition to use istio explicit protocol selection
+- Removed all files related to Cypress testing, using the scriopt for testing goign forward
+
 ## [0.13.0-bb.3] - 2023-10-11
 ### Changed 
 - OSCAL version update from 1.0.0 to 1.1.1

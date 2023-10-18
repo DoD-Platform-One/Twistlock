@@ -340,14 +340,6 @@ openshift: false
 bbtests:
   # -- Toggle bbtests on/off for CI/Dev
   enabled: false
-  cypress:
-    # -- Toggle creation of cypress artifacts
-    artifacts: true
-    # -- Set envs for use in cypress tests
-    envs:
-      cypress_url: "http://twistlock-console:8081"
-      cypress_twistlock_password: "change_this_password"
-      #cypress_waittime: "20000"
   scripts:
     # -- Image to use for script tests
     image: registry1.dso.mil/ironbank/stedolan/jq:1.6
