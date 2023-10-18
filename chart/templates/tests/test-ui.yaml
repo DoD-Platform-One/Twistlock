@@ -1,7 +1,0 @@
-{{- include "gluon.tests.cypress-configmap.overrides" (list . "twistlock-test.cypress-configmap") }}
-{{- define "twistlock-test.cypress-configmap" }}
-{{- end }}
----
-{{- include "gluon.tests.cypress-runner.overrides" (list . "twistlock-test.cypress-runner") -}}
-{{- define "twistlock-test.cypress-runner" -}}
-{{- end }}

@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.13.0-bb.3](https://img.shields.io/badge/Version-0.13.0--bb.3-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
+![Version: 0.13.0-bb.4](https://img.shields.io/badge/Version-0.13.0--bb.4-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -131,8 +131,6 @@ helm install twistlock chart/
 | resources | object | `{"limits":{"cpu":"250m","memory":"2Gi"},"requests":{"cpu":"250m","memory":"2Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
-| bbtests.cypress.artifacts | bool | `true` | Toggle creation of cypress artifacts |
-| bbtests.cypress.envs | object | `{"cypress_twistlock_password":"change_this_password","cypress_url":"http://twistlock-console:8081"}` | Set envs for use in cypress tests |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` | Image to use for script tests |
 | bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"https://twistlock-console.twistlock.svc.cluster.local:8083"}` | Set envs for use in script tests |
 
