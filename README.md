@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.13.0-bb.4](https://img.shields.io/badge/Version-0.13.0--bb.4-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
+![Version: 0.13.0-bb.5](https://img.shields.io/badge/Version-0.13.0--bb.5-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -76,7 +76,7 @@ helm install twistlock chart/
 | console.credentials.username | string | `"admin"` | Username of account |
 | console.credentials.password | string | `"change_this_password"` | Password of account |
 | console.additionalUsers | list | `[]` | Additional users to setup.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
-| console.updateUsers | bool | `false` | Toggles whether to update the `additionalUsers` if the user is already created (e.g. on upgrades).  This would overwrite the existing user configuration. |
+| console.updateUsers | bool | `false` |  |
 | console.groups | list | `[]` | Additional users to setup.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | console.options.enabled | bool | `true` | Toggle setting all options in this section |
 | console.options.network | object | `{"container":true,"host":true}` | Network monitoring options |
@@ -115,7 +115,6 @@ helm install twistlock chart/
 | policies.compliance | object | `{"alertThreshold":"medium","enabled":true,"templates":["DISA STIG","NIST SP 800-190"]}` | Compliance policies |
 | policies.compliance.enabled | bool | `true` | Toggle deployment and updating of compliance policies |
 | policies.compliance.templates | list | `["DISA STIG","NIST SP 800-190"]` | The policy templates to use.  Valid values are 'GDPR', 'DISA STIG', 'PCI', 'NIST SP 800-190', or 'HIPAA' |
-| policies.compliance.alertThreshold | string | `"medium"` | If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'. |
 | policies.runtime | object | `{"enabled":true}` | Runtime policies |
 | policies.runtime.enabled | bool | `true` | Toggle deployment and updating of runtime policies |
 | init | object | `{"enabled":true,"image":{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.0.0"},"resources":{"limits":{"cpu":0.5,"memory":"128Mi"},"requests":{"cpu":0.5,"memory":"128Mi"}}}` | Initialization job.  Sets up users, license, container defenders, default policies, and other settings. |
@@ -132,7 +131,7 @@ helm install twistlock chart/
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` | Image to use for script tests |
-| bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"https://twistlock-console.twistlock.svc.cluster.local:8083"}` | Set envs for use in script tests |
+| bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"http://twistlock-console.twistlock.svc.cluster.local:8081"}` | Set envs for use in script tests |
 
 ## Contributing
 
