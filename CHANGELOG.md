@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.13.0-bb.5] - 2023-10-18
+### Changed
+- Changed test url now that istio/ssl is configured to handle https
+
 ## [0.13.0-bb.4] - 2023-10-17
 ### Added 
 - Added appProtocol to service.yaml port 8083 definition to use istio explicit protocol selection
