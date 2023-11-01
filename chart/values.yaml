@@ -288,10 +288,10 @@ init:
   resources:
     limits:
       cpu: 0.5
-      memory: 128Mi
+      memory: 256Mi
     requests:
       cpu: 0.5
-      memory: 128Mi
+      memory: 256Mi
 
 # -- affinity for console pod
 affinity: {}
