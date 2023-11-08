@@ -281,7 +281,7 @@ init:
     # -- Repository and path to initialization image.  Image must contain `jq` and `kubectl`
     repository: registry1.dso.mil/ironbank/big-bang/base
     # -- Initialization image tag
-    tag: 2.0.0
+    tag: 2.1.0
     # -- Initialization image pull policy
     imagePullPolicy: IfNotPresent
   # -- Configure Resources of the init Job -- #

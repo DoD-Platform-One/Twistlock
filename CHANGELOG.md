@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.13.0-bb.8] - 2023-11-08
+### Changed
+- ironbank/big-bang/base updated from 2.0.0 to 2.1.0
+
 ## [0.13.0-bb.7] - 2023-11-07
 ### Changed
 - gluon updated from 0.4.1 to 0.4.4
