@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.13.0-bb.7](https://img.shields.io/badge/Version-0.13.0--bb.7-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
+![Version: 0.13.0-bb.8](https://img.shields.io/badge/Version-0.13.0--bb.8-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -118,11 +118,11 @@ helm install twistlock chart/
 | policies.compliance.alertThreshold | string | `"medium"` | If template does not apply, set policy to alert using this severity or higher.  Valid values are 'low', 'medium', 'high', or 'critical'. |
 | policies.runtime | object | `{"enabled":true}` | Runtime policies |
 | policies.runtime.enabled | bool | `true` | Toggle deployment and updating of runtime policies |
-| init | object | `{"enabled":true,"image":{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.0.0"},"resources":{"limits":{"cpu":0.5,"memory":"256Mi"},"requests":{"cpu":0.5,"memory":"256Mi"}}}` | Initialization job.  Sets up users, license, container defenders, default policies, and other settings. |
+| init | object | `{"enabled":true,"image":{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.1.0"},"resources":{"limits":{"cpu":0.5,"memory":"256Mi"},"requests":{"cpu":0.5,"memory":"256Mi"}}}` | Initialization job.  Sets up users, license, container defenders, default policies, and other settings. |
 | init.enabled | bool | `true` | Toggles the initialization on or off |
-| init.image | object | `{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.0.0"}` | Initialization job image configuration |
+| init.image | object | `{"imagePullPolicy":"IfNotPresent","repository":"registry1.dso.mil/ironbank/big-bang/base","tag":"2.1.0"}` | Initialization job image configuration |
 | init.image.repository | string | `"registry1.dso.mil/ironbank/big-bang/base"` | Repository and path to initialization image.  Image must contain `jq` and `kubectl` |
-| init.image.tag | string | `"2.0.0"` | Initialization image tag |
+| init.image.tag | string | `"2.1.0"` | Initialization image tag |
 | init.image.imagePullPolicy | string | `"IfNotPresent"` | Initialization image pull policy |
 | affinity | object | `{}` | affinity for console pod |
 | nodeSelector | object | `{}` | nodeSelector for console pod |
