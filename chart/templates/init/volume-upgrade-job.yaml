@@ -64,7 +64,7 @@ spec:
       serviceAccountName: volume-upgrade-svc-acct
       initContainers:
       - name: init-scale-console
-        image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+        image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
         imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
         securityContext:
           runAsNonRoot: false
@@ -96,7 +96,7 @@ spec:
           mountPath: "/pvc"
       containers:
       - name: pvc-permissions-change
-        image: registry1.dso.mil/ironbank/big-bang/base:2.0.0
+        image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
         imagePullPolicy: {{ .Values.console.image.imagePullPolicy }}
         securityContext:
           runAsNonRoot: false
