@@ -19,97 +19,116 @@ component-definition:
     title: Prisma Cloud
     description: |
       Prisma Cloud provides vulnerability management and compliance across the application lifecycle by scanning images and serverless functions to prevent security and compliance issues from progressing through the development pipeline, and continuously monitoring all registries and environments
-    purpose: To use Security Scanning and Integrated Compliance aand Vulnerability Results, Scanning registries and Serverless Repositories, Cloud Native Firewalls, Displays
+    purpose: To use Security Scanning and Integrated Compliance and Vulnerability Results, Scanning registries and Serverless Repositories, Cloud Native Firewalls, Displays
     responsible-roles:
     - role-id: provider
       party-uuids: 
       - 72134592-08C2-4A77-ABAD-C880F109367A # matches parties entry for p1
     control-implementations:
-    - uuid: BE7CC08D-2A6B-4624-A06E-4F8FDA1B4528
-      source: https://raw.githubusercontent.com/usnistgov/oscal-content/master/nist.gov/SP800-53/rev5/json/NIST_SP-800-53_rev5_catalog.json
+    - uuid: d2afb4c4-2cd8-5305-a6cc-d1bc7b388d0c
+      source: https://raw.githubusercontent.com/GSA/fedramp-automation/93ca0e20ff5e54fc04140613476fba80f08e3c7d/dist/content/rev5/baselines/json/FedRAMP_rev5_HIGH-baseline-resolved-profile_catalog.json
       description:
         Controls implemented by Prisma Cloud for inheritance by applications
       implemented-requirements:
       - uuid: 6E1F7D0E-F0F9-4E67-BCA9-1BB0F5B32549
         control-id: au-4
         description: >-
-          Prism Cloud scales elastically based upon actual workload demands to allocate audit log storage capacity 
+          Prism Cloud scales elastically based upon actual workload demands to allocate audit log storage capacity.
+
       - uuid: F2E35FD3-C721-423A-B3DB-E22943D305CE
         control-id: au-12
         description: >-
-          Prisma Cloud keeps audits of the generation of records
+          Prisma Cloud keeps audits of the generation of records.
+
+      - uuid: a1518980-308b-4291-a04d-16cfb65a7346
+        control-id: ca-2.2
+        description: >-
+          Prisma Cloud can scan containers to check of the container is secured or not. It gives you the list of the packages that are vulnerable to the CVE (Common Vulnerabilities and Exposures) and it also prompts you to remove the compliance vulnerabilities.
+          Prisma Cloud can easily remove the vulnerabilities as the scan also suggests the user about the package that is vulnerable, the location of the package, and the version the vulnerability is fixed in.
+
       - uuid: 1A415D2F-AAB3-43E7-89FA-295110254C90
         control-id: ca-7
         description: >-
-          Prisma Cloud continually monitors all your cloud environments to detect misconfigurations, advanced network threats, potentially compromised accounts, and vulnerable hosts with all attempts to exploit a vulnerability documented
-      - uuid: 4449E6E9-CBE3-4EFB-9555-27A0907F3739
-        control-id: cm-3
-        description: >-
-          Supports the implementation of a robust change control process. Granular role-based administrator-level control and the ability to document and revert individual changes allow precise control and restriction of administrator capabilities as necessary to comply with change control processes
-      - uuid: F9E4D3E9-3CF8-432C-B8FF-4838C97FABF5
-        control-id: ir-4
-        description: >-
-          Prisma Cloud assists in incident handling through detection, investigation, automation, and response capabilities for security operations overseeing users, applications, and data
-      - uuid: 6ADA046B-833E-46C0-9B06-B12B9337FF12
-        control-id: ra-1
-        description: >-
-          Prisma Cloud helps with creating policies and procedures through its comprehensive visibility, threat prevention, compliance assurance, and data protection in a consistent manner across multi-cloud environments
-      - uuid: 696E0648-E1B6-496D-984E-8E088C81EDF8
-        control-id: ra-2
-        description: >-
-          Prisma Cloud is a cloud native security platform that categorizes the information it processes, stores, and transmits
-      - uuid: F502F5F0-6004-485D-A178-817DEF4B6620
-        control-id: ra-3
-        description: >-
-          Prisma Cloud is a a cloud native security platform that identifies threats and vulnerabilities in the system with Vulnerability Protection Profiles
+          Prisma Cloud continually monitors all your cloud environments to detect misconfigurations, advanced network threats, potentially compromised accounts, and vulnerable hosts with all attempts to exploit a vulnerability documented.
+
       - uuid: 409413BC-355E-4690-B390-B9DC3A0DA144
         control-id: ra-5
         description: >-
-          Provides continuous vulnerability monitoring and scanning by tapping into cloud providers APIs and using an agentbased approach to monitor and scan your host, container, and serverless computing environments against vulnerabilities, malware, and compliance violations. Dashboards provide a graphical view of the security and compliance posture of assets
-      - uuid: 1F4FC4BD-FE8A-4B96-94F4-1CE9BCDC4D60
-        control-id: sa-2
+          Provides continuous vulnerability monitoring and scanning by tapping into cloud providers APIs and using an agent based approach to monitor and scan your host, container, and serverless computing environments against vulnerabilities, malware, and compliance violations. 
+          Dashboards provide a graphical view of the security and compliance posture of assets.
+
+      - uuid: 0ccb720f-476e-4596-8af9-80732af03006
+        control-id: ra-5.2
         description: >-
-          Prism Cloud scales elastically based upon actual workload demands in a consistent manner across multi-cloud environments
-      - uuid: 68CF5A9D-3DFA-493B-8433-591285069970
-        control-id: sa-3
+          Prisma Cloud Intelligence Stream (IS) is a real-time feed that contains vulnerability data and threat intelligence from a variety of certified upstream sources. 
+          Prisma Cloud continuously pulls data from known vulnerability databases, official vendor feeds and commercial providers to provide the most accurate vulnerability detection results.
+
+      - uuid: bf7b1c0d-8dff-4e50-b833-04a6d9cedb33
+        control-id: ra-5.5
         description: >-
-          Prisma Clouds powerful CI/CD capabilities help incorporate information security, privacy risk management, and privacy roles into development 
-      - uuid: F7595694-3CEE-42B2-9C65-00116126C1B5
-        control-id: sa-8
-        description: >-
-          Prisma Clouds powerful CI/CD capabilities allow security teams can set policies that act as system quality control gates that developers must follow for builds
+          In Prisma Cloud Enterprise Edition, permission groups determine what a user can do and see in Prisma Cloud UI, and the APIs he or she can access. 
+          You can assign permission groups to user roles to control their level of access on Prisma Cloud.
+
       - uuid: 9EE0D8D3-0033-402F-A203-1A334FBCB8AE
         control-id: sa-10
         description: >-
-          Powerful CI/CD capabilities help developers with configuration management during system development and the change control process tracks individual modifications to systems along with any security flaws that build runs discover 
+          Powerful CI/CD capabilities help developers with configuration management during system development and the change control process tracks individual modifications to systems along with any security flaws that build runs discover.
+
       - uuid: A34E1099-915C-445F-B994-9F4F180E624A
         control-id: sa-11
         description: >-
-          Prisma Clouds powerful CI/CD capabilities force developers to consider vulnerabilities, security, and privacy controls every time they run a build 
+          Prisma Clouds powerful CI/CD capabilities force developers to consider vulnerabilities, security, and privacy controls every time they run a build.
+
       - uuid: 786DFEF2-500A-4BD4-87FE-522A138950F6
         control-id: sc-7
         description: >-
-          Prisma Cloud monitors all communications to external interfaces by only connecting to external networks through managed interfaces
+          Prisma Cloud monitors all communications to external interfaces by only connecting to external networks through managed interfaces.
+
       - uuid: 30BC7390-2BBD-460D-8ED0-53D026DCB174
         control-id: sc-8
         description: >-
-          Data in transit is protected using a TLS connection at the Elastic Load Balancer (ELB) and secured between components within the data center using an internal certificate until it is terminated at the application node. This ensures that data in transit is encrypted using SSL
+          Data in transit is protected using a TLS connection at the Elastic Load Balancer (ELB) and secured between components within the data center using an internal certificate until it is terminated at the application node. 
+          This ensures that data in transit is encrypted using SSL.
+
       - uuid: 14293925-5052-4CBC-B81E-4E257DCAA631
         control-id: sc-28
         description: >-
-          Prisma Cloud uses AWS Key Management Service (KMS) to encrypt and decrypt snapshots and other data at rest
+          Prisma Cloud uses AWS Key Management Service (KMS) to encrypt and decrypt snapshots and other data at rest.
+
+      - uuid: 55484d6a-059b-4530-8c15-7a5bc47cdb40
+        control-id: si-2.3
+        description: >-
+          The image scan reports of Prisma Cloud show the following per-vulnerability timestamps:
+          Age of the vulnerability based on the discovery date. This is the first date that the Prisma Cloud scanner found the vulnerability.
+          Age of the vulnerability based on its published date. This represents the date the vulnerability was announced to the world.
+          Timestamped findings are useful for time-based SLAs for remediating vulnerabilities.
+
       - uuid: 47857C0A-07EA-4495-8F9F-0C8B1CC3BC04
         control-id: si-4
         description: >-
-          Prisma Cloud continually monitors all your cloud environments to detect misconfigurations, advanced network threats, potentially compromised accounts, and vulnerable hosts with all attempts to exploit a vulnerability documented
+          Prisma Cloud continually monitors all your cloud environments to detect misconfigurations, advanced network threats, potentially compromised accounts, and vulnerable hosts with all attempts to exploit a vulnerability documented.
+
       - uuid: 919011D3-EF5E-4BC6-B663-042A6FE66099
         control-id: si-5
         description: >-
-          Prisma Cloud correlates configuration data with user behavior and network traffic to provide context around misconfigurations and threats in the form of actionable alerts
+          Prisma Cloud correlates configuration data with user behavior and network traffic to provide context around misconfigurations and threats in the form of actionable alerts.
+
+      - uuid: dfe0e9f9-37a5-49cf-8e8b-d51c099808b8
+        control-id: si-6
+        description: >-
+          Compliance Explorer is a reporting tool for compliance rate. Metrics present the compliance rate for resources in your environment on a per-check, per-rule, and per-regulation basis. 
+          Report data can be exported to CSV files for further investigation.
+
       - uuid: BCD07C70-A772-442D-8729-C4852C635B75
         control-id: si-7
         description: >-
-          Prisma Cloud provides checksum values (both MD5 and SHA-256) for all software downloads, including dynamic updates, so that file integrity can be confirmed
+          Prisma Cloud provides checksum values (both MD5 and SHA-256) for all software downloads, including dynamic updates, so that file integrity can be confirmed.
+
+      - uuid: 50cfbe45-3f39-4fae-9230-f1af05a21a29
+        control-id: si-11
+        description: >-
+          Prisma Cloud REST API endpoints return standard HTTP error response codes. 
+
   back-matter: 
       resources:
       - uuid: 4F6E935B-0509-40DE-B934-D8BADC2233A4

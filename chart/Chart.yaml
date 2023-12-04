@@ -1,6 +1,6 @@
 apiVersion: v2
 name: twistlock
-version: 0.13.0-bb.9
+version: 0.13.0-bb.10
 appVersion: 30.02.123
 dependencies:
   - name: gluon
