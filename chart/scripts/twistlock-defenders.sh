@@ -11,9 +11,9 @@
 #   TWISTLOCK_RUNTIME
 #   TWISTLOCK_DOCKER_SOCKET             (optional)
 #   TWISTLOCK_DEFENDER_IMAGE            (optional)
+#   TWISTLOCK_DEFENDER_NODE_SELECTOR    (optional)
 #   TWISTLOCK_MONITOR_ISTIO             (optional)
 #   TWISTLOCK_NAMESPACE
-#   TWISTLOCK_NODE_SELECTOR             (optional)
 #   TWISTLOCK_ORCHESTRATION
 #   TWISTLOCK_PRIVILEGED                (optional)
 #   TWISTLOCK_PROXY_ADDR                (optional)
@@ -48,7 +48,7 @@ if [ -n "$TWISTLOCK_DOCKER_SOCKET" ]; then args+=("--arg" "dockerSocketPath" "$T
 if [ -n "$TWISTLOCK_DEFENDER_IMAGE" ]; then args+=("--arg" "image" "$TWISTLOCK_DEFENDER_IMAGE"); filter+=('| .image=$image'); fi
 if [ -n "$TWISTLOCK_MONITOR_ISTIO" ]; then args+=("--argjson" "istio" "$TWISTLOCK_MONITOR_ISTIO"); filter+=('| .istio=$istio'); fi
 args+=("--arg" "namespace" "$TWISTLOCK_NAMESPACE"); filter+=('| .namespace=$namespace')
-if [ -n "$TWISTLOCK_NODE_SELECTOR" ]; then args+=("--arg" "nodeSelector" "$TWISTLOCK_NODE_SELECTOR"); filter+=('| .nodeSelector=$nodeSelector'); fi
+if [ -n "$TWISTLOCK_DEFENDER_NODE_SELECTOR" ]; then args+=("--arg" "nodeSelector" "$TWISTLOCK_DEFENDER_NODE_SELECTOR"); filter+=('| .nodeSelector=$nodeSelector'); fi
 args+=("--arg" "orchestration" "$TWISTLOCK_ORCHESTRATION"); filter+=('| .orchestration=$orchestration')
 if [ -n "$TWISTLOCK_PRIVILEGED" ]; then args+=("--argjson" "privileged" "$TWISTLOCK_PRIVILEGED"); filter+=('| .privileged=$privileged'); fi
 if [ -n "$TWISTLOCK_PROXY_ADDR" ]; then

@@ -223,6 +223,11 @@ defender:
 
   # -- Monitor service accounts
   monitorServiceAccounts: true
+
+  # -- Node Selector for Defender DaemonSet
+  #nodeSelector:
+    #node-type: "defender"
+
   # -- Run as privileged.  If `selinux` is `true`, this automatically gets set to `false`
   privileged: false
   # -- Proxy settings

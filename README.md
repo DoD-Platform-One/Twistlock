@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.13.0-bb.10](https://img.shields.io/badge/Version-0.13.0--bb.10-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
+![Version: 0.13.1-bb.0](https://img.shields.io/badge/Version-0.13.1--bb.0-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -102,6 +102,7 @@ helm install twistlock chart/
 | defender.securityCapabilitiesDrop | list | `["ALL"]` | Sets the container security context dropped capabilities for the defenders |
 | defender.dockerListenerType | string | `""` | Sets the type of the Docker listener (TCP or NONE) |
 | defender.monitorServiceAccounts | bool | `true` | Monitor service accounts |
+| defender.nodeSelector | object | `{}` | nodeSelector for defender daemonset |
 | defender.privileged | bool | `false` | Run as privileged.  If `selinux` is `true`, this automatically gets set to `false` |
 | defender.proxy | object | `{}` | Proxy settings |
 | defender.selinux | bool | `true` | Deploy with SELinux Policy |
