@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.13.1-bb.0](https://img.shields.io/badge/Version-0.13.1--bb.0-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
+![Version: 0.13.1-bb.1](https://img.shields.io/badge/Version-0.13.1--bb.1-informational?style=flat-square) ![AppVersion: 30.02.123](https://img.shields.io/badge/AppVersion-30.02.123-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -102,7 +102,6 @@ helm install twistlock chart/
 | defender.securityCapabilitiesDrop | list | `["ALL"]` | Sets the container security context dropped capabilities for the defenders |
 | defender.dockerListenerType | string | `""` | Sets the type of the Docker listener (TCP or NONE) |
 | defender.monitorServiceAccounts | bool | `true` | Monitor service accounts |
-| defender.nodeSelector | object | `{}` | nodeSelector for defender daemonset |
 | defender.privileged | bool | `false` | Run as privileged.  If `selinux` is `true`, this automatically gets set to `false` |
 | defender.proxy | object | `{}` | Proxy settings |
 | defender.selinux | bool | `true` | Deploy with SELinux Policy |
@@ -132,7 +131,7 @@ helm install twistlock chart/
 | resources | object | `{"limits":{"cpu":"250m","memory":"2Gi"},"requests":{"cpu":"250m","memory":"2Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
-| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.6"` | Image to use for script tests |
+| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.7"` | Image to use for script tests |
 | bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"http://twistlock-console.twistlock.svc.cluster.local:8081"}` | Set envs for use in script tests |
 
 ## Contributing
