@@ -347,7 +347,7 @@ bbtests:
   enabled: false
   scripts:
     # -- Image to use for script tests
-    image: registry1.dso.mil/ironbank/stedolan/jq:1.6
+    image: registry1.dso.mil/ironbank/stedolan/jq:1.7
     # -- Set envs for use in script tests
     envs:
       twistlock_host: "http://twistlock-console.twistlock.svc.cluster.local:8081"
