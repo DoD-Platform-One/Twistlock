@@ -93,7 +93,7 @@ console:
     # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     # -- Full image tag for console
-    tag: 30.02.123
+    tag: 31.03.103
     # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
   ports:
@@ -200,7 +200,7 @@ defender:
     # -- Repository and path for defender image
     repository: registry1.dso.mil/ironbank/twistlock/defender/defender
     # -- Image tag for defender
-    tag: 30.02.123
+    tag: 31.03.103
   # This value should not be modified unless instructed to by Twistlock Support
   certCn: ""
   # -- Name of cluster
