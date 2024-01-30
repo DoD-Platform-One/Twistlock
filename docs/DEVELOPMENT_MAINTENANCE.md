@@ -53,27 +53,27 @@ to:
 
   ```yaml
   twistlock:
-  enabled: true
-  sso:
     enabled: true
-    client_id: "platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-twistlock"
-  values:
-    console:
-      license: "license_here"
-      credentials:
-        password: "admin"
-      additionalUsers:
-        - username: micah.nagel
-          authType: saml
-          role: admin
-        - username: foo
-          authType: basic
-          password: bar
-          role: admin
-    defender:
-      dockerSocket: "/run/k3s/containerd/containderd.sock"
-      selinux: false
-      privileged: true
+    sso:
+      enabled: true
+      client_id: "platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-twistlock"
+    values:
+      console:
+        license: "license_here"
+        credentials:
+          password: "admin"
+        additionalUsers:
+          - username: micah.nagel
+            authType: saml
+            role: admin
+          - username: foo
+            authType: basic
+            password: bar
+            role: admin
+      defender:
+        dockerSocket: "/run/k3s/containerd/containderd.sock"
+        selinux: false
+        privileged: true
   ```
 
 - Validate that the Twistlock init job pod ran and completed, this should do all setup (license/user) and the required defender updates automatically (Pod is automatically removed after 30 minutes)
@@ -130,21 +130,21 @@ Please set the values as per your need.
 
   ```yaml
   twistlock:
-  enabled: true
-  sso:
     enabled: true
-    client_id: "platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-twistlock"
-  values:
-    console:
-      license: "license_here"
-      credentials:
-        password: "admin"
-      groups:
-        - group: test
-          authType: oidcGroup
-          role: admin
-    defender:
-      dockerSocket: "/run/k3s/containerd/containderd.sock"
-      selinux: false
-      privileged: true
+    sso:
+      enabled: true
+      client_id: "platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-twistlock"
+    values:
+      console:
+        license: "license_here"
+        credentials:
+          password: "admin"
+        groups:
+          - group: test
+            authType: oidcGroup
+            role: admin
+      defender:
+        dockerSocket: "/run/k3s/containerd/containderd.sock"
+        selinux: false
+        privileged: true
   ```
