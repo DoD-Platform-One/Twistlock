@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.14.0-bb.1](https://img.shields.io/badge/Version-0.14.0--bb.1-informational?style=flat-square) ![AppVersion: 31.03.103](https://img.shields.io/badge/AppVersion-31.03.103-informational?style=flat-square)
+![Version: 0.14.0-bb.2](https://img.shields.io/badge/Version-0.14.0--bb.1-informational?style=flat-square) ![AppVersion: 31.03.103](https://img.shields.io/badge/AppVersion-31.03.103-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -43,7 +43,10 @@ helm install twistlock chart/
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string |
 | istio.enabled | bool | `false` | Toggle istio integration |
-| istio.mtls | object | `{"mode":"STRICT"}` | Default twistlock peer authentication |
+| istio.hardened | object | `{"customAuthorizationPolicies":[],"enabled":false}` | Default twistlock peer authentication |
+| istio.tempo.enabled | bool | `false` |  |
+| istio.tempo.namespaces[0] | string | `"tempo"` |  |
+| istio.tempo.principals[0] | string | `"cluster.local/ns/tempo/sa/tempo-tempo"` |  |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
 | istio.console.enabled | bool | `true` | Toggle vs creation |
 | istio.console.annotations | object | `{}` | Annotations for VS |

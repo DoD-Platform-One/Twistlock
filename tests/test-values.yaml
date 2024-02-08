@@ -1,6 +1,11 @@
 networkPolicies:
   enabled: true
 
+istio:
+  enabled: false
+  hardened:
+    enabled: true
+
 imagePullSecrets:
   - name: private-registry
 

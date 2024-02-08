@@ -1,0 +1,20 @@
+{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.monitoring.enabled -}}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-prometheus
+  namespace: "{{ .Release.Namespace }}"
+spec:
+  selector:
+    matchLabels: 
+      {{- include "twistlock-console.selector" . | nindent 6 }}
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["monitoring"]
+    to:
+    - operation:
+        ports: 
+        - "{{ .Values.console.ports.managementHttp }}"
+{{- end }}
