@@ -1,0 +1,16 @@
+{{- if and .Values.istio.enabled .Values.istio.hardened.enabled -}}
+apiVersion: security.istio.io/v1beta1
+kind: AuthorizationPolicy
+metadata:
+  name: allow-namespace-wide-communication
+  namespace: {{ .Release.Namespace }}
+spec:
+  action: ALLOW
+  rules:
+  - from:
+    - source:
+        namespaces: ["{{ .Release.Namespace }}"]
+        principals: ["*"]  # Allows all principals within the namespace
+{{- end }}
+
+

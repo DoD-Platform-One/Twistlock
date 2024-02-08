@@ -3,6 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.14.0-bb.2] - 2024-02-08
+### Added
+- Added istio `allow-nothing` policy
+- Added istio `allow-ingress` policy
+- Added istio `allow-tempo` policy
+- Added istio `allow-defender-to-console-port` policy
+- Added `allow-scraping` policy
+- Added `allow-sidecar-scraping` policy
+- Added istio custom policy template
+
 ## [0.14.0-bb.1] - 2024-02-08
 ### Changed
 - Bumped default memory from 2Gi to 3Gi
@@ -13,16 +23,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - gluon updated from 0.4.6 to 0.4.7
 - ironbank/twistlock/console/console updated from 30.02.123 to 31.03.103
 - ironbank/twistlock/defender/defender updated from 30.02.123 to 31.03.103
-
-## [0.13.1-bb.1] - 2024-01-04
-### Changed
-- gluon updated from 0.4.4 to 0.4.6
-- ironbank/stedolan/jq updated from 1.6 to 1.7
-
-## [0.13.1-bb.0] - 2023-12-13
-### Changed
-- Added new value for Defender nodeSelector
-- Updated Defender deployment to use new value
 
 ## [0.13.0-bb.10] - 2023-11-30
 ### Changed
