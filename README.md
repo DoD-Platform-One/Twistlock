@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.14.0-bb.0](https://img.shields.io/badge/Version-0.14.0--bb.0-informational?style=flat-square) ![AppVersion: 31.03.103](https://img.shields.io/badge/AppVersion-31.03.103-informational?style=flat-square)
+![Version: 0.14.0-bb.1](https://img.shields.io/badge/Version-0.14.0--bb.1-informational?style=flat-square) ![AppVersion: 31.03.103](https://img.shields.io/badge/AppVersion-31.03.103-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -128,7 +128,7 @@ helm install twistlock chart/
 | nodeSelector | object | `{}` | nodeSelector for console pod |
 | tolerations | list | `[]` | tolerations for console pod |
 | annotations | object | `{}` | annotations for console pod |
-| resources | object | `{"limits":{"cpu":"250m","memory":"2Gi"},"requests":{"cpu":"250m","memory":"2Gi"}}` | resources for console pod |
+| resources | object | `{"limits":{"cpu":"250m","memory":"3Gi"},"requests":{"cpu":"250m","memory":"3Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.7"` | Image to use for script tests |
