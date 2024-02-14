@@ -1,1 +1,1 @@
-registry1.dso.mil/ironbank/twistlock/defender/defender:31.03.103
+registry1.dso.mil/ironbank/twistlock/defender/defender:32.01.128
