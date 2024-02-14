@@ -4,7 +4,7 @@ Twistlock is a BB created/maintained chart. As such there are typically no/minim
 
 ## Updating Grafana Dashboards
 
-The dashboards are pulled from [here](https://github.com/PaloAltoNetworks/pcs-metrics-monitoring/tree/main/grafana/dashboards) via [Kptfile](../chart/dashboards/Kptfile). Typically you should run `kpt pkg update chart/dashboards --strategy force-delete-replace` to pull in the latest dashboards.
+The dashboards are pulled from [here](https://github.com/PaloAltoNetworks/pcs-metrics-monitoring/tree/main/grafana/dashboards) via [Kptfile](../chart/dashboards/Kptfile). Typically you should run `kpt pkg update chart/dashboards --strategy force-delete-replace` to pull in the latest dashboards. Check if dashboards have changed before running this step, as of early 2024, they have not had any modifications in the last 2 years.
 
 ## Update dependencies  
   
@@ -73,12 +73,14 @@ to:
       defender:
         dockerSocket: "/run/k3s/containerd/containderd.sock"
         selinux: false
-        privileged: true
+        # Keep as false (default value) so that Kyverno policy, disallow-privileged-containers, does not block
+        # Currently unclear if any defender functionality is lost, access to the service account token appears to be denied
+        privileged: false
   ```
 
 - Validate that the Twistlock init job pod ran and completed, this should do all setup (license/user) and the required defender updates automatically (Pod is automatically removed after 30 minutes)
 
-- Login to twistlock/prisma cloud with the default credentials
+- Login to twistlock/prisma cloud with the default credentials (if above values are used, `admin`/`admin`)
 
 - Under Manage -> Defenders -> Manage, make sure # of defenders online is equal to number of nodes on the cluster
 
