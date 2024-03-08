@@ -3,6 +3,10 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.15.0-bb.1] - 2024-03-04
+### Changed
+- Openshift update for deploying Twistlock into Openshift cluster
+
 ## [0.15.0-bb.0] - 2024-02-08
 ### Changed
 - ironbank/twistlock/console/console updated from 31.03.103 to 32.01.128
