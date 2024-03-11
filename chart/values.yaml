@@ -50,7 +50,7 @@ istio:
       namespaces:
       - tempo
       principals:
-      - cluster.local/ns/tempo/sa/tempo-tempo  
+      - cluster.local/ns/tempo/sa/tempo-tempo
   mtls:
     # -- STRICT = Allow only mutual TLS traffic,
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
@@ -83,9 +83,8 @@ networkPolicies:
   # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
   nodeCidr: null
 
-# -- Defines the secrets to use when pulling the container images
-# NOTE: Only first entry in the list will be used for Defender deployment
-imagePullSecrets: []
+# -- Defines the secret to use when pulling the container images
+imagePullSecretName: private-registry
 
 # -- Run Twistlock Console and Defender with a dedicated SELinux label. See https://docs.docker.com/engine/reference/run/#security-configuration
 selinuxLabel: disable
@@ -169,8 +168,7 @@ console:
   #   role: ""
   #   # -- Auth type for the group (required).  Valid values include 'ldapGroup', 'samlGroup', 'oauthGroup', or 'oidcGroup'. authType must already be configured as an identity provider in Twistlock a SSO groups are hidden until the associated authType is configured
   #   authType: ""
-  
-  
+
   options:
     # -- Toggle setting all options in this section
     enabled: true
@@ -185,7 +183,7 @@ console:
     # -- Toggle sending product usage data to Palo Alto Networks
     telemetry: false
     # NOTE: Prometheus metrics instrumentation is controlled by .monitoring.enabled
-  
+
   # -- This value should be enabled when upgrading from a version <=0.10.0-bb.1 in order to allow the console to run as non-root
   volumeUpgrade: true
 
@@ -223,10 +221,17 @@ defender:
 
   # -- List of tolerations to be added to the Defender DaemonSet retrieved during the init script
   tolerations: []
+
   # -- Sets the container security context dropped capabilities for the defenders
   securityCapabilitiesDrop:
     - ALL
-  
+
+  # -- Sets the container security context added capabilities for the defenders
+  securityCapabilitiesAdd:
+    - CHOWN
+    - DAC_READ_SEARCH
+    - SYSLOG
+
   # -- Sets the type of the Docker listener (TCP or NONE)
   dockerListenerType: ""
 
@@ -251,6 +256,14 @@ defender:
 
   # -- Assign globally unique names to hosts
   uniqueHostName: false
+
+  resources:
+    limits:
+      cpu: 2
+      memory: 2Gi
+    requests:
+      cpu: 4
+      memory: 4Gi
 
 # -- Configures defender policies.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
 policies:

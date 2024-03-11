@@ -6,8 +6,7 @@ istio:
   hardened:
     enabled: true
 
-imagePullSecrets:
-  - name: private-registry
+imagePullSecretName: private-registry
 
 console:
   persistence:

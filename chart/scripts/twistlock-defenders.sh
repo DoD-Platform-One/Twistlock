@@ -78,6 +78,11 @@ if [ -n "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_DROP_CAPABILITIES" ]; then
   RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_DROP_CAPABILITIES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[].securityContext.capabilities.drop += (env(item))' | sed 's/{}//g')
 fi
 
+# Add security context capabilities add (if specified in .Values.defender.securityCapabilitiesAdd) to Defender Daemonset
+if [ -n "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_ADD_CAPABILITIES" ]; then
+  RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_ADD_CAPABILITIES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[].securityContext.capabilities.add += (env(item))' | sed 's/{}//g')
+fi
+
 # Deploy Defender
 echo "Deploying Defenders ..."
 echo "$RESP" | kubectl apply -f -
