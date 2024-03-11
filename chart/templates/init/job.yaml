@@ -11,9 +11,9 @@ spec:
     metadata:
       labels: {{- include "twistlock-init.selector" . | nindent 8 }}
     spec:
-      {{- with .Values.imagePullSecrets }}
+      {{- if .Values.imagePullSecretName }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        - name: {{ .Values.imagePullSecretName }}
       {{- end }}
       serviceAccountName: {{ template "twistlock-init.name" . }}
       {{- if .Values.nodeSelector }}

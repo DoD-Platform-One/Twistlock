@@ -22,9 +22,9 @@ spec:
     spec:
       restartPolicy: Always
       serviceAccountName: {{ template "twistlock-console.name" . }}
-      {{- with .Values.imagePullSecrets }}
+      {{- if .Values.imagePullSecretName }}
       imagePullSecrets:
-        {{- toYaml . | nindent 8 }}
+        - name: {{ .Values.imagePullSecretName }}
       {{- end }}
       securityContext:
         runAsUser: 2674
