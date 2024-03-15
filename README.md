@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.15.0-bb.2](https://img.shields.io/badge/Version-0.15.0--bb.2-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
+![Version: 0.15.0-bb.3](https://img.shields.io/badge/Version-0.15.0--bb.3-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -43,7 +43,7 @@ helm install twistlock chart/
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string |
 | istio.enabled | bool | `false` | Toggle istio integration |
-| istio.hardened | object | `{"customAuthorizationPolicies":[],"enabled":false}` | Default twistlock peer authentication |
+| istio.hardened | object | `{"customAuthorizationPolicies":[],"customServiceEntries":[],"enabled":false,"outboundTrafficPolicyMode":"REGISTRY_ONLY"}` | Default twistlock peer authentication |
 | istio.tempo.enabled | bool | `false` |  |
 | istio.tempo.namespaces[0] | string | `"tempo"` |  |
 | istio.tempo.principals[0] | string | `"cluster.local/ns/tempo/sa/tempo-tempo"` |  |

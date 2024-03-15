@@ -3,6 +3,11 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.15.0-bb.3] - 2024-03-13
+### Changed
+- Added Istio Sidecar to restrict egress traffic to REGISTRY_ONLY
+- Added Istio ServiceEntry to explicitly allow egress 
+
 ## [0.15.0-bb.2] - 2024-03-11
 ### Changed
 - Updated security context for defender
