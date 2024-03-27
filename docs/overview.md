@@ -133,6 +133,51 @@ The Collections column shows to which collection a resource belongs. The color
 
 Please review the BigBang [Architecture Document](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/charter/packages/twistlock/Architecture.md) for more information about it's role within BigBang.
 
+## Granting Egress to Blocked Services
+
+When Istio hardening is enabled through the settings `istio.enabled` and `istio.enabled.hardened`, a sidecar is injected into the twistlock namespace. This sidecar limits network traffic to 'REGISTRY_ONLY', effectively blocking access to external services.
+
+> **Note:** Access to external services will be blocked.
+
+This restriction commonly affects cloud provider services and secret stores configured in the Twistlock UI. To resolve this, you'll need to identify the hosts blocked by Istio and add a `customServiceEntry` for each one to your Big Bang `values.yaml` file.
+
+### Discovering Blocked Hosts
+
+To find out which hosts are being blocked, inspect the `istio-proxy` logs from the Twistlock pod using the following commands:
+
+```bash
+export SOURCE_POD=$(kubectl -n twistlock get pod -l name=twistlock-console -o jsonpath={.items..metadata.name})
+kubectl -n twistlock logs "$SOURCE_POD" -c istio-proxy | grep -i "BlackHoleCluster"
+```
+
+Here is an example of a `customServiceEntry` that can be added to your Big Bang `values.yaml`
+```yaml
+istio:
+  enabled: true
+  hardened:
+    enabled: true
+    customServiceEntries:
+     - name: "allow-amazonaws"
+       enabled: true
+       spec:
+         hosts:
+           - "cloudfront.amazonaws.com"
+           - "ec2.us-gov-east-1.amazonaws.com"
+           - "ec2.us-gov-west-1.amazonaws.com"
+           - "lambda.us-gov-west-1.amazonaws.com"
+           - "secretsmanager.us-gov-east-1.amazonaws.com"
+           - "sts.amazonaws.com"
+           - "sts.us-gov-east-1.amazonaws.com"
+         location: MESH_EXTERNAL
+         exportTo:
+         - "."
+         ports:
+         - name: https
+           number: 443
+           protocol: TLS
+         resolution: DNS
+```
+
 ## Additional Links
 
 * [How Twistlock Secures the Full Application Lifecycle](https://www.youtube.com/watch?v=KunpU9urBaA)
