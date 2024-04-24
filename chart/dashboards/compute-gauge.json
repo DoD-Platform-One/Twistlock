@@ -3,7 +3,10 @@
       "list": [
         {
           "builtIn": 1,
-          "datasource": "-- Grafana --",
+          "datasource": {
+          "type": "datasource",
+          "uid": "grafana"
+          },
           "enable": true,
           "hide": true,
           "iconColor": "rgba(0, 211, 255, 1)",
@@ -41,7 +44,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -131,7 +134,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -218,7 +221,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -313,7 +316,7 @@
           "label": "Others",
           "threshold": 0
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fontSize": "80%",
         "format": "short",
         "gridPos": {
@@ -378,7 +381,7 @@
           "label": "Others",
           "threshold": 0
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fontSize": "80%",
         "format": "short",
         "gridPos": {
@@ -442,7 +445,7 @@
           "label": "Others",
           "threshold": 0
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fontSize": "80%",
         "format": "short",
         "gridPos": {
@@ -498,7 +501,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -602,7 +605,7 @@
           "label": "Others",
           "threshold": 0
         },
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fontSize": "80%",
         "format": "short",
         "gridPos": {
@@ -659,7 +662,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -746,7 +749,7 @@
         "bars": false,
         "dashLength": 10,
         "dashes": false,
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "fill": 1,
         "fillGradient": 0,
         "gridPos": {
@@ -842,7 +845,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "format": "none",
         "gauge": {
           "maxValue": 100,
@@ -927,7 +930,7 @@
           "rgba(237, 129, 40, 0.89)",
           "#d44a3a"
         ],
-        "datasource": "Prometheus",
+        "datasource": "prometheus",
         "format": "none",
         "gauge": {
           "maxValue": 100,
