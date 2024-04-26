@@ -1,7 +1,7 @@
 {
   "bomFormat": "CycloneDX",
   "specVersion": "1.5",
-  "serialNumber": "urn:uuid:4eaead18-96dd-43f3-9a13-4c3217d0b8a2",
+  "serialNumber": "urn:uuid:ef2d2e24-9481-475b-81a7-495552425c4c",
   "version": 1,
   "metadata": {
     "tools": null,
@@ -37735,7 +37735,7 @@
     },
     {
       "type": "container",
-      "bom-ref": "registry1.dso.mil/ironbank/twistlock/defender/defender@32.01.128:96198bfb3ea58de5",
+      "bom-ref": "registry1.dso.mil/ironbank/twistlock/defender/defender@32.01.128:e3f1cfed34b030d8",
       "name": "registry1.dso.mil/ironbank/twistlock/defender/defender",
       "version": "32.01.128",
       "components": [
@@ -57228,7 +57228,7 @@
       "dependsOn": [
         "registry1.dso.mil/ironbank/big-bang/base@2.1.0:f9c882ff1b056460",
         "registry1.dso.mil/ironbank/twistlock/console/console@32.01.128:7098224593d8a1ad",
-        "registry1.dso.mil/ironbank/twistlock/defender/defender@32.01.128:96198bfb3ea58de5"
+        "registry1.dso.mil/ironbank/twistlock/defender/defender@32.01.128:e3f1cfed34b030d8"
       ]
     }
   ]
