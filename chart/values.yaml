@@ -241,9 +241,14 @@ defender:
 
   # -- Sets the container security context added capabilities for the defenders
   securityCapabilitiesAdd:
-    - CHOWN
-    - DAC_READ_SEARCH
-    - SYSLOG
+    - NET_ADMIN
+    - NET_RAW
+    - SYS_ADMIN
+    - SYS_PTRACE
+    - SYS_CHROOT
+    - MKNOD
+    - SETFCAP
+    - IPC_LOCK
 
   # -- Sets the type of the Docker listener (TCP or NONE)
   dockerListenerType: ""

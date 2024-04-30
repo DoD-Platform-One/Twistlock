@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.15.0-bb.6](https://img.shields.io/badge/Version-0.15.0--bb.6-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
+![Version: 0.15.0-bb.7](https://img.shields.io/badge/Version-0.15.0--bb.7-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -93,7 +93,7 @@ helm install twistlock chart/
 | console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
 | console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
 | console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.01.128"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"resources":{"limits":{"cpu":4,"memory":"4Gi"},"requests":{"cpu":4,"memory":"4Gi"}},"securityCapabilitiesAdd":["CHOWN","DAC_READ_SEARCH","SYSLOG"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.01.128"},"monitorServiceAccounts":true,"privileged":false,"proxy":{},"resources":{"limits":{"cpu":4,"memory":"4Gi"},"requests":{"cpu":4,"memory":"4Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.01.128"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
 | defender.image.tag | string | `"32.01.128"` | Image tag for defender |
@@ -103,7 +103,7 @@ helm install twistlock chart/
 | defender.dockerSocket | string | `""` | Path to Docker socket.  Leave blank to use /var/run/docker.sock |
 | defender.tolerations | list | `[]` | List of tolerations to be added to the Defender DaemonSet retrieved during the init script |
 | defender.securityCapabilitiesDrop | list | `["ALL"]` | Sets the container security context dropped capabilities for the defenders |
-| defender.securityCapabilitiesAdd | list | `["CHOWN","DAC_READ_SEARCH","SYSLOG"]` | Sets the container security context added capabilities for the defenders |
+| defender.securityCapabilitiesAdd | list | `["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"]` | Sets the container security context added capabilities for the defenders |
 | defender.dockerListenerType | string | `""` | Sets the type of the Docker listener (TCP or NONE) |
 | defender.monitorServiceAccounts | bool | `true` | Monitor service accounts |
 | defender.privileged | bool | `false` | Run as privileged.  If `selinux` is `true`, this automatically gets set to `false` |
