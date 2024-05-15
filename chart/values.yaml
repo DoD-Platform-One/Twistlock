@@ -283,6 +283,9 @@ defender:
       cpu: 4
       memory: 4Gi
 
+  # -- Priority Class Name to prioritize pod scheduling
+  priorityClassName: ""
+
 # -- Configures defender policies.  This requires `init.enabled`=`true`, valid credentials, and a valid license.
 policies:
   # -- Toggles configuration of defender policies
