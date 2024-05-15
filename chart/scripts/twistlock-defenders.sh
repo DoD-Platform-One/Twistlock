@@ -24,6 +24,7 @@
 #   TWISTLOCK_SELINUX                   (optional)
 #   TWISTLOCK_MONITOR_SERVICE_ACCOUNTS  (optional)
 #   TWISTLOCK_UNIQUE_HOSTS              (optional)
+#   TWISTLOCK_PRIORITY_CLASS            (optional)
 #######################################
 # shellcheck disable=SC1091,SC2016
 
@@ -61,6 +62,7 @@ if [ -n "$TWISTLOCK_PULL_SECRET" ]; then args+=("--arg" "secretsName" "$TWISTLOC
 if [ -n "$TWISTLOCK_SELINUX" ]; then args+=("--argjson" "selinux" "$TWISTLOCK_SELINUX"); filter+=('| .selinux=$selinux'); fi
 if [ -n "$TWISTLOCK_MONITOR_SERVICE_ACCOUNTS" ]; then args+=("--argjson" "serviceAccounts" "$TWISTLOCK_MONITOR_SERVICE_ACCOUNTS"); filter+=('| .serviceAccounts=$serviceAccounts'); fi
 if [ -n "$TWISTLOCK_UNIQUE_HOSTS" ]; then args+=("--argjson" "uniqueHostName" "$TWISTLOCK_UNIQUE_HOSTS"); filter+=('| .uniqueHostName=$uniqueHostName'); fi
+if [ -n "$TWISTLOCK_PRIORITY_CLASS" ]; then args+=("--arg" "priorityClassName" "$TWISTLOCK_PRIORITY_CLASS"); filter+=('| .priorityClassName=$priorityClassName'); fi
 args+=("${filter[*]}")
 DATA=$(jq "${args[@]}")
 
