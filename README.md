@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.15.0-bb.10](https://img.shields.io/badge/Version-0.15.0--bb.10-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
+![Version: 0.15.0-bb.11](https://img.shields.io/badge/Version-0.15.0--bb.11-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -110,7 +110,8 @@ helm install twistlock chart/
 | defender.proxy | object | `{}` | Proxy settings |
 | defender.selinux | bool | `true` | Deploy with SELinux Policy |
 | defender.uniqueHostName | bool | `false` | Assign globally unique names to hosts |
-| defender.priorityClassName | string | `""` | - Priority Class Name to prioritize pod scheduling |
+| defender.resources | object | `{"limits":{"cpu":4,"memory":"4Gi"},"requests":{"cpu":4,"memory":"4Gi"}}` | define resource limits and requests for the Defender DaemonSet |
+| defender.priorityClassName | string | `""` | Priority Class Name to prioritize pod scheduling |
 | policies | object | `{"compliance":{"alertThreshold":"medium","enabled":true,"templates":["DISA STIG","NIST SP 800-190"]},"enabled":true,"name":"Default","runtime":{"enabled":true},"vulnerabilities":{"alertThreshold":"medium","enabled":true}}` | Configures defender policies.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | policies.enabled | bool | `true` | Toggles configuration of defender policies |
 | policies.name | string | `"Default"` | Name to use as prefix to policy rules. NOTE: If you change the name after the initial deployment, you may end up with duplicate policy sets and need to manually cleanup old policies. |

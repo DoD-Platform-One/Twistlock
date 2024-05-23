@@ -70,6 +70,11 @@ DATA=$(jq "${args[@]}")
 callapi "POST" "defenders/daemonset.yaml" "$DATA"
 logok
 
+# Add resource requests and limits (if specified in .Values.defender.resources) to Defender DaemonSet 
+if [ -n "$TWISTLOCK_DEFENDER_RESOURCES" ]; then
+  RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_RESOURCES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[] |= select(.name == "defender").resources = env(item)' | sed 's/{}//g')
+fi
+
 # Add tolerations (if specified in .Values.defender.tolerations) to Defender Daemonset
 if [ -n "$TWISTLOCK_DEFENDER_TOLERATIONS" ]; then
   RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_TOLERATIONS") yq e 'select(.kind == "DaemonSet").spec.template.spec.tolerations += (env(item))' | sed 's/{}//g')

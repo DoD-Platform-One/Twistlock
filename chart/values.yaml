@@ -274,7 +274,7 @@ defender:
 
   # -- Assign globally unique names to hosts
   uniqueHostName: false
-
+ # -- define resource limits and requests for the Defender DaemonSet
   resources:
     limits:
       cpu: 4
