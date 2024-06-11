@@ -395,3 +395,10 @@ bbtests:
     envs:
       twistlock_host: "http://twistlock-console.twistlock.svc.cluster.local:8081"
       desired_version: "{{ .Values.console.image.tag }}"
+  cypress:
+    artifacts: true
+    envs:
+      cypress_twistlock_url: "http://twistlock-console.twistlock.svc.cluster.local:8081"
+      cypress_user: "admin"
+      cypress_password: "change_this_password"
+      CYPRESS_experimental_Modify_Obstructive_Third_Party_Code: "true"

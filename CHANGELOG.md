@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.15.0-bb.12] - 2024-06-05
+### Added
+- Added Cypress tests
+
 ## [0.15.0-bb.11] - 2024-05-22
 ### Changed
 - Add resource requests and limits for Defender DaemonSet 
