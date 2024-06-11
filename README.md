@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.15.0-bb.11](https://img.shields.io/badge/Version-0.15.0--bb.11-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
+![Version: 0.15.0-bb.12](https://img.shields.io/badge/Version-0.15.0--bb.12-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -139,6 +139,11 @@ helm install twistlock chart/
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
 | bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.7"` | Image to use for script tests |
 | bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"http://twistlock-console.twistlock.svc.cluster.local:8081"}` | Set envs for use in script tests |
+| bbtests.cypress.artifacts | bool | `true` |  |
+| bbtests.cypress.envs.cypress_twistlock_url | string | `"http://twistlock-console.twistlock.svc.cluster.local:8081"` |  |
+| bbtests.cypress.envs.cypress_user | string | `"admin"` |  |
+| bbtests.cypress.envs.cypress_password | string | `"change_this_password"` |  |
+| bbtests.cypress.envs.CYPRESS_experimental_Modify_Obstructive_Third_Party_Code | string | `"true"` |  |
 
 ## Contributing
 
