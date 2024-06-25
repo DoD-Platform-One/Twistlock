@@ -3,6 +3,7 @@
 ![Version: 0.15.0-bb.13](https://img.shields.io/badge/Version-0.15.0--bb.13-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
 
 ## Learn More
+
 * [Application Overview](docs/overview.md)
 * [Other Documentation](docs/)
 
@@ -14,12 +15,13 @@
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
 * Clone down the repository
 * cd into directory
+
 ```bash
 helm install twistlock chart/
 ```
@@ -37,8 +39,8 @@ helm install twistlock chart/
 | sso.client_id | string | `""` | SAML client ID |
 | sso.provider_name | string | `""` | SAML Povider Alias (optional) |
 | sso.provider_type | string | `"shibboleth"` | SAML Identity Provider. `shibboleth` is recommended by Twistlock support for Keycloak |
-| sso.issuer_uri | string | `""` | Identity Provider url with path to realm, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda |
-| sso.idp_url | string | `""` | SAML Identity Provider SSO URL, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml" |
+| sso.issuer_uri | string | `""` | Identity Provider url with path to realm, example: <https://keycloak.bigbang.dev/auth/realms/baby-yoda> |
+| sso.idp_url | string | `""` | SAML Identity Provider SSO URL, example: <https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml>" |
 | sso.console_url | string | `""` | Console URL of the Twistlock app. Example: `https://twistlock.bigbang.dev` (optional) |
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string |
@@ -58,7 +60,7 @@ helm install twistlock chart/
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` | Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster |
 | networkPolicies.nodeCidr | string | `nil` | Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks. use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range. Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs) |
 | imagePullSecretName | string | `"private-registry"` | Defines the secret to use when pulling the container images |
-| selinuxLabel | string | `"disable"` | Run Twistlock Console and Defender with a dedicated SELinux label. See https://docs.docker.com/engine/reference/run/#security-configuration |
+| selinuxLabel | string | `"disable"` | Run Twistlock Console and Defender with a dedicated SELinux label. See <https://docs.docker.com/engine/reference/run/#security-configuration> |
 | systemd | object | `{"enabled":false}` | systemd configuration |
 | systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
 | console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
@@ -72,7 +74,7 @@ helm install twistlock chart/
 | console.persistence.size | string | `"100Gi"` | Size of Twistlock PVC |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for Twistlock PVC |
 | console.syslogAuditIntegration | object | `{"enabled":false}` | Enable syslog audit feature When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types. |
-| console.disableCgroupLimits | bool | `false` | Controls console container's resource constraints. Set to "true" to run without limits. See https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources |
+| console.disableCgroupLimits | bool | `false` | Controls console container's resource constraints. Set to "true" to run without limits. See <https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources> |
 | console.license | string | `""` | The license key to use.  If not specified, the license must be installed manually. |
 | console.runAsRoot | bool | `false` | Run Twistlock Console processes as root (default false, twistlock user account). Values: true or false |
 | console.credentials | object | `{"password":"change_this_password","username":"admin"}` | Required if init is enabled.  Admin account to use for configuration through API.  Will create account if Twistlock is a new install.  Otherwise, an existing account needs to be provided. |
