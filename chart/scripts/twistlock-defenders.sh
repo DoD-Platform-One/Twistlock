@@ -72,7 +72,7 @@ logok
 
 # Add resource requests and limits (if specified in .Values.defender.resources) to Defender DaemonSet 
 if [ -n "$TWISTLOCK_DEFENDER_RESOURCES" ]; then
-  RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_RESOURCES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[] |= select(.name == "defender").resources = env(item)' | sed 's/{}//g')
+  RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_RESOURCES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[]|= select(.name == "twistlock-defender").resources = (env(item))' | sed 's/{}//g')
 fi
 
 # Add tolerations (if specified in .Values.defender.tolerations) to Defender Daemonset
