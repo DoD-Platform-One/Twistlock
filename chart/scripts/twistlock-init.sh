@@ -51,6 +51,11 @@ source "$MYDIR/twistlock-auth.sh"
 # Apply/check License.  A valid license is required for all other configuration
 source "$MYDIR/twistlock-license.sh"
 
+# Check/Add DNS SANs
+source "$MYDIR/twistlock-dns.sh"
+echo -n "Added DNS SANs ... "
+logok
+
 # Configure SSO
 if [ "$TWISTLOCK_SSO_ENABLED" == "true" ]; then
   source "$MYDIR/twistlock-sso.sh"
@@ -65,7 +70,6 @@ fi
 if [ -n "$TWISTLOCK_GROUPS" ]; then	
   source "$MYDIR/twistlock-groups.sh"	
 fi
-
 
 # Defender Deployment
 if [ "$TWISTLOCK_DEFENDER_ENABLED" == "true" ]; then

@@ -47,6 +47,11 @@ to:
 ```
 ...which allows a user to filter by the `twistlock` tag in Grafana to locate these particular dashboards more easily.
 
+```chart/scripts```
+- added script <twistlock-dns.sh> to add DNS SANs
+- modified script <twistlock-init.sh> to call <twistlock-dns.sh> 
+- modified <chart/templates/init/secret-console.yaml> to add in TWISTLOCK_ISTIO_URL (external Istio virtual service Twistlock endpoint)
+
 # Testing new Twistlock Version
 
 - Configure SSO, add an SSO user with P1 SSO login, add "basic" user, set admin password to "admin", and point to correct dockerset in overrides value file. The below values are an example, you will need to request the development license from someone on the team.
