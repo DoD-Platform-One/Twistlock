@@ -1,7 +1,6 @@
 {
   "baseBranches": ["main"],
   "dependencyDashboard": true,
-  "dependencyDashboardHeader": "- [ ] Test new Twistlock version",
   "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
   "draftPR": true,
   "ignorePaths": ["chart/charts/**"],
