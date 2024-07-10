@@ -93,6 +93,39 @@ to:
     Cluster autoscaler will often scale up/down nodes which can result in defenders spinning up and getting torn down.
     As long as the number of defenders online is equal to the number of nodes everything is working as expected.
 
+- Ensure integration tests are passing by following the[test-package-against-bb](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/docs/developer/test-package-against-bb.md?ref_type=heads) doc and modify test-values with the following settings: 
+  ```yaml
+  twistlock:
+    enabled: true
+    git:
+      tag: null
+      branch: my-package-branch-that-needs-testing
+    sso:
+      enabled: true
+      client_id: "platform1_a8604cc9-f5e9-4656-802d-d05624370245_bb8-twistlock"
+    values:
+      console:
+        license: "license_here"
+        credentials:
+          password: "admin"
+        additionalUsers:
+          - username: micah.nagel
+            authType: saml
+            role: admin
+          - username: foo
+            authType: basic
+            password: bar
+            role: admin
+      defender:
+        dockerSocket: "/run/k3s/containerd/containderd.sock"
+        selinux: false
+        # Keep as false (default value) so that Kyverno policy, disallow-privileged-containers, does not block
+        # Currently unclear if any defender functionality is lost, access to the service account token appears to be denied
+        privileged: false
+      istio:
+        hardened:
+          enabled: true
+  ```
 # automountServiceAccountToken
 The mutating Kyverno policy named `update-automountserviceaccounttokens` is leveraged to harden all ServiceAccounts in this package with `automountServiceAccountToken: false`. This policy is configured by namespace in the Big Bang umbrella chart repository at [chart/templates/kyverno-policies/values.yaml](https://repo1.dso.mil/big-bang/bigbang/-/blob/master/chart/templates/kyverno-policies/values.yaml?ref_type=heads).
 
