@@ -17,12 +17,6 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - Fixed resource requests and limits for Defender DaemonSet
 - Added DNS SAN init script
 
-## [0.15.0-bb.13] - 2024-06-24
-
-### Changed
-
-- Add DNS SAN script
-
 ## [0.15.0-bb.12] - 2024-06-05
 
 ### Added
