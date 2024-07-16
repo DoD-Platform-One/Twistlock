@@ -1,5 +1,5 @@
 # -- domain to use for virtual service
-domain: bigbang.dev
+domain: dev.bigbang.mil
 
 monitoring:
   # -- Toggle monitoring integration, only used if init job is enabled,
