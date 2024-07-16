@@ -1,16 +1,11 @@
 networkPolicies:
   enabled: true
 
-istio:
-  enabled: false
-
-imagePullSecretName: private-registry
-
 console:
   persistence:
     size: 5Gi
   localVolumeUpgrade: true
-
+ 
 defender:
   dockerSocket: "/run/k3s/containerd/containerd.sock"
 
