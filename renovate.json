@@ -21,6 +21,7 @@
     }
    ],
   "separateMajorMinor": false,
+  "postUpdateOptions": ["helmUpdateSubChartArchives"],
   "regexManagers": [
     {
       "fileMatch": ["^chart/values\\.yaml$"],
