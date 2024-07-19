@@ -1,6 +1,6 @@
 # twistlock
 
-![Version: 0.15.0-bb.15](https://img.shields.io/badge/Version-0.15.0--bb.15-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
+![Version: 0.15.0-bb.16](https://img.shields.io/badge/Version-0.15.0--bb.16-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
 
 ## Learn More
 * [Application Overview](docs/overview.md)
@@ -93,7 +93,7 @@ helm install twistlock chart/
 | console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
 | console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
 | console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.01.128"},"monitorServiceAccounts":true,"priorityClassName":"","privileged":false,"proxy":{},"resources":{"limits":{"cpu":4,"memory":"4Gi"},"requests":{"cpu":4,"memory":"4Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.01.128"},"monitorServiceAccounts":true,"priorityClassName":"","privileged":false,"proxy":{},"resources":{"limits":{"cpu":2,"memory":"2Gi"},"requests":{"cpu":2,"memory":"2Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.01.128"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
 | defender.image.tag | string | `"32.01.128"` | Image tag for defender |
@@ -110,7 +110,7 @@ helm install twistlock chart/
 | defender.proxy | object | `{}` | Proxy settings |
 | defender.selinux | bool | `true` | Deploy with SELinux Policy |
 | defender.uniqueHostName | bool | `false` | Assign globally unique names to hosts |
-| defender.resources | object | `{"limits":{"cpu":4,"memory":"4Gi"},"requests":{"cpu":4,"memory":"4Gi"}}` | define resource limits and requests for the Defender DaemonSet |
+| defender.resources | object | `{"limits":{"cpu":2,"memory":"2Gi"},"requests":{"cpu":2,"memory":"2Gi"}}` | define resource limits and requests for the Defender DaemonSet |
 | defender.priorityClassName | string | `""` | Priority Class Name to prioritize pod scheduling |
 | policies | object | `{"compliance":{"alertThreshold":"medium","enabled":true,"templates":["DISA STIG","NIST SP 800-190"]},"enabled":true,"name":"Default","runtime":{"enabled":true},"vulnerabilities":{"alertThreshold":"medium","enabled":true}}` | Configures defender policies.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | policies.enabled | bool | `true` | Toggles configuration of defender policies |

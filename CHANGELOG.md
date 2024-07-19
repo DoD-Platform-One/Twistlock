@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.15.0-bb.16] - 2024-07-19
+
+### Changed
+
+- Reduced Twistlock Defender Daemonsets resource request and limit to 2 CPU/2Gi RAM
+
 ## [0.15.0-bb.15] - 2024-07-12
 
 ### Changed

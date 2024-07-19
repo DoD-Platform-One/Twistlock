@@ -277,11 +277,11 @@ defender:
  # -- define resource limits and requests for the Defender DaemonSet
   resources:
     limits:
-      cpu: 4
-      memory: 4Gi
+      cpu: 2
+      memory: 2Gi
     requests:
-      cpu: 4
-      memory: 4Gi
+      cpu: 2
+      memory: 2Gi
 
   # -- Priority Class Name to prioritize pod scheduling
   priorityClassName: ""
