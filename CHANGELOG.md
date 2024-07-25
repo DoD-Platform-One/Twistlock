@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.15.0-bb.17] - 2024-07-25
+
+### Changed
+
+- Added `app` and `version` labels to defender pods to conform to Kiali requirements
+- Updated `docs/DEVELOPMENT_MAINTENANCE.md` [Modifications made to upstream](https://repo1.dso.mil/big-bang/product/packages/twistlock/-/blob/main/docs/DEVELOPMENT_MAINTENANCE.md?ref_type=heads#modifications-made-to-upstream) section to reflect changes
+
 ## [0.15.0-bb.16] - 2024-07-19
 
 ### Changed
@@ -221,25 +228,25 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 - Updated gluon from 0.3.2 -> 0.4.0
 
-# [0.12.0-bb.3] - 2023-06-20
+## [0.12.0-bb.3] - 2023-06-20
 
 ### Changed
 
 - Changed chart/values.yaml to nest serviceMonitor under monitoring
 
-# [0.12.0-bb.2] - 2023-05-31
+## [0.12.0-bb.2] - 2023-05-31
 
 ### Changed
 
 - Changed chart/Chart.yaml condition
 
-# [0.12.0-bb.1] - 2023-05-11
+## [0.12.0-bb.1] - 2023-05-11
 
 ### Added
 
 - Added TLDR documentation for Container Models
 
-# [0.12.0-bb.0] - 2023-02-17
+## [0.12.0-bb.0] - 2023-02-17
 
 ### Changed
 

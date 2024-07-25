@@ -7,7 +7,7 @@ Twistlock is a BB created/maintained chart. As such there are typically no/minim
 The dashboards are pulled from [here](https://github.com/PaloAltoNetworks/pcs-metrics-monitoring/tree/main/grafana/dashboards) via [Kptfile](../chart/dashboards/Kptfile). Typically you should run `kpt pkg update chart/dashboards --strategy force-delete-replace` to pull in the latest dashboards. Check if dashboards have changed before running this step, as of early 2024, they have not had any modifications in the last 2 years.
 
 ## Update dependencies  
-  
+
 Twistlock only uses a Gluon dependency. Validate it is on the latest version in `chart/Chart.yaml` then run `helm dependency update chart`.
 
 ## Update scripts/policies
@@ -50,7 +50,12 @@ to:
 ```chart/scripts```
 - added script <twistlock-dns.sh> to add DNS SANs
 - modified script <twistlock-init.sh> to call <twistlock-dns.sh> 
+- modified script <twistlock-defenders.sh> to add TWISTLOCK_DEFENDER_PODLABELS and TWISTLOCK_DEFENDER_RESOURCES to templates
+- modified <chart/templates/init/secret-defenders.yaml> to add TWISTLOCK_DEFENDER_PODLABELS and TWISTLOCK_DEFENDER_RESOURCES
 - modified <chart/templates/init/secret-console.yaml> to add in TWISTLOCK_ISTIO_URL (external Istio virtual service Twistlock endpoint)
+
+```chart/templates```
+- modified <chart/templates/_helpers.tpl> to add `app` and `version` labels to defender
 
 # Testing new Twistlock Version
 
