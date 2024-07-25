@@ -70,7 +70,12 @@ DATA=$(jq "${args[@]}")
 callapi "POST" "defenders/daemonset.yaml" "$DATA"
 logok
 
-# Add resource requests and limits (if specified in .Values.defender.resources) to Defender DaemonSet 
+# Add pod labels for Kiali (if specified in .Values.defender.podLabels) to Defender DaemonSet
+if [ -n "$TWISTLOCK_DEFENDER_PODLABELS" ]; then
+  RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_PODLABELS") yq e 'select(.kind == "DaemonSet").spec.template.metadata.labels += (env(item))' | sed 's/{}//g')
+fi
+
+# Add resource requests and limits (if specified in .Values.defender.resources) to Defender DaemonSet
 if [ -n "$TWISTLOCK_DEFENDER_RESOURCES" ]; then
   RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_RESOURCES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[]|= select(.name == "twistlock-defender").resources = (env(item))' | sed 's/{}//g')
 fi

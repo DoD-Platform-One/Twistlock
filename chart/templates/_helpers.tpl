@@ -20,6 +20,12 @@
 {{- printf "%s-defender" (include "twistlock.name" .) | trunc 63 | trimSuffix "-" -}}
 {{- end -}}
 
+{{/* Defender specific labels */}}
+{{- define "twistlock-defender.labels" -}}
+app: {{ template "twistlock-defender.name" . }}
+version: {{ .Chart.AppVersion }}
+{{- end -}}
+
 {{/* SSO specific name */}}
 {{- define "twistlock-sso.name" -}}
 {{- printf "%s-sso" (include "twistlock.name" .) | trunc 63 | trimSuffix "-" -}}
