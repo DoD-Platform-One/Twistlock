@@ -1,6 +1,15 @@
+<!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.15.0-bb.17](https://img.shields.io/badge/Version-0.15.0--bb.17-informational?style=flat-square) ![AppVersion: 32.01.128](https://img.shields.io/badge/AppVersion-32.01.128-informational?style=flat-square)
+![Version: 0.16.0-bb.0](https://img.shields.io/badge/Version-0.16.0--bb.0-informational?style=flat-square) ![AppVersion: 32.03.125](https://img.shields.io/badge/AppVersion-32.03.125-informational?style=flat-square)
+
+## Upstream References
+
+* <https://github.com/PaloAltoNetworks/pcs-metrics-monitoring>
+
+### Upstream Release Notes
+
+* [Find upstream chart's release notes and CHANGELOG here](https://docs.prismacloud.io/en/compute-edition)
 
 ## Learn More
 
@@ -65,7 +74,7 @@ helm install twistlock chart/
 | systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
 | console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
-| console.image.tag | string | `"32.01.128"` | Full image tag for console |
+| console.image.tag | string | `"32.03.125"` | Full image tag for console |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
 | console.ports.managementHttp | int | `8081` | Enables the management HTTP listener. |
 | console.ports.managementHttps | int | `8083` | Enables the management HTTPS listener. |
@@ -150,3 +159,7 @@ helm install twistlock chart/
 ## Contributing
 
 Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in contributing.
+
+---
+
+_This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._

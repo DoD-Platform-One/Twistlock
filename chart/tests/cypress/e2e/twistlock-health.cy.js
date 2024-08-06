@@ -3,7 +3,7 @@ function twistlock_login() {
   cy.get('input[type="password"]').type(Cypress.env('password'));
   cy.get('button[type="submit"]').click();
 }
- 
+
 describe("Check TL", () => {
   it('Check for license and that a defender pod is running on all Nodes', () => {
     cy.intercept('GET', '**/api/v1/settings/license?project=Central+Console').as('license');
@@ -32,6 +32,3 @@ describe("Check TL", () => {
     expect(defendersCount).to.equal(nodesCount);
  });
 });
-
-
-

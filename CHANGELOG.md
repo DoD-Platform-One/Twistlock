@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.16.0-bb.0] - 2024-07-27
+
+### Changed
+
+- gluon updated from 0.5.0 to 0.5.2
+- ironbank/twistlock/console/console updated from 32.01.128 to 32.03.125
+
 ## [0.15.0-bb.17] - 2024-07-25
 
 ### Changed
