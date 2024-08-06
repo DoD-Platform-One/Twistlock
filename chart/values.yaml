@@ -114,7 +114,7 @@ console:
     # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     # -- Full image tag for console
-    tag: 32.01.128
+    tag: 32.03.125
     # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
   ports:
@@ -396,6 +396,13 @@ bbtests:
       twistlock_host: "http://twistlock-console.twistlock.svc.cluster.local:8081"
       desired_version: "{{ .Values.console.image.tag }}"
   cypress:
+    resources:
+      requests:
+        cpu: "2"
+        memory: "2Gi"
+      limits:
+        cpu: "2"
+        memory: "2Gi"
     artifacts: true
     envs:
       cypress_twistlock_url: "http://twistlock-console.twistlock.svc.cluster.local:8081"
