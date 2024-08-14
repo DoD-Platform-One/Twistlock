@@ -1,10 +1,10 @@
 apiVersion: v2
 name: twistlock
-version: 0.16.0-bb.0
+version: 0.16.0-bb.1
 appVersion: 32.03.125
 dependencies:
   - name: gluon
-    version: 0.5.2
+    version: 0.5.3
     repository: oci://registry1.dso.mil/bigbang
 sources:
   - https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
@@ -18,7 +18,7 @@ annotations:
     - name: console
       image: registry1.dso.mil/ironbank/twistlock/console/console:32.03.125
     - name: defender
-      image: registry1.dso.mil/ironbank/twistlock/defender/defender:32.01.128
+      image: registry1.dso.mil/ironbank/twistlock/defender/defender:32.03.125
       condition: defender.enabled
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream chart's release notes and CHANGELOG here](https://docs.prismacloud.io/en/compute-edition)
