@@ -220,7 +220,7 @@ defender:
     # -- Repository and path for defender image
     repository: registry1.dso.mil/ironbank/twistlock/defender/defender
     # -- Image tag for defender
-    tag: 32.01.128
+    tag: 32.03.125
   # This value should not be modified unless instructed to by Twistlock Support
   certCn: ""
   # -- Name of cluster
