@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.16.0-bb.2] - 2024-09-10
+
+### Changed
+
+- gluon updated from 0.5.3 to 0.5.4
+- Add gluon wait script
+
 ## [0.16.0-bb.1] - 2024-08-13
 
 ### Changed
