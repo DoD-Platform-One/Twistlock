@@ -409,3 +409,11 @@ bbtests:
       cypress_user: "admin"
       cypress_password: "change_this_password"
       CYPRESS_experimental_Modify_Obstructive_Third_Party_Code: "true"
+
+waitJob:
+  enabled: true
+  scripts:
+    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.29.6
+  permissions:
+    apiGroups: {}
+    resources: {}

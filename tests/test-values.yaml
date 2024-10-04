@@ -11,3 +11,6 @@ defender:
 
 bbtests:
   enabled: true
+
+waitJob:
+  enabled: true
