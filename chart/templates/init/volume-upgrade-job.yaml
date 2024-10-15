@@ -39,7 +39,7 @@ spec:
     metadata:
       name: {{ template "twistlock-console.name" . }}
       namespace: {{ .Release.Namespace }}
-      labels:
+      labels: {{- include "twistlock-console.selector" . | nindent 8 }}
         app.kubernetes.io/name: twistlock-volume-upgrade-job
       {{- if .Values.annotations }}
       annotations:
@@ -78,8 +78,13 @@ spec:
             if [[ ! "$(stat --format '%U' /pvc/var/lib/twistlock)" == "twistlock" ]]; then
               echo "Scaling down console deployment to prepare for permissions changes..."
               kubectl scale --replicas=0 deployment/twistlock-console -n twistlock
-              while [[ $(kubectl get pod -l name="{{ template "twistlock-console.name" . }}" -n twistlock --output name | wc -l) -gt 0 ]]; do
+              running_pods_count=1
+              while [[ $running_pods -gt 0 ]]; do
+                echo "Waiting for console pods to terminate..."
                 sleep 10
+                running_pods=$(kubectl get pod -l name="{{ template "twistlock-console.name" . }}" -n twistlock --output name)
+                running_pods_count=$(echo $running_pods | wc -l)
+                echo "Running pods: ${running_pods}"
               done
             else
               echo "No permissions changes required."

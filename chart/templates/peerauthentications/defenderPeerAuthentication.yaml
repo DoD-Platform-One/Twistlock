@@ -9,6 +9,5 @@ spec:
   mtls:
     mode: PERMISSIVE
   selector:
-    matchLabels:
-      app: twistlock-defender
+    matchLabels: {{- include "twistlock-defender.selector" . | nindent 6 }}
 {{- end }}

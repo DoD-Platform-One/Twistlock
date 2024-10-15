@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.16.0-bb.2](https://img.shields.io/badge/Version-0.16.0--bb.2-informational?style=flat-square) ![AppVersion: 32.03.125](https://img.shields.io/badge/AppVersion-32.03.125-informational?style=flat-square)
+![Version: 0.16.0-bb.4](https://img.shields.io/badge/Version-0.16.0--bb.4-informational?style=flat-square) ![AppVersion: 32.03.125](https://img.shields.io/badge/AppVersion-32.03.125-informational?style=flat-square)
 
 ## Upstream References
 
@@ -142,6 +142,7 @@ helm install twistlock chart/
 | affinity | object | `{}` | affinity for console pod |
 | nodeSelector | object | `{}` | nodeSelector for console pod |
 | tolerations | list | `[]` | tolerations for console pod |
+| podLabels | object | `{}` | labels for console pod |
 | annotations | object | `{}` | annotations for console pod |
 | resources | object | `{"limits":{"cpu":"250m","memory":"3Gi"},"requests":{"cpu":"250m","memory":"3Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
