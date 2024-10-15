@@ -369,6 +369,9 @@ tolerations: []
   #   value: "value1"
   #   effect: "NoSchedule"
 
+# -- labels for console pod
+podLabels: {}
+
 # -- annotations for console pod
 annotations: {}
   # bigbang.dev/istioVersion: 1.10.3
@@ -417,3 +420,19 @@ waitJob:
   permissions:
     apiGroups: {}
     resources: {}
+
+deleteResourcesJob:
+  enabled: true
+  image:
+    repository: "registry1.dso.mil/ironbank/opensource/yq/yq"
+    tag: "4.44.3"
+  pullPolicy: Always
+  sleepyTime: "10"
+  labels: {}
+  annotations: {}
+  securityContext: {}
+  podSecurityContext: {}
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  resources: {}
