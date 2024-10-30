@@ -11,7 +11,7 @@ metadata:
 spec:
   selector:
     matchLabels:
-      {{- include "twistlock-console.selector" $ | nindent 6 }}
+      name: twistlock-console
   action: ALLOW
   rules:
   - from:

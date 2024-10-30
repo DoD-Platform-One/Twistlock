@@ -1,25 +1,26 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.16.0-bb.4](https://img.shields.io/badge/Version-0.16.0--bb.4-informational?style=flat-square) ![AppVersion: 32.03.125](https://img.shields.io/badge/AppVersion-32.03.125-informational?style=flat-square)
+![Version: 0.16.0-bb.5](https://img.shields.io/badge/Version-0.16.0--bb.5-informational?style=flat-square) ![AppVersion: 32.03.125](https://img.shields.io/badge/AppVersion-32.03.125-informational?style=flat-square)
 
 ## Upstream References
 
 * <https://github.com/PaloAltoNetworks/pcs-metrics-monitoring>
 
-### Upstream Release Notes
+## Upstream Release Notes
 
 - [Find upstream chart's release notes and CHANGELOG here](https://docs.prismacloud.io/en/compute-edition)
 
 ## Learn More
-* [Application Overview](docs/overview.md)
-* [Other Documentation](docs/)
+
+- [Application Overview](docs/overview.md)
+- [Other Documentation](docs/)
 
 ## Pre-Requisites
 
-* Kubernetes Cluster deployed
-* Kubernetes config installed in `~/.kube/config`
-* Helm installed
+- Kubernetes Cluster deployed
+- Kubernetes config installed in `~/.kube/config`
+- Helm installed
 
 Install Helm
 
@@ -27,8 +28,9 @@ https://helm.sh/docs/intro/install/
 
 ## Deployment
 
-* Clone down the repository
-* cd into directory
+- Clone down the repository
+- cd into directory
+
 ```bash
 helm install twistlock chart/
 ```
@@ -142,7 +144,6 @@ helm install twistlock chart/
 | affinity | object | `{}` | affinity for console pod |
 | nodeSelector | object | `{}` | nodeSelector for console pod |
 | tolerations | list | `[]` | tolerations for console pod |
-| podLabels | object | `{}` | labels for console pod |
 | annotations | object | `{}` | annotations for console pod |
 | resources | object | `{"limits":{"cpu":"250m","memory":"3Gi"},"requests":{"cpu":"250m","memory":"3Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
