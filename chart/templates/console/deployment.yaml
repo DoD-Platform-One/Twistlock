@@ -14,7 +14,7 @@ spec:
     metadata:
       name: {{ template "twistlock-console.name" . }}
       namespace: {{ .Release.Namespace }}
-      labels: {{- include "twistlock-console.labels" . | nindent 8 }}
+      labels: {{- include "twistlock-console.selector" . | nindent 8 }}
       {{- if .Values.annotations }}
       annotations:
         {{ toYaml .Values.annotations | nindent 8 }}

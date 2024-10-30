@@ -3,22 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
-## [0.16.0-bb.4] - 2024-10-08
+
+## [0.16.0-bb.5] - 2024-10-30
 
 ### Changed
 
-- Updated gluon to 0.5.8
-- refactored helpers to standardize labels
-- Updated the wait script
-- Added kiali labels
-- Added more stability to the cypress tests
-
-## [0.16.0-bb.3] - 2024-10-07
-
-### Changed
-
-- Adds `podsLabel` input value and parses it through `tpl` 
-
+- reverting the changes made in the previous release, they will come back later with a better upgrade process
 
 ## [0.16.0-bb.2] - 2024-09-10
 
