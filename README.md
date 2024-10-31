@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.16.0-bb.5](https://img.shields.io/badge/Version-0.16.0--bb.5-informational?style=flat-square) ![AppVersion: 32.03.125](https://img.shields.io/badge/AppVersion-32.03.125-informational?style=flat-square)
+![Version: 0.17.0-bb.0](https://img.shields.io/badge/Version-0.17.0--bb.0-informational?style=flat-square) ![AppVersion: 32.07.123](https://img.shields.io/badge/AppVersion-32.07.123-informational?style=flat-square)
 
 ## Upstream References
 
@@ -74,7 +74,7 @@ helm install twistlock chart/
 | systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
 | console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
 | console.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/console/console"` | Full image name for console |
-| console.image.tag | string | `"32.03.125"` | Full image tag for console |
+| console.image.tag | string | `"32.07.123"` | Full image tag for console |
 | console.image.imagePullPolicy | string | `"IfNotPresent"` | Pull policy for console image |
 | console.ports.managementHttp | int | `8081` | Enables the management HTTP listener. |
 | console.ports.managementHttps | int | `8083` | Enables the management HTTPS listener. |
@@ -104,10 +104,10 @@ helm install twistlock chart/
 | console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
 | console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
 | console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.03.125"},"monitorServiceAccounts":true,"priorityClassName":"","privileged":false,"proxy":{},"resources":{"limits":{"cpu":2,"memory":"2Gi"},"requests":{"cpu":2,"memory":"2Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
-| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.03.125"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.07.123"},"monitorServiceAccounts":true,"priorityClassName":"","privileged":false,"proxy":{},"resources":{"limits":{"cpu":2,"memory":"2Gi"},"requests":{"cpu":2,"memory":"2Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"32.07.123"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
-| defender.image.tag | string | `"32.03.125"` | Image tag for defender |
+| defender.image.tag | string | `"32.07.123"` | Image tag for defender |
 | defender.clusterName | string | `""` | Name of cluster |
 | defender.collectLabels | bool | `true` | Collect Deployment and Namespace labels |
 | defender.containerRuntime | string | `"containerd"` | Set containerRuntime option for Defenders ("docker", "containerd", or "crio") |
@@ -160,9 +160,22 @@ helm install twistlock chart/
 | bbtests.cypress.envs.cypress_password | string | `"change_this_password"` |  |
 | bbtests.cypress.envs.CYPRESS_experimental_Modify_Obstructive_Third_Party_Code | string | `"true"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.29.6"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.5"` |  |
 | waitJob.permissions.apiGroups | object | `{}` |  |
 | waitJob.permissions.resources | object | `{}` |  |
+| deleteResourcesJob.enabled | bool | `true` |  |
+| deleteResourcesJob.image.repository | string | `"registry1.dso.mil/ironbank/opensource/yq/yq"` |  |
+| deleteResourcesJob.image.tag | string | `"4.44.3"` |  |
+| deleteResourcesJob.pullPolicy | string | `"Always"` |  |
+| deleteResourcesJob.sleepyTime | string | `"10"` |  |
+| deleteResourcesJob.labels | object | `{}` |  |
+| deleteResourcesJob.annotations | object | `{}` |  |
+| deleteResourcesJob.securityContext | object | `{}` |  |
+| deleteResourcesJob.podSecurityContext | object | `{}` |  |
+| deleteResourcesJob.nodeSelector | object | `{}` |  |
+| deleteResourcesJob.affinity | object | `{}` |  |
+| deleteResourcesJob.tolerations | list | `[]` |  |
+| deleteResourcesJob.resources | object | `{}` |  |
 
 ## Contributing
 
