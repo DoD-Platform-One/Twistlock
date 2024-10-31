@@ -3,6 +3,12 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.17.0-bb.0] - 2024-10-31
+
+### Changed
+- ironbank/opensource/kubernetes/kubectl updated from v1.29.6 to v1.30.5
+- ironbank/twistlock/console/console updated from 32.03.125 to 32.07.123
+- ironbank/twistlock/defender/defender updated from 32.03.125 to 32.07.123
 
 ## [0.16.0-bb.5] - 2024-10-30
 

@@ -1,7 +1,7 @@
 apiVersion: v2
 name: twistlock
-version: 0.16.0-bb.5
-appVersion: 32.03.125
+version: 0.17.0-bb.0
+appVersion: 32.07.123
 dependencies:
   - name: gluon
     version: 0.5.4
@@ -10,18 +10,18 @@ sources:
   - https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
 annotations:
   bigbang.dev/applicationVersions: |
-    - Twistlock: 32.03.125
+    - Twistlock: 32.07.123
   # The base image is utilized when init job is enabled and during upgrades when volumeUpgrade for the console is enabled.
   helm.sh/images: |
     - name: base
       image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     - name: console
-      image: registry1.dso.mil/ironbank/twistlock/console/console:32.03.125
+      image: registry1.dso.mil/ironbank/twistlock/console/console:32.07.123
     - name: defender
-      image: registry1.dso.mil/ironbank/twistlock/defender/defender:32.03.125
+      image: registry1.dso.mil/ironbank/twistlock/defender/defender:32.07.123
       condition: defender.enabled
     - name: kubectl
-      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.29.6
+      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.5
       condition: waitJob.enabled
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream chart's release notes and CHANGELOG here](https://docs.prismacloud.io/en/compute-edition)
