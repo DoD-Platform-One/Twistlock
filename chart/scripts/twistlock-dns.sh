@@ -1,4 +1,4 @@
-# !/bin/bash
+#!/bin/bash
 #######################################
 # Check the current DNS SANs listed, and add any if needed
 # Globals:
