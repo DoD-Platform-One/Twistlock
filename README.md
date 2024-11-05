@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.17.0-bb.0](https://img.shields.io/badge/Version-0.17.0--bb.0-informational?style=flat-square) ![AppVersion: 32.07.123](https://img.shields.io/badge/AppVersion-32.07.123-informational?style=flat-square)
+![Version: 0.17.0-bb.1](https://img.shields.io/badge/Version-0.17.0--bb.1-informational?style=flat-square) ![AppVersion: 32.07.123](https://img.shields.io/badge/AppVersion-32.07.123-informational?style=flat-square)
 
 ## Upstream References
 
@@ -163,19 +163,6 @@ helm install twistlock chart/
 | waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.5"` |  |
 | waitJob.permissions.apiGroups | object | `{}` |  |
 | waitJob.permissions.resources | object | `{}` |  |
-| deleteResourcesJob.enabled | bool | `true` |  |
-| deleteResourcesJob.image.repository | string | `"registry1.dso.mil/ironbank/opensource/yq/yq"` |  |
-| deleteResourcesJob.image.tag | string | `"4.44.3"` |  |
-| deleteResourcesJob.pullPolicy | string | `"Always"` |  |
-| deleteResourcesJob.sleepyTime | string | `"10"` |  |
-| deleteResourcesJob.labels | object | `{}` |  |
-| deleteResourcesJob.annotations | object | `{}` |  |
-| deleteResourcesJob.securityContext | object | `{}` |  |
-| deleteResourcesJob.podSecurityContext | object | `{}` |  |
-| deleteResourcesJob.nodeSelector | object | `{}` |  |
-| deleteResourcesJob.affinity | object | `{}` |  |
-| deleteResourcesJob.tolerations | list | `[]` |  |
-| deleteResourcesJob.resources | object | `{}` |  |
 
 ## Contributing
 
