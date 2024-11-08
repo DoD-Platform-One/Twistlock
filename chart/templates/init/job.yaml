@@ -9,7 +9,7 @@ spec:
   ttlSecondsAfterFinished: 1800
   template:
     metadata:
-      labels: {{- include "twistlock-init.selector" . | nindent 8 }}
+      labels: {{- include "twistlock-init.labels" . | nindent 8 }}
     spec:
       {{- if .Values.imagePullSecretName }}
       imagePullSecrets:

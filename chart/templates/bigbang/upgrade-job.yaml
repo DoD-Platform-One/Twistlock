@@ -1,0 +1,209 @@
+{{- $upgradeVersion := "0.17.0-bb.2" }}
+{{- if and .Values.autoRollingUpgrade.enabled .Release.IsUpgrade }}
+  {{- $currentVersion := "0.0.0-bb.0" }}
+  {{- if .Capabilities.APIVersions.Has "helm.toolkit.fluxcd.io/v2" }}
+    {{- $helmRelease := lookup "helm.toolkit.fluxcd.io/v2" "HelmRelease" "bigbang" "twistlock" }}
+    {{- if and $helmRelease $helmRelease.status $helmRelease.status.history }}
+      {{- if index $helmRelease.status.history 0 }}
+        {{- $currentVersion := index $helmRelease.status.history 0 "chartVersion" }}
+      {{- end }}
+    {{- end }}
+  {{- end }}
+      # -- Twistlock chart version semverCompare against to trigger autoRollingUpgrade upgrade job
+      {{- if semverCompare (print "<" $upgradeVersion) $currentVersion }}
+{{- $jobName := printf "bb-%s-upgrade" .Release.Name }}
+{{- if .Values.networkPolicies.enabled }}
+apiVersion: networking.k8s.io/v1
+kind: NetworkPolicy
+metadata:
+  name: "api-egress-{{ $jobName }}"
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+spec:
+  egress:
+  - to:
+    - ipBlock:
+        cidr: {{ .Values.networkPolicies.controlPlaneCidr }}
+        {{- if eq .Values.networkPolicies.controlPlaneCidr "0.0.0.0/0" }}
+        # ONLY Block requests to AWS metadata IP
+        except:
+        - 169.254.169.254/32
+        {{- end }}
+  podSelector:
+    matchLabels:
+      app.kubernetes.io/name: {{ $jobName }}
+  policyTypes:
+  - Egress
+{{- end }}
+---
+apiVersion: v1
+kind: ServiceAccount
+metadata:
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  name: {{ $jobName }}-view
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+
+rules:
+- apiGroups: ["apps"]
+  resources: ["deployments", "daemonsets"]
+  verbs: ["get", "list", "delete"]
+- apiGroups: [""]
+  resources: ["persistentvolumeclaims"]
+  verbs: ["get", "list", "delete", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: Role
+  name: {{ $jobName }}-view
+subjects:
+- kind: ServiceAccount
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: {{ $jobName }}-view
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+rules:
+- apiGroups: [""]
+  resources: ["persistentvolumes"]
+  verbs: ["get", "list", "delete", "patch", "update"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+
+roleRef:
+  apiGroup: rbac.authorization.k8s.io
+  kind: ClusterRole
+  name: {{ $jobName }}-view
+subjects:
+- kind: ServiceAccount
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+---
+apiVersion: v1
+kind: ConfigMap
+metadata:
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-20"
+    "helm.sh/hook-delete-policy": hook-succeeded,hook-failed,before-hook-creation
+data: {{- (.Files.Glob "scripts/*").AsConfig | nindent 2 }}
+---
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: {{ $jobName }}
+  namespace: {{ .Release.Namespace }}
+  labels: {{- include "twistlock-console.labels" . | nindent 4 }}
+  annotations:
+    "helm.sh/hook": pre-upgrade
+    "helm.sh/hook-weight": "-15"
+spec:
+  backoffLimit: 1
+  ttlSecondsAfterFinished: 60
+  template:
+    metadata:
+      name: {{ $jobName }}
+      labels:
+        app.kubernetes.io/app: {{ $jobName }}
+        app.kubernetes.io/name: {{ $jobName }}
+        app.kubernetes.io/version: {{ $currentVersion }}
+        {{- with .Values.autoRollingUpgrade.labels }}
+        {{- toYaml . | nindent 8 }}
+        {{- end }}
+      {{- with .Values.autoRollingUpgrade.annotations }}
+      annotations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+    spec:
+      {{- with .Values.imagePullSecretName }}
+      imagePullSecrets:
+        - name: {{ . }}
+      {{- end }}
+      securityContext:
+        {{- toYaml .Values.autoRollingUpgrade.podSecurityContext | nindent 8 }}
+      serviceAccountName: {{ $jobName }}
+      automountServiceAccountToken: true
+      restartPolicy: {{ .Values.autoRollingUpgrade.restartPolicy }}
+      {{- $scriptPath := "/opt/twistlock" }}
+      containers:
+        - name: {{ $jobName }}
+          image: {{ $.Values.autoRollingUpgrade.image.repository }}:{{ $.Values.autoRollingUpgrade.image.tag }}
+          command:
+            - /bin/bash
+            - -c
+            - |
+              set -e
+              set -x
+              {{ $scriptPath }}/twistlock-upgrade-job.sh "{{ .Release.Namespace }}" "{{ template "twistlock-console.name" . }}" "{{ template "twistlock-defender.name" . }}"
+              # ls -alf {{ $scriptPath }}
+          securityContext:
+            {{- toYaml .Values.autoRollingUpgrade.securityContext | nindent 12 }}
+          volumeMounts:
+            - name: scripts
+              mountPath: {{ $scriptPath }}
+              readOnly: true
+      volumes:
+        - name: scripts
+          configMap:
+            name: {{ $jobName }}
+            defaultMode: 0555
+      {{- with .Values.autoRollingUpgrade.nodeSelector }}
+      nodeSelector:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.autoRollingUpgrade.affinity }}
+      affinity:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.autoRollingUpgrade.tolerations }}
+      tolerations:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+      {{- with .Values.autoRollingUpgrade.resources }}
+      resources:
+        {{- toYaml . | nindent 8 }}
+      {{- end }}
+  {{- end }}
+{{- end }}

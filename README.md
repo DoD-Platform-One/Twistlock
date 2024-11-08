@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.17.0-bb.1](https://img.shields.io/badge/Version-0.17.0--bb.1-informational?style=flat-square) ![AppVersion: 32.07.123](https://img.shields.io/badge/AppVersion-32.07.123-informational?style=flat-square)
+![Version: 0.17.0-bb.2](https://img.shields.io/badge/Version-0.17.0--bb.2-informational?style=flat-square) ![AppVersion: 32.07.123](https://img.shields.io/badge/AppVersion-32.07.123-informational?style=flat-square)
 
 ## Upstream References
 
@@ -144,6 +144,7 @@ helm install twistlock chart/
 | affinity | object | `{}` | affinity for console pod |
 | nodeSelector | object | `{}` | nodeSelector for console pod |
 | tolerations | list | `[]` | tolerations for console pod |
+| podLabels | object | `{}` | labels for console pod |
 | annotations | object | `{}` | annotations for console pod |
 | resources | object | `{"limits":{"cpu":"250m","memory":"3Gi"},"requests":{"cpu":"250m","memory":"3Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
@@ -160,9 +161,27 @@ helm install twistlock chart/
 | bbtests.cypress.envs.cypress_password | string | `"change_this_password"` |  |
 | bbtests.cypress.envs.CYPRESS_experimental_Modify_Obstructive_Third_Party_Code | string | `"true"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.5"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.6"` |  |
 | waitJob.permissions.apiGroups | object | `{}` |  |
 | waitJob.permissions.resources | object | `{}` |  |
+| autoRollingUpgrade.enabled | bool | `true` |  |
+| autoRollingUpgrade.image.repository | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl"` |  |
+| autoRollingUpgrade.image.tag | string | `"v1.30.6"` |  |
+| autoRollingUpgrade.pullPolicy | string | `"Always"` |  |
+| autoRollingUpgrade.sleepyTime | string | `"10"` |  |
+| autoRollingUpgrade.labels | object | `{}` |  |
+| autoRollingUpgrade.annotations | object | `{}` |  |
+| autoRollingUpgrade.securityContext.capabilities.drop[0] | string | `"ALL"` |  |
+| autoRollingUpgrade.podSecurityContext.runAsUser | int | `1000` |  |
+| autoRollingUpgrade.podSecurityContext.runAsGroup | int | `1000` |  |
+| autoRollingUpgrade.nodeSelector | object | `{}` |  |
+| autoRollingUpgrade.affinity | object | `{}` |  |
+| autoRollingUpgrade.tolerations | list | `[]` |  |
+| autoRollingUpgrade.resources.requests.cpu | string | `"100m"` |  |
+| autoRollingUpgrade.resources.requests.memory | string | `"256Mi"` |  |
+| autoRollingUpgrade.resources.limits.cpu | string | `"100m"` |  |
+| autoRollingUpgrade.resources.limits.memory | string | `"256Mi"` |  |
+| autoRollingUpgrade.restartPolicy | string | `"Never"` |  |
 
 ## Contributing
 
