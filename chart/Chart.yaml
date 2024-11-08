@@ -1,10 +1,10 @@
 apiVersion: v2
 name: twistlock
-version: 0.17.0-bb.1
+version: 0.17.0-bb.2
 appVersion: 32.07.123
 dependencies:
   - name: gluon
-    version: 0.5.4
+    version: 0.5.8
     repository: oci://registry1.dso.mil/bigbang
 sources:
   - https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
@@ -21,7 +21,7 @@ annotations:
       image: registry1.dso.mil/ironbank/twistlock/defender/defender:32.07.123
       condition: defender.enabled
     - name: kubectl
-      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.5
+      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.6
       condition: waitJob.enabled
   bigbang.dev/upstreamReleaseNotesMarkdown: |
     - [Find upstream chart's release notes and CHANGELOG here](https://docs.prismacloud.io/en/compute-edition)

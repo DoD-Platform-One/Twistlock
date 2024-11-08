@@ -369,6 +369,9 @@ tolerations: []
   #   value: "value1"
   #   effect: "NoSchedule"
 
+# -- labels for console pod
+podLabels: {}
+
 # -- annotations for console pod
 annotations: {}
   # bigbang.dev/istioVersion: 1.10.3
@@ -413,7 +416,35 @@ bbtests:
 waitJob:
   enabled: true
   scripts:
-    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.5
+    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.6
   permissions:
     apiGroups: {}
     resources: {}
+
+autoRollingUpgrade:
+  enabled: true
+  image:
+    repository: "registry1.dso.mil/ironbank/opensource/kubernetes/kubectl"
+    tag: "v1.30.6"
+  pullPolicy: Always
+  sleepyTime: "10"
+  labels: {}
+  annotations: {}
+  securityContext:
+    capabilities:
+      drop:
+        - ALL
+  podSecurityContext:
+    runAsUser: 1000
+    runAsGroup: 1000
+  nodeSelector: {}
+  affinity: {}
+  tolerations: []
+  resources:
+    requests:
+      cpu: 100m
+      memory: 256Mi
+    limits:
+      cpu: 100m
+      memory: 256Mi
+  restartPolicy: Never
