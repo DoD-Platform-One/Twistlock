@@ -3,6 +3,13 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.18.0-bb.0] - 2024-11-26
+### Changed
+- gluon updated from 0.5.8 to 0.5.12
+- ironbank/opensource/kubernetes/kubectl updated from v1.30.6 to v1.30.7
+- ironbank/twistlock/console/console updated from 32.07.123 to 33.01.137
+- ironbank/twistlock/defender/defender updated from 32.07.123 to 33.01.137
+
 ## [0.17.0-bb.2] - 2024-11-05
 
 ### Changed
