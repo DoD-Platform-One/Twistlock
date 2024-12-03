@@ -9,6 +9,7 @@ dependencies:
 sources:
   - https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
 annotations:
+  bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/applicationVersions: |
     - Twistlock: 33.01.137
   # The base image is utilized when init job is enabled and during upgrades when volumeUpgrade for the console is enabled.

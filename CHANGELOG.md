@@ -9,6 +9,7 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 - ironbank/opensource/kubernetes/kubectl updated from v1.30.6 to v1.30.7
 - ironbank/twistlock/console/console updated from 32.07.123 to 33.01.137
 - ironbank/twistlock/defender/defender updated from 32.07.123 to 33.01.137
+- Added the maintenance track annotation and badge
 
 ## [0.17.0-bb.2] - 2024-11-05
 
