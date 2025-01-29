@@ -420,31 +420,3 @@ waitJob:
   permissions:
     apiGroups: {}
     resources: {}
-
-autoRollingUpgrade:
-  enabled: true
-  image:
-    repository: "registry1.dso.mil/ironbank/opensource/kubernetes/kubectl"
-    tag: "v1.30.7"
-  pullPolicy: Always
-  sleepyTime: "10"
-  labels: {}
-  annotations: {}
-  securityContext:
-    capabilities:
-      drop:
-        - ALL
-  podSecurityContext:
-    runAsUser: 1000
-    runAsGroup: 1000
-  nodeSelector: {}
-  affinity: {}
-  tolerations: []
-  resources:
-    requests:
-      cpu: 100m
-      memory: 256Mi
-    limits:
-      cpu: 100m
-      memory: 256Mi
-  restartPolicy: Never
