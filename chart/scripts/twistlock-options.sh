@@ -8,8 +8,8 @@
 # shellcheck disable=SC1091,SC2016
 
 set -e
-# set -v
-# set -x
+#set -v
+#set -x
 
 # Import common environment variables and functions
 MYDIR="$(dirname "$(readlink -f "$0")")"

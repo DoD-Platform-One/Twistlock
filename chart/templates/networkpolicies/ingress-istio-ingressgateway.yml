@@ -23,4 +23,6 @@ spec:
         protocol: TCP
       - port: {{ .Values.console.ports.managementHttps }} #TLS configured UI console Port
         protocol: TCP
+      - port: {{ .Values.console.ports.communication }} #Communication between the Defender(s) and the Console
+        protocol: TCP
 {{- end }}

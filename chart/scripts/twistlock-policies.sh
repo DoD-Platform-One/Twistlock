@@ -20,8 +20,8 @@
 # shellcheck disable=SC1091,SC2016,SC2034
 
 set -e
-# set -v
-# set -x
+#set -v
+#set -x
 
 # Import common environment variables and functions
 MYDIR="$(dirname "$(readlink -f "$0")")"
@@ -277,6 +277,7 @@ merge_json() {
 update_policy() {
   local endpoint=$1
   local newrules=$2
+  local ignorestatus=$3
 
   echo -n "Updating $endpoint ... "
 
@@ -295,7 +296,7 @@ update_policy() {
   local data; data=$(jq "${args[@]}")
 
   # Submit policy
-  callapi "PUT" "$endpoint" "$data"
+  callapi "PUT" "$endpoint" "$data" "$ignorestatus" 
   logok
 }
 
@@ -316,7 +317,7 @@ if [ "$TWISTLOCK_POLICY_VULNERABILITIES_ENABLED" == "true" ]; then
   for endpoint in "${vulnerability_endpoints[@]}"; do
     base_rule "$TWISTLOCK_POLICY_NAME" "policies/vulnerability/$endpoint"
     vulnerability_threshold_rule "$rule" "$TWISTLOCK_POLICY_VULNERABILITIES_ALERT_THRESHOLD"
-    update_policy "policies/vulnerability/$endpoint" "$rule"
+    update_policy "policies/vulnerability/$endpoint" "$rule" "400"
   done
 
 fi
@@ -367,7 +368,7 @@ if [ "$TWISTLOCK_POLICY_COMPLIANCE_ENABLED" == "true" ]; then
       rules="$rule"
     fi
 
-    update_policy "policies/compliance/$endpoint" "$rules"
+    update_policy "policies/compliance/$endpoint" "$rules" "400"
   done
 
 fi
@@ -388,6 +389,6 @@ if [ "$TWISTLOCK_POLICY_RUNTIME_ENABLED" == "true" ]; then
     indirect_rule="TWISTLOCK_RUNTIME_${endpoint^^}_POLICY_RULE_JSON"
     overlay="${!indirect_rule}"
     runtime_rule "$rule" "$overlay"
-    update_policy "policies/runtime/$endpoint" "$rule"
+    update_policy "policies/runtime/$endpoint" "$rule" "400"
   done
 fi
