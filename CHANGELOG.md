@@ -4,7 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.19.0-bb.1] - 2025-02-13
+## [0.19.0-bb.3] - 2025-03-14
+
+### Changed
+
+- Added Istio Operator-less network policy support
+
+## [0.19.0-bb.2] - 2025-03-12
 
 ### Changed
 
