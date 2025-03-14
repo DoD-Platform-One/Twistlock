@@ -11,9 +11,9 @@
 #   TWISTLOCK_RUNTIME
 #   TWISTLOCK_DOCKER_SOCKET             (optional)
 #   TWISTLOCK_DEFENDER_IMAGE            (optional)
+#   TWISTLOCK_DEFENDER_NODE_SELECTOR    (optional)
 #   TWISTLOCK_MONITOR_ISTIO             (optional)
 #   TWISTLOCK_NAMESPACE
-#   TWISTLOCK_NODE_SELECTOR             (optional)
 #   TWISTLOCK_ORCHESTRATION
 #   TWISTLOCK_PRIVILEGED                (optional)
 #   TWISTLOCK_PROXY_ADDR                (optional)
@@ -24,12 +24,18 @@
 #   TWISTLOCK_SELINUX                   (optional)
 #   TWISTLOCK_MONITOR_SERVICE_ACCOUNTS  (optional)
 #   TWISTLOCK_UNIQUE_HOSTS              (optional)
+#   TWISTLOCK_PRIORITY_CLASS            (optional)
 #######################################
 # shellcheck disable=SC1091,SC2016
 
 set -e
 # set -v
 # set -x
+
+TWISTLOCK_DEFENDER_WSS_TARGET=${TWISTLOCK_DEFENDER_WSS_TARGET:-"$TWISTLOCK_CONSOLE_SERVICE"}
+
+echo "TWISTLOCK_CONSOLE_SERVICE: $TWISTLOCK_CONSOLE_SERVICE"
+echo "Defenders will point to: $TWISTLOCK_DEFENDER_WSS_TARGET"
 
 # Import common environment variables and functions
 if [[ $OSTYPE == 'darwin'* ]]; then
@@ -61,13 +67,13 @@ get_defender_manifests() {
   filter=("{}")
   if [ -n "$TWISTLOCK_CLUSTER" ]; then args+=("--arg" "cluster" "$TWISTLOCK_CLUSTER"); filter+=('| .cluster=$cluster'); fi
   if [ -n "$TWISTLOCK_COLLECT_LABELS" ]; then args+=("--argjson" "collectPodLabels" "$TWISTLOCK_COLLECT_LABELS"); filter+=('| .collectPodLabels=$collectPodLabels'); fi
-  args+=("--arg" "consoleAddr" "$TWISTLOCK_CONSOLE_SERVICE"); filter+=('| .consoleAddr=$consoleAddr')
+  args+=("--arg" "consoleAddr" "$TWISTLOCK_DEFENDER_WSS_TARGET"); filter+=('| .consoleAddr=$consoleAddr')
   if [ -n "$TWISTLOCK_RUNTIME" ]; then args+=("--arg" "containerRuntime" "$TWISTLOCK_RUNTIME"); filter+=('| .containerRuntime=$containerRuntime'); fi
   if [ -n "$TWISTLOCK_DOCKER_SOCKET" ]; then args+=("--arg" "dockerSocketPath" "$TWISTLOCK_DOCKER_SOCKET"); filter+=('| .dockerSocketPath=$dockerSocketPath'); fi
   if [ -n "$TWISTLOCK_DEFENDER_IMAGE" ]; then args+=("--arg" "image" "$TWISTLOCK_DEFENDER_IMAGE"); filter+=('| .image=$image'); fi
   if [ -n "$TWISTLOCK_MONITOR_ISTIO" ]; then args+=("--argjson" "istio" "$TWISTLOCK_MONITOR_ISTIO"); filter+=('| .istio=$istio'); fi
   args+=("--arg" "namespace" "$TWISTLOCK_NAMESPACE"); filter+=('| .namespace=$namespace')
-  if [ -n "$TWISTLOCK_NODE_SELECTOR" ]; then args+=("--arg" "nodeSelector" "$TWISTLOCK_NODE_SELECTOR"); filter+=('| .nodeSelector=$nodeSelector'); fi
+  if [ -n "$TWISTLOCK_DEFENDER_NODE_SELECTOR" ]; then args+=("--arg" "nodeSelector" "$TWISTLOCK_DEFENDER_NODE_SELECTOR"); filter+=('| .nodeSelector=$nodeSelector'); fi
   args+=("--arg" "orchestration" "$TWISTLOCK_ORCHESTRATION"); filter+=('| .orchestration=$orchestration')
   if [ -n "$TWISTLOCK_PRIVILEGED" ]; then args+=("--argjson" "privileged" "$TWISTLOCK_PRIVILEGED"); filter+=('| .privileged=$privileged'); fi
   if [ -n "$TWISTLOCK_PROXY_ADDR" ]; then
@@ -80,12 +86,23 @@ get_defender_manifests() {
   if [ -n "$TWISTLOCK_SELINUX" ]; then args+=("--argjson" "selinux" "$TWISTLOCK_SELINUX"); filter+=('| .selinux=$selinux'); fi
   if [ -n "$TWISTLOCK_MONITOR_SERVICE_ACCOUNTS" ]; then args+=("--argjson" "serviceAccounts" "$TWISTLOCK_MONITOR_SERVICE_ACCOUNTS"); filter+=('| .serviceAccounts=$serviceAccounts'); fi
   if [ -n "$TWISTLOCK_UNIQUE_HOSTS" ]; then args+=("--argjson" "uniqueHostName" "$TWISTLOCK_UNIQUE_HOSTS"); filter+=('| .uniqueHostName=$uniqueHostName'); fi
+  if [ -n "$TWISTLOCK_PRIORITY_CLASS" ]; then args+=("--arg" "priorityClassName" "$TWISTLOCK_PRIORITY_CLASS"); filter+=('| .priorityClassName=$priorityClassName'); fi
   args+=("${filter[*]}")
   DATA=$(jq "${args[@]}")
 
   # Retrieve manifests from API
   callapi "POST" "defenders/daemonset.yaml" "$DATA"
   logok
+
+  # Add pod labels for Kiali (if specified in .Values.defender.podLabels) to Defender DaemonSet
+  if [ -n "$TWISTLOCK_DEFENDER_PODLABELS" ]; then
+    RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_PODLABELS") yq e 'select(.kind == "DaemonSet").spec.template.metadata.labels += (env(item))' | "$SED" 's/{}//g')
+  fi
+
+  # Add resource requests and limits (if specified in .Values.defender.resources) to Defender DaemonSet
+  if [ -n "$TWISTLOCK_DEFENDER_RESOURCES" ]; then
+    RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_RESOURCES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[]|= select(.name == "twistlock-defender").resources = (env(item))' | "$SED" 's/{}//g')
+  fi
 
   # Add tolerations (if specified in .Values.defender.tolerations) to Defender Daemonset
   if [ -n "$TWISTLOCK_DEFENDER_TOLERATIONS" ]; then
@@ -95,6 +112,11 @@ get_defender_manifests() {
   # Add security context capabilities drop (if specified in .Values.defender.securityCapabilitiesDrop) to Defender Daemonset
   if [ -n "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_DROP_CAPABILITIES" ]; then
     RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_DROP_CAPABILITIES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[].securityContext.capabilities.drop += (env(item))' | "$SED" 's/{}//g')
+  fi
+
+  # Add security context capabilities add (if specified in .Values.defender.securityCapabilitiesAdd) to Defender Daemonset
+  if [ -n "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_ADD_CAPABILITIES" ]; then
+    RESP=$(echo -e "$RESP" | item=$(echo -e "$TWISTLOCK_DEFENDER_SECURITYCONTEXT_ADD_CAPABILITIES") yq e 'select(.kind == "DaemonSet").spec.template.spec.containers[].securityContext.capabilities.add += (env(item))' | "$SED" 's/{}//g')
   fi
 
   echo "$RESP" > ./twistlock-defenders.yaml

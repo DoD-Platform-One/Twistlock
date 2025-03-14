@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.1] - 2025-02-13
+
+### Changed
+
+- Edited contrib script `twistlock-defenders.sh` and `chart/scripts/contrib/scripts/il2-bb-sil-prod-example.env` env file to allow manual deployment of twistlock to support multi-cluster scenarios.
+
 ## [0.19.0-bb.0] - 2025-02-01
 
 ### Changed
