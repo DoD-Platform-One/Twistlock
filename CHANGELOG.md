@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.5] - 2025-03-28
+
+### Changed
+
+- Updated bbtests image to jq 1.7.1
+
 ## [0.19.0-bb.4] - 2025-03-28
 
 ### Changed
