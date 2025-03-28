@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.19.0-bb.4](https://img.shields.io/badge/Version-0.19.0--bb.4-informational?style=flat-square) ![AppVersion: 33.03.138](https://img.shields.io/badge/AppVersion-33.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.19.0-bb.5](https://img.shields.io/badge/Version-0.19.0--bb.5-informational?style=flat-square) ![AppVersion: 33.03.138](https://img.shields.io/badge/AppVersion-33.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 ## Upstream References
 
@@ -149,7 +149,7 @@ helm install twistlock chart/
 | resources | object | `{"limits":{"cpu":"250m","memory":"3Gi"},"requests":{"cpu":"250m","memory":"3Gi"}}` | resources for console pod |
 | openshift | bool | `false` | Toggle to setup special configuration for OpenShift clusters |
 | bbtests.enabled | bool | `false` | Toggle bbtests on/off for CI/Dev |
-| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.7"` | Image to use for script tests |
+| bbtests.scripts.image | string | `"registry1.dso.mil/ironbank/stedolan/jq:1.7.1"` | Image to use for script tests |
 | bbtests.scripts.envs | object | `{"desired_version":"{{ .Values.console.image.tag }}","twistlock_host":"http://twistlock-console.twistlock.svc.cluster.local:8081"}` | Set envs for use in script tests |
 | bbtests.cypress.resources.requests.cpu | string | `"2"` |  |
 | bbtests.cypress.resources.requests.memory | string | `"2Gi"` |  |
