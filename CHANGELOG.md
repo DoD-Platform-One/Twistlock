@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.4] - 2025-03-28
+
+### Changed
+
+- ironbank/stedolan/jq updated from 1.7 to 1.7.1
+
 ## [0.19.0-bb.3] - 2025-03-14
 
 ### Changed
