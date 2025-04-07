@@ -4,6 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.6] - 2025-04-4
+
+### Changed
+
+- Update registry1.dso.mil/ironbank/opensource/kubernetes/kubectl from `1.30.9` to `v1.32.3`
+- Replaced jq image `ironbank/stedolan/jq 1.7.1` with  Big Bang Base `registry1.dso.mil/bigbang-ci/devops-tester:1.1.2`
+- Uopdated Gluon from 0.5.14 -> 0.5.15
+
 ## [0.19.0-bb.5] - 2025-03-28
 
 ### Changed
