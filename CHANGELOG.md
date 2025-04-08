@@ -4,11 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.19.0-bb.6] - 2025-04-4
+## [0.19.0-bb.7] - 2025-04-07
 
 ### Changed
 
-- Update registry1.dso.mil/ironbank/opensource/kubernetes/kubectl from `1.30.9` to `v1.32.3`
+- Removed jq image: `registry1.dso.mil/ironbank/stedolan/jq:1.7.1` from Chart.yaml's helm.sh/images 
+
+## [0.19.0-bb.6] - 2025-04-04
+
+### Changed
+
 - Replaced jq image `ironbank/stedolan/jq 1.7.1` with  Big Bang Base `registry1.dso.mil/bigbang-ci/devops-tester:1.1.2`
 - Uopdated Gluon from 0.5.14 -> 0.5.15
 
