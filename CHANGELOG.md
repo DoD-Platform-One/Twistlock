@@ -4,11 +4,17 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.8] - 2025-04-08
+
+### Changed
+
+- Replaced bbtests.scripts.image with Big Bang Base `registry1.dso.mil/ironbank/big-bang/base:2.1.0`
+
 ## [0.19.0-bb.7] - 2025-04-07
 
 ### Changed
 
-- Removed jq image: `registry1.dso.mil/ironbank/stedolan/jq:1.7.1` from Chart.yaml's helm.sh/images 
+- Removed jq image: `registry1.dso.mil/ironbank/stedolan/jq:1.7.1` from Chart.yaml's helm.sh/images
 
 ## [0.19.0-bb.6] - 2025-04-04
 

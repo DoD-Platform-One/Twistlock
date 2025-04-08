@@ -393,7 +393,7 @@ bbtests:
   enabled: false
   scripts:
     # -- Image to use for script tests
-    image: registry1.dso.mil/bigbang-ci/devops-tester:1.1.2
+    image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     # -- Set envs for use in script tests
     envs:
       twistlock_host: "http://twistlock-console.twistlock.svc.cluster.local:8081"
