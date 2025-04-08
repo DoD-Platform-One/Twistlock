@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.19.0-bb.6](https://img.shields.io/badge/Version-0.19.0--bb.6-informational?style=flat-square) ![AppVersion: 33.03.138](https://img.shields.io/badge/AppVersion-33.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.19.0-bb.7](https://img.shields.io/badge/Version-0.19.0--bb.7-informational?style=flat-square) ![AppVersion: 33.03.138](https://img.shields.io/badge/AppVersion-33.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 ## Upstream References
 
@@ -161,7 +161,7 @@ helm install twistlock chart/
 | bbtests.cypress.envs.cypress_password | string | `"change_this_password"` |  |
 | bbtests.cypress.envs.CYPRESS_experimental_Modify_Obstructive_Third_Party_Code | string | `"true"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.3"` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.11"` |  |
 | waitJob.permissions.apiGroups | object | `{}` |  |
 | waitJob.permissions.resources | object | `{}` |  |
 
