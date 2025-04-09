@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.9] - 2025-04-09
+
+### Changed
+
+- Cleaned up unused images
+
 ## [0.19.0-bb.8] - 2025-04-08
 
 ### Changed
