@@ -35,7 +35,7 @@ sso:
   # -- Groups attribute (optional)
   groups: ""
 
-  # -- X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `|-` syntax for multiline string
+  # -- X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `\|-` syntax for multiline string
   cert: ""
 
 istio:
@@ -398,6 +398,8 @@ bbtests:
     envs:
       twistlock_host: "http://twistlock-console.twistlock.svc.cluster.local:8081"
       desired_version: "{{ .Values.console.image.tag }}"
+      cypress_user: "{{ .Values.console.credentials.username }}"
+      cypress_password: "{{ .Values.console.credentials.password }}"
   cypress:
     resources:
       requests:
@@ -409,8 +411,8 @@ bbtests:
     artifacts: true
     envs:
       cypress_twistlock_url: "http://twistlock-console.twistlock.svc.cluster.local:8081"
-      cypress_user: "admin"
-      cypress_password: "change_this_password"
+      cypress_user: "{{ .Values.console.credentials.username }}"
+      cypress_password: "{{ .Values.console.credentials.password }}"
       CYPRESS_experimental_Modify_Obstructive_Third_Party_Code: "true"
 
 waitJob:
