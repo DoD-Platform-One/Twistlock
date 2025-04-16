@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.19.0-bb.10] - 2025-04-15
+
+### Changed
+
+- Added test for defender connection
+
 ## [0.19.0-bb.9] - 2025-04-09
 
 ### Changed

@@ -8,9 +8,7 @@ describe("Check TL", () => {
   it('Check for license without raising exceptions for null values', { retries: 15 }, () => {
     const retries = Cypress.currentRetry;
     cy.log('Retry: ' + retries);
-
     cy.intercept('GET', '**/api/v1/settings/license?project=Central+Console').as('license');
-
     cy.visit(Cypress.env('twistlock_url') + "/#!/manage/system/license");
     if (retries === 0) {
       twistlock_login();
@@ -20,9 +18,10 @@ describe("Check TL", () => {
     cy.wait('@license', { timeout: 30000 }).then(({ response }) => {
       cy.log('License response: "' + JSON.stringify(response) + '"').then(() => {
         if (response.body) {
-          assert.isNotNull(response.body, 'License not Found - ' + response.body);
+          cy.visit(Cypress.env('twistlock_url') + "/#!/manage/system/license");
+          assert.isNotNull(response.body, 'License Found - ' + JSON.stringify(response.body));
         } else {
-          cy.log('License response is null or undefined.');
+          cy.log('License response is null or not found.');
         }
       });
     });
