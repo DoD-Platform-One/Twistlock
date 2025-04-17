@@ -5,7 +5,7 @@ console:
   persistence:
     size: 5Gi
   localVolumeUpgrade: true
- 
+
 defender:
   dockerSocket: "/run/k3s/containerd/containerd.sock"
 

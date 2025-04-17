@@ -4,6 +4,13 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.20.0-bb.0] - 2025-04-10
+
+### Changed
+
+- registry1.dso.mil/ironbank/twistlock/console/console updated from 33.03.138 to 34.00.137
+- registry1.dso.mil/ironbank/twistlock/defender/defender updated from 33.03.138 to 34.00.137
+
 ## [0.19.0-bb.10] - 2025-04-15
 
 ### Changed
