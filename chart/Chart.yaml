@@ -1,7 +1,7 @@
 apiVersion: v2
 name: twistlock
-version: 0.19.0-bb.10
-appVersion: 33.03.138
+version: 0.20.0-bb.0
+appVersion: 34.00.137
 dependencies:
   - name: gluon
     version: 0.5.15
@@ -11,15 +11,15 @@ sources:
 annotations:
   bigbang.dev/maintenanceTrack: bb_integrated
   bigbang.dev/applicationVersions: |
-    - Twistlock: 33.03.138
+    - Twistlock: 34.00.137
   # The base image is utilized when init job is enabled and during upgrades when volumeUpgrade for the console is enabled.
   helm.sh/images: |
     - name: base
       image: registry1.dso.mil/ironbank/big-bang/base:2.1.0
     - name: console
-      image: registry1.dso.mil/ironbank/twistlock/console/console:33.03.138
+      image: registry1.dso.mil/ironbank/twistlock/console/console:34.00.137
     - name: defender
-      image: registry1.dso.mil/ironbank/twistlock/defender/defender:33.03.138
+      image: registry1.dso.mil/ironbank/twistlock/defender/defender:34.00.137
       condition: defender.enabled
     - name: kubectl
       image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.30.11
