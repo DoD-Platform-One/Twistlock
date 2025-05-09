@@ -1,13 +1,35 @@
-networkPolicies:
+#########################
+# Disable Core Packages #
+#########################
+monitoring:
+  enabled: false
+grafana:
+  enabled: false
+neuvector:
+  enabled: false
+loki:
+  enabled: false
+promtail:
+  enabled: false
+tempo:
+  enabled: false
+kyvernoReporter:
+  enabled: false
+kiali:
+  enabled: false
+addons:
+  minioOperator:
+    enabled: false
+########################
+# Required for package #
+########################
+twistlock:
   enabled: true
-
-console:
-  persistence:
-    size: 5Gi
-  localVolumeUpgrade: true
-
-defender:
-  dockerSocket: "/run/k3s/containerd/containerd.sock"
-
-bbtests:
-  enabled: true
+kyvernoPolicies:
+  values:
+    bbtests:
+      enabled: false
+kyverno:
+  values:
+    bbtests:
+      enabled: false
