@@ -4,8 +4,16 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
-## [0.20.1-bb.0] (2025-04-30)
+## [0.20.1-bb.1] - 2025-05-28
+
 ### Changed
+
+- Update init container images in volume-upgrade-job.yaml to use values from configuration
+
+## [0.20.1-bb.0] (2025-04-30)
+
+### Changed
+
 - gluon updated from 0.5.15 to 0.5.16
 - kubectl updated from v1.30.11 to v1.32.4
 - registry1.dso.mil/ironbank/twistlock/console/console updated from 34.00.137 to 34.00.141 (vendor hotfix for better IngressNightmare detection)
