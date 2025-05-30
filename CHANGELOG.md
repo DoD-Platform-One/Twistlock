@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.20.1-bb.2] (2025-05-30)
+
+### Changed
+
+- added scripts/get-all-vuln-reports.sh to collect ATO BoE
+
 ## [0.20.1-bb.1] - 2025-05-28
 
 ### Changed
