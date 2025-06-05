@@ -171,7 +171,7 @@ Please set the values as per your need.
 ```
 ## Testing Twistlock Groups Version
 
-- The below values are an example, you will need to request the development license from someone on the team.
+- The below values are an example: 
 
   ```yaml
   twistlock:
@@ -193,3 +193,31 @@ Please set the values as per your need.
         selinux: false
         privileged: true
   ```
+## Twistlock License
+Obtain the Big Bang dev twistlock license by following the below instructions:
+
+Clone the dogfood repo if you have not already, from https://repo1.dso.mil/big-bang/team/deployments/bigbang.git
+this repo contains the license file here: [bigbang/prod2/environment-bb-secret.enc.yaml](https://repo1.dso.mil/big-bang/team/deployments/bigbang/-/blob/master/bigbang/prod2/environment-bb-secret.enc.yaml)
+
+Then run:
+```
+sops -d bigbang/prod2/environment-bb-secret.enc.yaml | yq '.stringData."values.yaml"' | yq '.twistlock.values.console.license'
+```
+Add the full output from that command under license key in your override values (shown below), making sure that indentation is properly preserved
+
+```
+twistlock:
+    values:
+        console:
+            # Credentials for admin account
+            # If this is a new install, the account will be created
+            credentials:
+                username: "bigbang"
+                password: "paloAlto4Life"
+                # twistlock credentials
+                # Default admin is bigbang:paloAlto4Life
+            license: "license_here"
+        init:
+            enabled: true
+```
+
