@@ -4,6 +4,14 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.21.0-bb.0] (2025-06-05)
+
+### Changed
+- gluon updated from 0.5.16 to 0.6.2
+- ironbank/opensource/kubernetes/kubectl updated from v1.32.4 to v1.32.5
+- ironbank/twistlock/console/console updated from 34.00.141 to 34.01.126
+- ironbank/twistlock/defender/defender updated from 34.00.141 to 34.01.126
+
 ## [0.20.1-bb.2] (2025-05-30)
 
 ### Changed
