@@ -61,6 +61,8 @@ spec:
                 values:
                 - {{ template "twistlock-console.name" . }}
             topologyKey: "kubernetes.io/hostname"
+      tolerations:
+        {{- toYaml .Values.tolerations | nindent 8 }}
       restartPolicy: OnFailure
       serviceAccountName: volume-upgrade-svc-acct
       initContainers:
