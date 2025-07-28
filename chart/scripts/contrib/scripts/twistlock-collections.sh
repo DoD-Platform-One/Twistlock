@@ -242,6 +242,17 @@ get_collection_namespaces_images() {
     fi
 }
 
+collection_exists() {
+    local collection_name; collection_name=$1
+    local collections; collections=$(get_collection_names)
+    for c in $collections; do
+        if [[ "$collection_name" == "$c" ]]; then
+            echo -n "true"
+            break
+        fi
+    done
+}
+
 verify_collection() {
     local collection_name; collection_name=$1
     local collections; collections=$(get_collection_names)
@@ -378,14 +389,13 @@ create_custom_role(){
 # Prints the collections found as a JSON string
 get_collections() {
     callapi "GET" "collections"
-    #echo -n "$RESP"
+    echo -n "$RESP"
 }
 
 
 # Prints the collection names separated by newlines
 get_collection_names() {
     get_collections | jq -r '.[].name'
-    echo $RESP
 }
 
 
