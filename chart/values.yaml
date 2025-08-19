@@ -418,7 +418,7 @@ bbtests:
 waitJob:
   enabled: true
   scripts:
-    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.7
+    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.8
   permissions:
     apiGroups: {}
     resources: {}

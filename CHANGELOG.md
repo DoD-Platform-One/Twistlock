@@ -4,6 +4,10 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.22.0-bb.1] (2025-08-19)
+### Changed
+- gluon updated from 0.7.0 to 0.8.0
+
 ## [0.22.0-bb.0] (2025-07-29)
 ### Changed
 - gluon updated from 0.6.2 to 0.7.0
