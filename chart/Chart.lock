@@ -1,6 +1,6 @@
 dependencies:
 - name: gluon
   repository: oci://registry1.dso.mil/bigbang
-  version: 0.8.0
-digest: sha256:79e2781ccfce3d69ad7526703bb346aee3ed1a8275a8e86c88a9a85130cec6f7
-generated: "2025-08-19T06:18:32.45110883Z"
+  version: 0.8.4
+digest: sha256:5066024df53f63254c1376f889e40d822773a8087a0148b8640127788b0213fb
+generated: "2025-09-05T10:57:53.490495429-04:00"

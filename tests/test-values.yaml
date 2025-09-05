@@ -23,6 +23,9 @@ addons:
 ########################
 twistlock:
   enabled: true
+  values:
+    bbtests:
+      enabled: true
 kyvernoPolicies:
   values:
     bbtests:
