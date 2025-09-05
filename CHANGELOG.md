@@ -4,8 +4,19 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.23.0-bb.0] (2025-08-26)
+### Changed
+
+- gluon updated from 0.8.0 to 0.8.4
+- Updated ironbank/opensource/kubernetes/kubectl v1.32.8 -> v1.33.4
+- Updated ironbank/twistlock/console/console 34.01.132 -> 34.02.133
+- Updated ironbank/twistlock/defender/defender 34.01.132 -> 34.02.133
+- Added collect_pod_labels and set it to true values the yaml
+- Added collect_pod_resource_labels and set it to true values the yaml
+
 ## [0.22.0-bb.1] (2025-08-19)
 ### Changed
+
 - gluon updated from 0.7.0 to 0.8.0
 
 ## [0.22.0-bb.0] (2025-07-29)

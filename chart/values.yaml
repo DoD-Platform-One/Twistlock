@@ -114,7 +114,7 @@ console:
     # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     # -- Full image tag for console
-    tag: 34.01.132
+    tag: 34.02.133
     # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
   ports:
@@ -220,7 +220,14 @@ defender:
     # -- Repository and path for defender image
     repository: registry1.dso.mil/ironbank/twistlock/defender/defender
     # -- Image tag for defender
-    tag: 34.01.132
+    tag: 34.02.133
+
+  # Collects Namespace and Deployment labels as part of the Pod information
+  collect_pod_labels: true
+
+  # Collects labels of the pod containing the defender
+  collect_pod_resource_labels: true
+
   # This value should not be modified unless instructed to by Twistlock Support
   certCn: ""
   # -- Name of cluster
@@ -418,7 +425,9 @@ bbtests:
 waitJob:
   enabled: true
   scripts:
-    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.32.8
+    image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.33.4
   permissions:
-    apiGroups: {}
-    resources: {}
+    apiGroups: [""]
+    resources: ["pods", "namespaces"]
+    verbs: ["get", "list", "watch"]
+
