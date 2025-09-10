@@ -1,30 +1,50 @@
 {
-  "baseBranches": ["main"],
+  "baseBranches": [
+    "main"
+  ],
   "dependencyDashboard": true,
   "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
   "draftPR": true,
-  "ignorePaths": ["chart/charts/**"],
-  "labels": ["twistlock","renovate"],
+  "ignorePaths": [
+    "chart/charts/**"
+  ],
+  "labels": [
+    "twistlock",
+    "renovate"
+  ],
   "packageRules": [
     {
-        "matchDatasources": ["docker"],
-        "groupName": "Twistlock",
-        "registryUrls": ["https://registry1.dso.mil"],
-        "postUpgradeTasks": {
-          "commands": [
-              "bump-chart-yaml",
-              "regenerate-helm-docs",
-              "bump-changelog '- {{{replace 'registry1.dso.mil/' '' depName}}} updated from {{{currentVersion}}} to {{{newVersion}}}'"
-          ],
-          "fileFilters": ["chart/Chart.yaml", "README.md", "CHANGELOG.md"]
-        }
+      "matchDatasources": [
+        "docker"
+      ],
+      "groupName": "Twistlock",
+      "registryUrls": [
+        "https://registry1.dso.mil"
+      ],
+      "postUpgradeTasks": {
+        "commands": [
+          "bump-chart-yaml",
+          "regenerate-helm-docs",
+          "bump-changelog '- {{{replace 'registry1.dso.mil/' '' depName}}} updated from {{{currentVersion}}} to {{{newVersion}}}'"
+        ],
+        "fileFilters": [
+          "chart/Chart.yaml",
+          "README.md",
+          "CHANGELOG.md"
+        ]
+      }
     }
-   ],
+  ],
   "separateMajorMinor": false,
-  "postUpdateOptions": ["helmUpdateSubChartArchives"],
-  "regexManagers": [
+  "postUpdateOptions": [
+    "helmUpdateSubChartArchives"
+  ],
+  "customManagers": [
     {
-      "fileMatch": ["^chart/values\\.yaml$"],
+      "customType": "regex",
+      "fileMatch": [
+        "^chart/values\\.yaml$"
+      ],
       "matchStrings": [
         "repository:\\s+(?<depName>.+)\\n[a-zA-Z0-9#`_.-]*\\n\\s+tag:\\s+(?<currentValue>.+)",
         "image:\\s+(?<depName>.+):(?<currentValue>.+)"
@@ -32,14 +52,20 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^tests/images\\.txt$"],
+      "customType": "regex",
+      "fileMatch": [
+        "^tests/images\\.txt$"
+      ],
       "matchStrings": [
         "s*(?<depName>.+):(?<currentValue>.+)"
       ],
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "customType": "regex",
+      "fileMatch": [
+        "^chart/Chart\\.yaml$"
+      ],
       "matchStrings": [
         "- Twistlock:\\s+(?<currentValue>.+)",
         "appVersion:\\s+(?<currentValue>.+)"
@@ -48,11 +74,14 @@
       "datasourceTemplate": "docker"
     },
     {
-      "fileMatch": ["^chart/Chart\\.yaml$"],
+      "customType": "regex",
+      "fileMatch": [
+        "^chart/Chart\\.yaml$"
+      ],
       "matchStrings": [
         "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
-       ],
-       "datasourceTemplate": "docker"
+      ],
+      "datasourceTemplate": "docker"
     }
   ]
 }
