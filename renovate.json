@@ -42,8 +42,8 @@
   "customManagers": [
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/values\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
       ],
       "matchStrings": [
         "repository:\\s+(?<depName>.+)\\n[a-zA-Z0-9#`_.-]*\\n\\s+tag:\\s+(?<currentValue>.+)",
@@ -53,8 +53,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^tests/images\\.txt$"
+      "managerFilePatterns": [
+        "/^tests/images\\.txt$/"
       ],
       "matchStrings": [
         "s*(?<depName>.+):(?<currentValue>.+)"
@@ -63,8 +63,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/Chart\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
         "- Twistlock:\\s+(?<currentValue>.+)",
@@ -75,8 +75,8 @@
     },
     {
       "customType": "regex",
-      "fileMatch": [
-        "^chart/Chart\\.yaml$"
+      "managerFilePatterns": [
+        "/^chart/Chart\\.yaml$/"
       ],
       "matchStrings": [
         "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
