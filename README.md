@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.23.0-bb.0](https://img.shields.io/badge/Version-0.23.0--bb.0-informational?style=flat-square) ![AppVersion: 34.02.133](https://img.shields.io/badge/AppVersion-34.02.133-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.23.0-bb.1](https://img.shields.io/badge/Version-0.23.0--bb.1-informational?style=flat-square) ![AppVersion: 34.02.133](https://img.shields.io/badge/AppVersion-34.02.133-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 ## Upstream References
 
@@ -24,7 +24,7 @@
 
 Install Helm
 
-https://helm.sh/docs/intro/install/
+<https://helm.sh/docs/intro/install/>
 
 ## Deployment
 
@@ -48,8 +48,8 @@ helm install twistlock chart/
 | sso.client_id | string | `""` | SAML client ID |
 | sso.provider_name | string | `""` | SAML Povider Alias (optional) |
 | sso.provider_type | string | `"shibboleth"` | SAML Identity Provider. `shibboleth` is recommended by Twistlock support for Keycloak |
-| sso.issuer_uri | string | `""` | Identity Provider url with path to realm, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda |
-| sso.idp_url | string | `""` | SAML Identity Provider SSO URL, example: https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml" |
+| sso.issuer_uri | string | `""` | Identity Provider url with path to realm, example: <https://keycloak.bigbang.dev/auth/realms/baby-yoda> |
+| sso.idp_url | string | `""` | SAML Identity Provider SSO URL, example: <https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml>" |
 | sso.console_url | string | `""` | Console URL of the Twistlock app. Example: `https://twistlock.bigbang.dev` (optional) |
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `\|-` syntax for multiline string |
@@ -69,7 +69,7 @@ helm install twistlock chart/
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` | Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster |
 | networkPolicies.nodeCidr | string | `nil` | Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks. use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range. Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs) |
 | imagePullSecretName | string | `"private-registry"` | Defines the secret to use when pulling the container images |
-| selinuxLabel | string | `"disable"` | Run Twistlock Console and Defender with a dedicated SELinux label. See https://docs.docker.com/engine/reference/run/#security-configuration |
+| selinuxLabel | string | `"disable"` | Run Twistlock Console and Defender with a dedicated SELinux label. See <https://docs.docker.com/engine/reference/run/#security-configuration> |
 | systemd | object | `{"enabled":false}` | systemd configuration |
 | systemd.enabled | bool | `false` | option to install Twistlock as systemd service. true or false |
 | console.dataRecovery | bool | `true` | Enables or Disables data recovery. Values: true or false. |
@@ -83,7 +83,7 @@ helm install twistlock chart/
 | console.persistence.size | string | `"100Gi"` | Size of Twistlock PVC |
 | console.persistence.accessMode | string | `"ReadWriteOnce"` | Access mode for Twistlock PVC |
 | console.syslogAuditIntegration | object | `{"enabled":false}` | Enable syslog audit feature When integrating with BigBang, make sure to include an exception to Gatekeeper and/or Kyverno for Volume Types. |
-| console.disableCgroupLimits | bool | `false` | Controls console container's resource constraints. Set to "true" to run without limits. See https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources |
+| console.disableCgroupLimits | bool | `false` | Controls console container's resource constraints. Set to "true" to run without limits. See <https://docs.docker.com/engine/reference/run/#runtime-constraints-on-resources> |
 | console.license | string | `""` | The license key to use.  If not specified, the license must be installed manually. |
 | console.runAsRoot | bool | `false` | Run Twistlock Console processes as root (default false, twistlock user account). Values: true or false |
 | console.credentials | object | `{"password":"change_this_password","username":"admin"}` | Required if init is enabled.  Admin account to use for configuration through API.  Will create account if Twistlock is a new install.  Otherwise, an existing account needs to be provided. |
@@ -104,7 +104,7 @@ helm install twistlock chart/
 | console.trustedImages.registryMatches | list | `["registry1.dso.mil/ironbank/*"]` | List of regex matches for images to trust |
 | console.trustedImages.name | string | `"BigBang-Trusted"` | Name for the group/rule to display in console |
 | console.trustedImages.defaultEffect | string | `"alert"` | Effect for images that do not match the trusted registry, can be "alert" or "block" |
-| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"34.02.133"},"monitorServiceAccounts":true,"priorityClassName":"","privileged":false,"proxy":{},"resources":{"limits":{"cpu":2,"memory":"2Gi"},"requests":{"cpu":2,"memory":"2Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
+| defender | object | `{"certCn":"","clusterName":"","collectLabels":true,"collect_pod_labels":true,"collect_pod_resource_labels":true,"containerRuntime":"containerd","dockerListenerType":"","dockerSocket":"","enabled":true,"image":{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"34.02.133"},"monitorServiceAccounts":true,"priorityClassName":"","privileged":false,"proxy":{},"resources":{"limits":{"cpu":2,"memory":"2Gi"},"requests":{"cpu":2,"memory":"2Gi"}},"securityCapabilitiesAdd":["NET_ADMIN","NET_RAW","SYS_ADMIN","SYS_PTRACE","SYS_CHROOT","MKNOD","SETFCAP","IPC_LOCK"],"securityCapabilitiesDrop":["ALL"],"selinux":true,"tolerations":[],"uniqueHostName":false}` | Configuration of Twistlock's container defenders.  This requires `init.enabled`=`true`, valid credentials, and a valid license. |
 | defender.image | object | `{"repository":"registry1.dso.mil/ironbank/twistlock/defender/defender","tag":"34.02.133"}` | Image for Twistlock defender.  Leave blank to use twistlock official repo. |
 | defender.image.repository | string | `"registry1.dso.mil/ironbank/twistlock/defender/defender"` | Repository and path for defender image |
 | defender.image.tag | string | `"34.02.133"` | Image tag for defender |
@@ -161,9 +161,13 @@ helm install twistlock chart/
 | bbtests.cypress.envs.cypress_password | string | `"{{ .Values.console.credentials.password }}"` |  |
 | bbtests.cypress.envs.CYPRESS_experimental_Modify_Obstructive_Third_Party_Code | string | `"true"` |  |
 | waitJob.enabled | bool | `true` |  |
-| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.33.4"` |  |
-| waitJob.permissions.apiGroups | object | `{}` |  |
-| waitJob.permissions.resources | object | `{}` |  |
+| waitJob.scripts.image | string | `"registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.33.5"` |  |
+| waitJob.permissions.apiGroups[0] | string | `""` |  |
+| waitJob.permissions.resources[0] | string | `"pods"` |  |
+| waitJob.permissions.resources[1] | string | `"namespaces"` |  |
+| waitJob.permissions.verbs[0] | string | `"get"` |  |
+| waitJob.permissions.verbs[1] | string | `"list"` |  |
+| waitJob.permissions.verbs[2] | string | `"watch"` |  |
 
 ## Contributing
 
@@ -172,4 +176,3 @@ Please see the [contributing guide](./CONTRIBUTING.md) if you are interested in 
 ---
 
 _This file is programatically generated using `helm-docs` and some BigBang-specific templates. The `gluon` repository has [instructions for regenerating package READMEs](https://repo1.dso.mil/big-bang/product/packages/gluon/-/blob/master/docs/bb-package-readme.md)._
-
