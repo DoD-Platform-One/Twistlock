@@ -1,10 +1,10 @@
 apiVersion: v2
 name: twistlock
-version: 0.23.0-bb.1
+version: 0.23.0-bb.2
 appVersion: 34.02.133
 dependencies:
   - name: gluon
-    version: 0.9.2
+    version: 0.9.6
     repository: oci://registry1.dso.mil/bigbang
 sources:
   - https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
