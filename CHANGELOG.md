@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.23.0-bb.3] (2025-11.12)
+
+### Changed
+
+- Update the egress-api network policy template to allow setting vpcCidr
+
 ## [0.23.0-bb.2] (2025-10.29)
 
 ### Changed
