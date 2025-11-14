@@ -91,6 +91,7 @@ networkPolicies:
     istio: ingressgateway
   # -- Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster
   controlPlaneCidr: 0.0.0.0/0
+  vpcCidr: 0.0.0.0/0
   # -- Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks.
   # use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range.
   # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
