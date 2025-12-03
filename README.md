@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.23.0-bb.3](https://img.shields.io/badge/Version-0.23.0--bb.3-informational?style=flat-square) ![AppVersion: 34.02.133](https://img.shields.io/badge/AppVersion-34.02.133-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.23.0-bb.4](https://img.shields.io/badge/Version-0.23.0--bb.4-informational?style=flat-square) ![AppVersion: 34.02.133](https://img.shields.io/badge/AppVersion-34.02.133-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 ## Upstream References
 

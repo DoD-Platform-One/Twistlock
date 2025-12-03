@@ -1,6 +1,6 @@
 apiVersion: v2
 name: twistlock
-version: 0.23.0-bb.3
+version: 0.23.0-bb.4
 appVersion: 34.02.133
 dependencies:
   - name: gluon
@@ -22,7 +22,7 @@ annotations:
       image: registry1.dso.mil/ironbank/twistlock/defender/defender:34.02.133
       condition: defender.enabled
     - name: kubectl
-      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.33.5
+      image: registry1.dso.mil/ironbank/opensource/kubernetes/kubectl:v1.34.2
       condition: waitJob.enabled
 
   bigbang.dev/upstreamReleaseNotesMarkdown: |
