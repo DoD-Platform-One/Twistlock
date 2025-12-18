@@ -201,7 +201,7 @@ this repo contains the license file here: [bigbang/prod2/environment-bb-secret.e
 
 Then run:
 ```
-sops -d bigbang/prod2/environment-bb-secret.enc.yaml | yq '.stringData."values.yaml"' | yq '.twistlock.values.console.license'
+sops -d bigbang-eks/overlays/development/environment-bb-secret.enc.yaml | yq '.stringData."values.yaml"' | yq '.twistlock.values.console.license'
 ```
 Add the full output from that command under license key in your override values (shown below), making sure that indentation is properly preserved
 
