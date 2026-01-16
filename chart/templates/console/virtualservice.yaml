@@ -1,4 +1,4 @@
-{{- if and .Values.istio.enabled .Values.istio.console.enabled -}}
+{{- if and .Values.istio.enabled .Values.istio.console.enabled .Values.istio.console.virtualService.enabled -}}
 apiVersion: networking.istio.io/v1beta1
 kind: VirtualService
 metadata:

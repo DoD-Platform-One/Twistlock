@@ -81,6 +81,8 @@ istio:
     # -- Hosts for VS
     hosts:
       - twistlock.{{ .Values.domain }}
+    virtualService:
+      enabled: true
 
 networkPolicies:
   # -- Toggle network policies
