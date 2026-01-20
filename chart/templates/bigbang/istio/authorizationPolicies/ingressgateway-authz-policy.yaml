@@ -1,4 +1,4 @@
-{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.istio.console.enabled -}}
+{{- if and .Values.istio.enabled .Values.istio.hardened.enabled .Values.istio.console.enabled .Values.istio.console.virtualService.enabled -}}
 {{- range .Values.istio.console.gateways -}}
 {{- $gatewayParts := split "/" . }}
 {{- $namespace := $gatewayParts._0 }}
