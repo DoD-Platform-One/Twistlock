@@ -28,13 +28,15 @@ spec:
       affinity:
         {{ toYaml .Values.affinity | nindent 8 }}
       {{- end }}
-      containers:
       {{- $scriptPath := "/opt/twistlock" }}
+      containers:
       - name: {{ template "twistlock-init.name" . }}
         image: {{ .Values.init.image.repository }}:{{ .Values.init.image.tag }}
         imagePullPolicy: {{ .Values.init.image.imagePullPolicy }}
         command: ["/bin/bash", "{{ $scriptPath }}/twistlock-init.sh"]
         env:
+        - name: TWISTLOCK_DEFENDER_WAIT_FOR_ROLLOUT
+          value: {{ .Values.defender.waitForRollout | quote }}
         - name: TWISTLOCK_CONFIG_DIR
           value: /etc{{ $scriptPath }}
         {{- if .Values.istio.enabled }}
