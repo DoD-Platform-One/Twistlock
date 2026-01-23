@@ -38,6 +38,7 @@ source "$MYDIR/twistlock-common.sh"
 
 echo -n "Retrieving Defender manifests ... "
 
+
 # Build Defender JSON.  Orchestration, Namespace, and Console Address are required.
 args=("-c" "-n")
 filter=("{}")
@@ -100,11 +101,16 @@ echo "Deploying Defenders ..."
 echo "$RESP" | kubectl apply -f -
 # Name of daemonset pulled from manifests
 TWISTLOCK_DEFENDER_DAEMONSET=$(echo "$RESP" | sed -ne '/kind: DaemonSet/,$ p' | grep -m 1 -oP "(?<=name: ).*")
-if kubectl rollout status daemonset -n "$TWISTLOCK_NAMESPACE" "$TWISTLOCK_DEFENDER_DAEMONSET"; then
-  echo -n "Defenders deployed. "
-  logok
+if [ "${TWISTLOCK_DEFENDER_WAIT_FOR_ROLLOUT:-true}" = "true" ]; then
+  if kubectl rollout status daemonset -n "$TWISTLOCK_NAMESPACE" "$TWISTLOCK_DEFENDER_DAEMONSET"; then
+    echo -n "Defenders deployed. "
+    logok
+  else
+    logerror "Problem deploying defenders."
+  fi
 else
-  logerror "Problem deploying defenders."
+  echo "Defender DaemonSet applied (best-effort mode; not waiting for rollout)."
+  logok
 fi
 
 callapi "GET" "version"

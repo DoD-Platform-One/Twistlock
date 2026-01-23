@@ -228,6 +228,9 @@ defender:
   # Collects Namespace and Deployment labels as part of the Pod information
   collect_pod_labels: true
 
+  # -- Wait for defender DaemonSet rollout to complete during init
+  waitForRollout: true
+  
   # Collects labels of the pod containing the defender
   collect_pod_resource_labels: true
 

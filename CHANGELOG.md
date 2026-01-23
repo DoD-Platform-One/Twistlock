@@ -4,6 +4,12 @@ The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/),
 
 ---
 
+## [0.24.0-bb.2] (2026-01-15)
+
+### Changed
+
+- added feature not to wait for defender rollout to complete init job
+
 ## [0.24.0-bb.1] (2026-01-12)
 
 ### Changed
