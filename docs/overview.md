@@ -1,15 +1,15 @@
 # Twistlock
 
-Note: Twistlock was acquired by Paolo Alto Networks and has been rebranded as [Prisma Cloud](https://blog.paloaltonetworks.com/2019/11/cloud-prisma-cloud-compute-edition/). The names are used interchangeably in these documents.
+Note: Twistlock was acquired by Palo Alto Networks and has been rebranded as [Prisma Cloud](https://blog.paloaltonetworks.com/2019/11/cloud-prisma-cloud-compute-edition/). The names are used interchangeably in these documents.
 
 ## Twistlock under DSOP
 
 The Twistlock Platform provides vulnerability management and compliance across the application lifecycle by scanning images and serverless functions to prevent security and compliance issues from progressing through the development pipeline, and continuously monitoring all registries and environments.
 
 This installation follows the Twistlock documented guidance.  Twistlock documentation can be found at:
-<https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/welcome.html>
+<https://docs.prismacloud.io/en/compute-edition/34>
 
-The Twistlock Console is deployed as a part of the gitops.  Once deployed the process of setting up daemonsets is currently a manual process.
+The Twistlock Console is deployed as a part of the gitops.
 
 ## Platform One Prisma Cloud Compute Basic Configuration
 
@@ -28,25 +28,11 @@ This package chart is deployed as part of the BigBang Umbrella chart. When deplo
 
 ### Initial Configuration
 
-The initial login will ask you to create an admin user, and set license key. 
+The initial login will ask you to create an admin user, and set license key.
 
 ### Install Defender from the Console UI
 
-The Daemonset generator is located in the Twistlock Console Under Manage -> Defenders -> Deploy -> Daemonset
-Select the following options:
-
-Choose the name that clients and Defenders use to access this Console - twistlock-console
-Choose the port number that Defenders use to access this Console -  8084
-Choose the cluster orchestrator - kubernetes
-NodeSelector - leave this blank
-Monitor service accounts - On
-Monitor Istio - On
-Collect Deployment and Namespace labels - On
-Use the official Twistlock registry - On (if possible)
-Deploy Defenders with SELinux Policy - Off
-Run Defenders as privileged - On
-Nodes use Container Runtime Interface (CRI), not Docker - On
-Nodes runs inside containerized environment - Off
+The Defender Daemonset is now created automatically by the chart's init job.
 
 ### Daily Use
 
@@ -90,7 +76,8 @@ The roles are as listed:
   - Has no other access to configure Twistlock or view data
   - Minimal amount of access required to run the plugins
 
-For more information see the [official documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/authentication.html).
+For more information see the [official documentation](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/authentication/authentication).
+
 #### Collections
 
 Collections can be used to partition views, which provide a convenient way to browse data from related resources. Collections can also be used to optionally enforce which views specific users and groups can see. They can control access to data on a need-to-know bases or assigned collections. While a single Console manages data from Defenders spread across all hosts, collections let you segment that data into different views based on attributes. Collections are created with pattern matching expressions that are evaluated against attributes such as image name, container name, labels, and namespace.  Selecting a collection reduces the scope displayed in Console to just the relevant components.
@@ -131,11 +118,9 @@ Selecting Collection Procedure
 
 The Collections column shows to which collection a resource belongs. The color assigned to a collection distinguishes objects that belong to specific collections. This is useful when multiple collections are displayed simultaneously. Collections can also be assigned arbitrary text tags to make it easier for users to associate other metadata with a collection.
 
-Please review the BigBang [Architecture Document](https://repo1.dso.mil/platform-one/big-bang/bigbang/-/blob/master/charter/packages/twistlock/Architecture.md) for more information about it's role within BigBang.
-
 ## Granting Egress to Blocked Services
 
-When Istio hardening is enabled through the settings `istio.enabled` and `istio.enabled.hardened`, a sidecar is injected into the twistlock namespace. This sidecar limits network traffic to 'REGISTRY_ONLY', effectively blocking access to external services.
+When Istio hardening is enabled through the settings `istio.enabled` and `istio.hardened.enabled`, a sidecar is injected into the twistlock namespace. This sidecar limits network traffic to 'REGISTRY_ONLY', effectively blocking access to external services.
 
 > **Note:** Access to external services will be blocked.
 

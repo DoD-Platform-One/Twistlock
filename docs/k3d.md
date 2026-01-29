@@ -8,7 +8,9 @@ This document was written and tested against Twistlock 22.01.840, newer versions
 
 ## k3d setup
 
-Below is a k3d config that provides many of the necessary overrides for Twistlock, namely adding volume mounts of directories needed by Defenders. If you are deploying a k3d instance with the dev script this will be handled for you by default.
+It is recommended to use the [k3d-dev.sh](https://repo1.dso.mil/big-bang/bigbang/-/raw/master/docs/reference/scripts/developer/k3d-dev.sh?ref_type=heads) script to deploy k3d to an aws instance, as it will automatically configure the required settings.
+
+If you are not using the `k3d-dev.sh` script, below is a k3d config that provides many of the necessary overrides for Twistlock, namely adding volume mounts of directories needed by Defenders.
 
 ```yaml
 apiVersion: k3d.io/v1alpha4
@@ -61,29 +63,6 @@ defender:
 ```
 
 > If you are performing an upgrade, you will also need to update `console.credentials` with a valid username and password for accessing the API.
-
-### Manual Deployment
-
-NOTE: This method is no longer recommended since you will want to make use of the chart init job. Instead follow the above helm chart deployment and these steps will be completed for you automatically.
-
-For the Twistlock Defender config you will also want to override some of the defaults. The below settings seem to work best on k3d (numbered based on their setting number on the Manage -> Defenders -> Deploy page). If a config is not listed use the default:
-
-3: Choose the name that Defender will use to connect to this Console: `twistlock-console`
-
-10: Specify a custom docker socket path: `/run/k3s/containerd/containerd.sock`
-
-12: Monitor Istio: `On`
-
-14: Use the official Twistlock registry: `Off`
-
-15: Enter the full Defender image name: `registry1.dso.mil/ironbank/twistlock/defender/defender:21.08.520` (update tag to same as console)
-
-16: Enter the name of the secret required to pull the Defender image from your private registry: `private-registry`
-
-17a: Deploy Defenders with SELinux Policy: `On`
-17b: Run Defenders as privileged: `Off`
-17c: Nodes use Container Runtime Interface (CRI), not Docker: `On`
-17d: Nodes run inside containerized environment: `On`
 
 ### Known issues
 
