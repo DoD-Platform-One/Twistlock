@@ -7,7 +7,7 @@
 
 ## Integrating with SAML
 
-Integrating Prisma Cloud with SAML consists of setting up your IdP, then configuring Prisma Cloud to integrate with it. For keycloak integration we will use use Shibboleth as the IdP type. Here is the official [SAML documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/20-04/prisma-cloud-compute-edition-admin/access_control/integrate_saml) if needed.
+Integrating Prisma Cloud with SAML consists of setting up your IdP, then configuring Prisma Cloud to integrate with it. For keycloak integration we will use use Shibboleth as the IdP type. Here is the official [SAML documentation](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/authentication/saml) if needed.
 
 Setting up Prisma Cloud in Keycloak
 
@@ -26,7 +26,7 @@ Setting up Prisma Cloud in Keycloak
    Name: twistlock
    Sign Assertions: ON
    Client Signature Required: OFF
-   Root URL:  https://twistlock.bigbang.dev/api/v1/authenticate
+   Root URL:  https://twistlock.dev.bigbang.mil/api/v1/authenticate
    Valid Redirect URIs: *
 
 5. Select the "Installation" tab. In the `Format Option dropdown` select `Mod Auth Mellon files`. Then click the `Download` button. Information from this file is needed to configure Twistlock.
@@ -47,13 +47,13 @@ Alternatively you can manually configure Twistlock SSO integration through the A
 
 4. Fill in the form. Example values are shown below. Use the values for your specific IdP. You can get the values from the installation files ```idp-metadata.xml``` and ```sp-metadata.xml``` in the zip archive downloaded from Keycloak from step #6 in the previous section.
      a. Identity provider single sign-on URL: this is the Keycloak SAML authentication endpoint. The value can be found inside the ```<SingleSignOnService>``` tag in the ```idp-metadata.xml``` installation file.
-        ```https://keycloak.bigbang.dev/auth/realms/baby-yoda/protocol/saml```
+        ```https://keycloak.dev.bigbang.mil/auth/realms/baby-yoda/protocol/saml```
      b. Identity provider issuer: enter the Keycloak URL path to the realm. The value can be found inside the ```<EntityDescriptor>``` tag in the ```idp-metadata.xml``` installation file.
-        ```https://keycloak.bigbang.dev/auth/realms/baby-yoda```
+        ```https://keycloak.dev.bigbang.mil/auth/realms/baby-yoda```
      c. Audience:  this is the Keycloak Client ID. The value can be found inside the ```<EntityDescriptor>``` tag as ```entityID``` in the ```sp-metadata.xml``` installation file.
         ```il2_00eb8904-5b88-4c68-ad67-cec0d2e07aa6_twistlock```
      d. Console URL: This is the console URL of the Twistlock app. It is optional
-        ```https://twistlock.bigbang.dev```
+        ```https://twistlock.dev.bigbang.mil```
      e. x509 certificate: This is the certificate from Keycloak. The value can be found inside the ```<dsig:X509Certificate>``` tag in the ```idp-metadata.xml``` installation file.  The field must contain 3 lines with the begin and end certificate as show below. Do not leave any blank spaces at the beginning or ending of the 3 lines. If this is not followed exactly the SAML authentication will fail.
      ```
      -----BEGIN CERTIFICATE-----
@@ -75,7 +75,7 @@ Alternatively you can manually configure Twistlock SSO integration through the A
 
 Within recent versions of 21.04 Twistlock added support for OIDC Authentication.
 
-Integrating Prisma Cloud with OIDC consists of setting up a client within your IdP, then configuring Prisma Cloud to integrate with it. Here is the official [OIDC documentation](https://docs.twistlock.com/docs/compute_edition/authentication/oidc.html) if needed.
+Integrating Prisma Cloud with OIDC consists of setting up a client within your IdP, then configuring Prisma Cloud to integrate with it. Here is the official [OIDC documentation](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/authentication/oidc) if needed.
 
 Setting up Prisma Cloud in Keycloak
 
@@ -95,7 +95,7 @@ Setting up Prisma Cloud in Keycloak
    Access Type `confidential`
    Standard Flow Enabled: ON
    Direct Access Grants Enabled: OFF
-   Valid Redirect URIs: https://twistlock.bigbang.dev/api/v1/authenticate/callback/oidc
+   Valid Redirect URIs: https://twistlock.dev.bigbang.mil/api/v1/authenticate/callback/oidc
 
 5. Click on `Client Scopes` tab and ensure `profile` is the only "Assigned Default Client Scope" value.
 
