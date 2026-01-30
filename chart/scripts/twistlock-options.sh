@@ -43,3 +43,35 @@ args+=("${filter[*]}")
 data=$(jq "${args[@]}")
 callapi "POST" "settings/telemetry" "$data"
 logok
+
+# Intelligence settings
+echo -n "Setting intelligence settings to uploadDisabled=$TWISTLOCK_INTELLIGENCE_UPLOAD_DISABLED ... "
+callapi "GET" "settings/intelligence"
+args=("-c"); filter=('.')
+args+=("--argjson" "uploadDisabled" "$TWISTLOCK_INTELLIGENCE_UPLOAD_DISABLED"); filter+=('| .uploadDisabled=$uploadDisabled')
+args+=("${filter[*]}")
+data=$(echo "$RESP" | jq "${args[@]}")
+callapi "POST" "settings/intelligence" "$data"
+logok
+
+# Scan settings
+echo -n "Setting scan settings to scanRunningImages=$TWISTLOCK_SCAN_SCAN_RUNNING_IMAGES ... "
+callapi "GET" "settings/scan"
+args=("-c"); filter=('.')
+args+=("--argjson" "scanRunningImages" "$TWISTLOCK_SCAN_SCAN_RUNNING_IMAGES"); filter+=('| .scanRunningImages=$scanRunningImages')
+args+=("${filter[*]}")
+data=$(echo "$RESP" | jq "${args[@]}")
+callapi "POST" "settings/scan" "$data"
+logok
+
+# Logon settings
+echo -n "Setting logon settings to useSupportCredentials=$TWISTLOCK_LOGON_USE_SUPPORT_CREDENTIALS, strongPassword=$TWISTLOCK_LOGON_REQUIRE_STRONG_PASSWORD, basicAuthDisabled=$TWISTLOCK_LOGON_BASIC_AUTH_DISABLED ... "
+callapi "GET" "settings/logon"
+args=("-c"); filter=('.')
+args+=("--argjson" "useSupportCredentials" "$TWISTLOCK_LOGON_USE_SUPPORT_CREDENTIALS"); filter+=('| .useSupportCredentials=$useSupportCredentials')
+args+=("--argjson" "strongPassword" "$TWISTLOCK_LOGON_REQUIRE_STRONG_PASSWORD"); filter+=('| .strongPassword=$strongPassword')
+args+=("--argjson" "basicAuthDisabled" "$TWISTLOCK_LOGON_BASIC_AUTH_DISABLED"); filter+=('| .basicAuthDisabled=$basicAuthDisabled')
+args+=("${filter[*]}")
+data=$(echo "$RESP" | jq "${args[@]}")
+callapi "POST" "settings/logon" "$data"
+logok

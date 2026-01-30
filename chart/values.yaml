@@ -199,6 +199,22 @@ console:
     # -- Toggle sending product usage data to Palo Alto Networks
     telemetry: false
     # NOTE: Prometheus metrics instrumentation is controlled by .monitoring.enabled
+    # -- Toggle intelligence settings
+    intelligence:
+      # -- Disables allowing admins/operators to upload logs to Customer Support directly from the Console UI
+      uploadDisabled: true
+    # -- Toggle scan settings
+    scan:
+      # -- Only scan images with running containers
+      scanRunningImages: false
+    # -- Toggle logon settings
+    logon:
+      # -- Enable SSO to Prisma Cloud Support
+      useSupportCredentials: false
+      # -- Require strong passwords for local accounts
+      requireStrongPassword: true
+      # -- Disables basic authentication. Note: Setting to true will prevent metrics scraping
+      basicAuthDisabled: false
 
   # -- This value should be enabled when upgrading from a version <=0.10.0-bb.1 in order to allow the console to run as non-root
   volumeUpgrade: true
