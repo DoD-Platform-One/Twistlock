@@ -3,7 +3,7 @@
 WAAS (Web-Application and API Security, formerly known as CNAF, Cloud Native Application Firewall) is a web application firewall (WAF) designed for HTTP-based web applications deployed directly on hosts, as containers, application embedded or serverless functions. WAFs secure web applications by inspecting and filtering layer 7 traffic to and from the application.
 
 ## Useful Links
-* https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/waas
+* https://docs.prismacloud.io/en/compute-edition/34/admin-guide/waas/waas
 * https://www.youtube.com/watch?v=fsq5KlaBv2Q
 
 ## Deploy a WAAS in BigBang via the Twistlock Console
@@ -27,12 +27,40 @@ In order to provide the correct permissions to enforce a WAAS the defenders must
 
 This guide will walk through creating a WAAS rule and testing it for an example application [podinfo](https://repo1.dso.mil/platform-one/big-bang/apps/sandbox/podinfo).
 
-* Open `https://twistlock.bigbang.dev/#!/defend/waas/container`
+Podinfo can be installed with these values to the bigbang umbrella chart:
+```yaml
+packages:
+  podinfo:
+    wrapper:
+      enabled: true
+    git:
+      repo: https://repo1.dso.mil/big-bang/product/maintained/podinfo.git
+      tag: 6.9.1-bb.0
+      path: chart
+    istio:
+      hosts:
+        - names:
+            - podinfo
+          gateways:
+            - public-ingressgateway
+          destination:
+            port: 9898
+    flux:
+      timeout: 5m
+    postRenderers: []
+    dependsOn:
+      - name: monitoring
+        namespace: bigbang
+    values:
+      replicaCount: 3
+```
+
+* Open `https://twistlock.dev.bigbang.mil/#!/defend/waas/container`
 * Navigate to Defend > WAAS > Container.
 ![WAAS Container](./img/waas-container-1.jpg)
 * Click **Add rule** and add a name for the new rule. 
 ![WAAS Container](./img/waas-rule-2.jpg)
-* Select the **Scope** / **Click to select collections** field, a Scope is a particular [collection](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/configure/collections) which defines the targets for the rule. Select **Add collection** and fill out the fields to match images you want.
+* Select the **Scope** / **Click to select collections** field, a Scope is a particular [collection](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/configure/collections) which defines the targets for the rule. Select **Add collection** and fill out the fields to match images you want.
 ![WAAS Container](./img/waas-collection-4.jpg)
 * Ensure your scope/collection is selected by the rule and click **Select Collections**
 ![WAAS Container](./img/waas-select-collection-6.jpg)
@@ -42,7 +70,7 @@ This guide will walk through creating a WAAS rule and testing it for an example 
 
 * Expand your new rule then click the **Add app** button to move to create an application, which allows you to define endpoints and API protections.
 ![WAAS Container](./img/waas-add-app-8.jpg)
-* The easiest way to configure an application is to import an OpenAPI definition. The OpenAPI definition for podinfo can be accessed here: https://podinfo.bigbang.dev/swagger.json.
+* The easiest way to configure an application is to import an OpenAPI definition. The OpenAPI definition for podinfo can be accessed here: https://podinfo.dev.bigbang.mil/swagger.json.
 ![WAAS Container](./img/waas-swagger-9.jpg)
 * After importing the swagger document, you must also then make the following changes to the endpoints:
   - Delete the endpoint with `TLS: On` 
@@ -56,7 +84,7 @@ This guide will walk through creating a WAAS rule and testing it for an example 
 
 ```bash
 # Request to endpoint included in OpenAPI works
-$ curl -i https://podinfo.bigbang.dev/healthz
+$ curl -i https://podinfo.dev.bigbang.mil/healthz
 HTTP/1.1 200 OK
 Content-Length: 20
 Content-Type: application/json; charset=utf-8
@@ -71,7 +99,7 @@ X-Prisma-Event-Id: 460edea5-c037-42da-7596-abda35519823
 ```
 ```bash
 # Request to endpoint not included in OpenAPI returns 403 via Prisma Cloud
-$ curl -i https://podinfo.bigbang.dev/foo
+$ curl -i https://podinfo.dev.bigbang.mil/foo
 HTTP/1.1 403 Forbidden
 X-Prisma-Event-Id: f452fd01-4e58-7350-396a-c59dc155ad48
 Date: Mon, 05 Dec 2022 19:58:45 GMT
@@ -83,7 +111,7 @@ Transfer-Encoding: chunked
 ## Import a WAAS Rule
 * As an alternative to creating a WAAS in the Twistlock Console, A WAAS rule can be imported from a previously exported `.json` file. An example WAAS rule for the podinfo application is included in [podinfo-firewall-waas.json](docs/podinfo-firewall-waas.json)
 
-* Open `https://twistlock.bigbang.dev/#!/defend/waas/container`
+* Open `https://twistlock.dev.bigbang.mil/#!/defend/waas/container`
 * Navigate to Defend > WAAS > Container.
 ![WAAS Container](./img/waas-container-1.jpg)
 * Click **Import** and select `docs/podinfo-firewall-waas.json`
