@@ -53,7 +53,7 @@ additionalUsers:
 
 ## Users
 
-By setting `console.additionalUsers`, you can setup more users in Twistlock with various authentication types and roles.  Refer to [Prisma Cloud's RBAC Guide](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-reference-architecture-compute/rbac/access_twistlock) for more information.
+By setting `console.additionalUsers`, you can setup more users in Twistlock with various authentication types and roles.  Refer to [Prisma Cloud's User Roles Guide ](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/authentication/user-roles) for more information.
 
 Setting `console.updateUsers: true` will force the init job to update the user's password, role, and auth type, regardless of changes made in the console.  This setting can also be set to `false` to only setup the user if it does not currently exist.
 
@@ -63,9 +63,9 @@ By setting `defender.enabled: true`, Twistlock defender containers will be deplo
 
 > On Kubernetes systems that do not use the Docker daemon, you will need to change `defender.dockerSocket`.  For example, with `k3s`, this is set to `/run/k3s/containerd/containerd.sock`
 
-After successful deployment, you should see  `twistlock-defender-ds` pods running in your cluster.
+After successful deployment, you should see  `twistlock-defender-ds-*` pods running in your cluster.
 
-Refer to the [Prisma Cloud Defender Documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/install/install_defender/install_cluster_container_defender) for more information on installing Defenders.
+Refer to the [Prisma Cloud Defender Documentation](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/install/deploy-defender/orchestrator/orchestrator) for more information on installing Defenders.
 
 ## Policies
 
@@ -92,7 +92,7 @@ Each rule will force the following settings:
 
 All other settings will be preserved.
 
-For more information on Vulnerabilities, refer to [Prisma Cloud's Vulnerability Management](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/vulnerability_management).
+For more information on Vulnerabilities, refer to [Prisma Cloud's Vulnerability Management](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/vulnerability-management/vulnerability-management).
 
 ### Compliance
 
@@ -115,7 +115,7 @@ Each rule will force the following settings:
 
 All other settings will be preserved.
 
-Refer to [Prisma Cloud's Compliance Documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/compliance) for further details.
+Refer to [Prisma Cloud's Compliance Documentation](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/compliance/compliance) for further details.
 
 ### Runtime
 
@@ -230,11 +230,11 @@ The serverless policy runtime rule will force the following settings:
 
 All other settings will be preserved
 
-Additional runtime details can be found in [Prisma Cloud's Runtime Defense Documentation](https://docs.paloaltonetworks.com/prisma/prisma-cloud/22-01/prisma-cloud-compute-edition-admin/runtime_defense).
+Additional runtime details can be found in [Prisma Cloud's Runtime Defense Documentation](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/runtime-defense/runtime-defense).
 
 ## Trusted Images
 
-[Trusted image policy](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/compliance/trusted_images) provides a way to explicitly trust images in your environment (from a given registry) and configure behavior for other images.
+[Trusted image policy](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/compliance/trusted-images) provides a way to explicitly trust images in your environment (from a given registry) and configure behavior for other images.
 
 By setting `console.trustedImages.enabled: true`, a trusted image policy will be configured and set as the highest precedence rule. By default a group will be set up with the name `Ironbank-Trusted` and a registry regex match of `registry1.dso.mil/ironbank/*` that will be set as trusted. All other images will have the default effect of "Alert".
 
