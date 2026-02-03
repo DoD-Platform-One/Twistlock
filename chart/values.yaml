@@ -38,66 +38,185 @@ sso:
   # -- X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `\|-` syntax for multiline string
   cert: ""
 
+# Istio configuration (bb-common format)
 istio:
   # -- Toggle istio integration
   enabled: false
-  # -- Default twistlock peer authentication
-  hardened:
-    enabled: false
-    customAuthorizationPolicies: []
-    outboundTrafficPolicyMode: "REGISTRY_ONLY"
-    customServiceEntries: []
-      # - name: "allow-google"
-      #   enabled: true
-      #   spec:
-      #     hosts:
-      #       - google.com
-      #     location: MESH_EXTERNAL
-      #     ports:
-      #       - number: 443
-      #         protocol: TLS
-      #         name: https
-      #     resolution: DNS
-  tempo:
-      enabled: false
-      namespaces:
-      - tempo
-      principals:
-      - cluster.local/ns/tempo/sa/tempo-tempo
+
+  # -- Mutual TLS configuration
   mtls:
     # -- STRICT = Allow only mutual TLS traffic,
     # PERMISSIVE = Allow both plain text and mutual TLS traffic
     mode: STRICT
-  console:
-    # -- Toggle vs creation
-    enabled: true
-    # -- Annotations for VS
-    annotations: {}
-    # -- Labels for VS
-    labels: {}
-    # -- Gateways for VS
-    gateways:
-      - istio-system/main
-    # -- Hosts for VS
-    hosts:
-      - twistlock.{{ .Values.domain }}
-    virtualService:
+
+  # -- Sidecar configuration for restricting outbound traffic
+  sidecar:
+    enabled: false
+    outboundTrafficPolicyMode: REGISTRY_ONLY
+
+  # -- Authorization policies configuration
+  authorizationPolicies:
+    enabled: false
+
+    generateFromNetpol: false
+
+    # Custom authorization policies (array format for bb-common)
+    custom: []
+
+    # Additional authorization policies
+    additionalPolicies:
+      allow-defender-to-console-port:
+        spec:
+          selector:
+            matchLabels:
+              app.kubernetes.io/name: twistlock-console
+          action: ALLOW
+          rules:
+            - to:
+                - operation:
+                    ports:
+                      - "8084"
+    # # Example:
+    # # - name: custom-policy
+    # #   spec:
+    # #     selector:
+    # #       matchLabels:
+    # #         app: my-app
+    # #     action: ALLOW
+    # #     rules:
+    # #       - from:
+    # #           - source:
+    # #               namespaces: ["allowed-ns"]
+
+  # -- Service entries for external services
+  serviceEntries:
+    custom: []
+    # # Example:
+    # # - name: external-api
+    # #   spec:
+    # #     hosts:
+    # #       - api.external.com
+    # #     location: MESH_EXTERNAL
+    # #     ports:
+    # #       - number: 443
+    # #         name: https
+    # #         protocol: HTTPS
+    # #     resolution: DNS
+
+  # -- Tempo authorization policy (for tracing)
+  tempo:
+    enabled: false
+    namespaces:
+      - tempo
+    principals:
+      - cluster.local/ns/tempo/sa/tempo-tempo
+
+# Routes configuration (bb-common format)
+routes:
+  # Inbound routes - generates VirtualService, ServiceEntry, NetworkPolicy, AuthorizationPolicy
+  inbound:
+    console:
       enabled: true
+      gateways:
+        - istio-gateway/public-ingressgateway
+      hosts:
+        - twistlock.{{ .Values.domain }}
+      service: twistlock-console
+      port: 8081
+      selector:
+        app.kubernetes.io/name: twistlock-console
+
+  # Outbound routes - generates ServiceEntry for external services
+  outbound:
+    twistlock-intelligence:
+      enabled: true
+      hosts:
+        - intelligence.twistlock.com
+      ports:
+        - number: 443
+          name: https
+          protocol: TLS
+      location: MESH_EXTERNAL
+      resolution: DNS
 
 networkPolicies:
   # -- Toggle network policies
-  enabled: false
-  # -- Labels for ingress pods to allow traffic
-  ingressLabels:
-    app: istio-ingressgateway
-    istio: ingressgateway
+  enabled: true
   # -- Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster
   controlPlaneCidr: 0.0.0.0/0
-  vpcCidr: 0.0.0.0/0
   # -- Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks.
   # use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range.
   # Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs)
   nodeCidr: null
+
+  # Ingress rules for twistlock
+  ingress:
+    # Enable default ingress policies (denyAll, allowInNamespace, allowPrometheusToIstioSidecar)
+    defaults:
+      enabled: true
+
+    # Custom ingress definitions (reusable rules)
+    definitions:
+      # Node CIDR ranges for defender-to-console communication
+      # Hardcoded to default private network ranges for now
+      nodeCidrs:
+        from:
+          - ipBlock:
+              cidr: 10.0.0.0/8
+          - ipBlock:
+              cidr: 172.16.0.0/12
+          - ipBlock:
+              cidr: 192.168.0.0/16
+          - ipBlock:
+              cidr: 100.64.0.0/10
+        ports:
+          - port: 8084
+            protocol: TCP
+
+    to:
+      # Console ingress from istio ingressgateway (HTTP management port)
+      twistlock-console:8081:
+        from:
+          k8s:
+            monitoring-monitoring-kube-prometheus@monitoring/prometheus: false
+          definition:
+            gateway: true
+
+      # Console ingress - defenders communicate on port 8084, ingressgateway also needs access
+      twistlock-console:8084:
+        from:
+          k8s:
+            twistlock/twistlock-defender: true
+          definition:
+            nodeCidrs: true
+
+  # Egress rules for twistlock
+  egress:
+    # Enable default egress policies (denyAll, allowInNamespace, allowKubeDns, allowIstiod)
+    defaults:
+      enabled: true
+
+    from:
+      "*":
+        to:
+          k8s:
+            tempo-tempo@tempo/tempo:9411: false
+
+      # Init job needs Kubernetes API access
+      twistlock-init:
+        to:
+          definition:
+            kubeAPI: true
+
+      # Console needs external HTTPS for Twistlock intelligence updates
+      twistlock-console:
+        to:
+          cidr:
+            0.0.0.0/0:443: true
+
+  # Additional custom NetworkPolicy resources that require templating
+  additionalPolicies: []
+  # All network policies are now generated by bb-common from the configuration above
 
 # -- Defines the secret to use when pulling the container images
 imagePullSecretName: private-registry

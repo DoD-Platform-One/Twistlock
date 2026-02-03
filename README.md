@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.24.0-bb.3](https://img.shields.io/badge/Version-0.24.0--bb.3-informational?style=flat-square) ![AppVersion: 34.03.138](https://img.shields.io/badge/AppVersion-34.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.24.0-bb.4](https://img.shields.io/badge/Version-0.24.0--bb.4-informational?style=flat-square) ![AppVersion: 34.03.138](https://img.shields.io/badge/AppVersion-34.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 ## Upstream References
 
@@ -53,23 +53,45 @@ helm install twistlock chart/
 | sso.console_url | string | `""` | Console URL of the Twistlock app. Example: `https://twistlock.bigbang.dev` (optional) |
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `\|-` syntax for multiline string |
-| istio.enabled | bool | `false` | Toggle istio integration |
-| istio.hardened | object | `{"customAuthorizationPolicies":[],"customServiceEntries":[],"enabled":false,"outboundTrafficPolicyMode":"REGISTRY_ONLY"}` | Default twistlock peer authentication |
-| istio.tempo.enabled | bool | `false` |  |
-| istio.tempo.namespaces[0] | string | `"tempo"` |  |
-| istio.tempo.principals[0] | string | `"cluster.local/ns/tempo/sa/tempo-tempo"` |  |
+| istio.enabled | bool | `true` | Toggle istio integration |
+| istio.mtls | object | `{"mode":"STRICT"}` | Mutual TLS configuration |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
-| istio.console.enabled | bool | `true` | Toggle vs creation |
-| istio.console.annotations | object | `{}` | Annotations for VS |
-| istio.console.labels | object | `{}` | Labels for VS |
-| istio.console.gateways | list | `["istio-system/main"]` | Gateways for VS |
-| istio.console.hosts | list | `["twistlock.{{ .Values.domain }}"]` | Hosts for VS |
-| istio.console.virtualService.enabled | bool | `true` |  |
-| networkPolicies.enabled | bool | `false` | Toggle network policies |
-| networkPolicies.ingressLabels | object | `{"app":"istio-ingressgateway","istio":"ingressgateway"}` | Labels for ingress pods to allow traffic |
+| istio.sidecar | object | `{"enabled":true,"outboundTrafficPolicyMode":"REGISTRY_ONLY"}` | Sidecar configuration for restricting outbound traffic |
+| istio.authorizationPolicies | object | `{"additionalPolicies":{"allow-defender-to-console-port":{"spec":{"action":"ALLOW","rules":[{"to":[{"operation":{"ports":["8084"]}}]}],"selector":{"matchLabels":{"app.kubernetes.io/name":"twistlock-console"}}}}},"custom":[],"enabled":true,"generateFromNetpol":true}` | Authorization policies configuration |
+| istio.serviceEntries | object | `{"custom":[]}` | Service entries for external services |
+| istio.tempo | object | `{"enabled":false,"namespaces":["tempo"],"principals":["cluster.local/ns/tempo/sa/tempo-tempo"]}` | Tempo authorization policy (for tracing) |
+| routes.inbound.console.enabled | bool | `true` |  |
+| routes.inbound.console.gateways[0] | string | `"istio-gateway/public-ingressgateway"` |  |
+| routes.inbound.console.hosts[0] | string | `"twistlock.{{ .Values.domain }}"` |  |
+| routes.inbound.console.service | string | `"twistlock-console"` |  |
+| routes.inbound.console.port | int | `8081` |  |
+| routes.inbound.console.selector."app.kubernetes.io/name" | string | `"twistlock-console"` |  |
+| routes.outbound.twistlock-intelligence.enabled | bool | `true` |  |
+| routes.outbound.twistlock-intelligence.hosts[0] | string | `"intelligence.twistlock.com"` |  |
+| routes.outbound.twistlock-intelligence.ports[0].number | int | `443` |  |
+| routes.outbound.twistlock-intelligence.ports[0].name | string | `"https"` |  |
+| routes.outbound.twistlock-intelligence.ports[0].protocol | string | `"TLS"` |  |
+| routes.outbound.twistlock-intelligence.location | string | `"MESH_EXTERNAL"` |  |
+| routes.outbound.twistlock-intelligence.resolution | string | `"DNS"` |  |
+| networkPolicies.enabled | bool | `true` | Toggle network policies |
 | networkPolicies.controlPlaneCidr | string | `"0.0.0.0/0"` | Control Plane CIDR to allow init job communication to the Kubernetes API.  Use `kubectl get endpoints kubernetes` to get the CIDR range needed for your cluster |
-| networkPolicies.vpcCidr | string | `"0.0.0.0/0"` |  |
 | networkPolicies.nodeCidr | string | `nil` | Node CIDR to allow defender to communicate with console.  Defaults to allowing "10.0.0.0/8" "172.16.0.0/12" "192.168.0.0/16" "100.64.0.0/10" networks. use `kubectl get nodes -owide` and review the `INTERNAL-IP` column to derive CIDR range. Must be an IP CIDR range (x.x.x.x/x - ideally a /16 or /24 to include multiple IPs) |
+| networkPolicies.ingress.defaults.enabled | bool | `true` |  |
+| networkPolicies.ingress.definitions.nodeCidrs.from[0].ipBlock.cidr | string | `"10.0.0.0/8"` |  |
+| networkPolicies.ingress.definitions.nodeCidrs.from[1].ipBlock.cidr | string | `"172.16.0.0/12"` |  |
+| networkPolicies.ingress.definitions.nodeCidrs.from[2].ipBlock.cidr | string | `"192.168.0.0/16"` |  |
+| networkPolicies.ingress.definitions.nodeCidrs.from[3].ipBlock.cidr | string | `"100.64.0.0/10"` |  |
+| networkPolicies.ingress.definitions.nodeCidrs.ports[0].port | int | `8084` |  |
+| networkPolicies.ingress.definitions.nodeCidrs.ports[0].protocol | string | `"TCP"` |  |
+| networkPolicies.ingress.to.twistlock-console:8081.from.k8s.monitoring-monitoring-kube-prometheus@monitoring/prometheus | bool | `false` |  |
+| networkPolicies.ingress.to.twistlock-console:8081.from.definition.gateway | bool | `true` |  |
+| networkPolicies.ingress.to.twistlock-console:8084.from.k8s.twistlock/twistlock-defender | bool | `true` |  |
+| networkPolicies.ingress.to.twistlock-console:8084.from.definition.nodeCidrs | bool | `true` |  |
+| networkPolicies.egress.defaults.enabled | bool | `true` |  |
+| networkPolicies.egress.from.*.to.k8s.tempo-tempo@tempo/tempo:9411 | bool | `false` |  |
+| networkPolicies.egress.from.twistlock-init.to.definition.kubeAPI | bool | `true` |  |
+| networkPolicies.egress.from.twistlock-console.to.cidr."0.0.0.0/0:443" | bool | `true` |  |
+| networkPolicies.additionalPolicies | list | `[]` |  |
 | imagePullSecretName | string | `"private-registry"` | Defines the secret to use when pulling the container images |
 | selinuxLabel | string | `"disable"` | Run Twistlock Console and Defender with a dedicated SELinux label. See https://docs.docker.com/engine/reference/run/#security-configuration |
 | systemd | object | `{"enabled":false}` | systemd configuration |

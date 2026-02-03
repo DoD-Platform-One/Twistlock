@@ -3,8 +3,16 @@
 The format is based on [Keep a Changelog](https://keepachangelog.com/en/1.0.0/), and this project adheres to [Semantic Versioning](https://semver.org/spec/v2.0.0.html).
 
 ---
+## [0.24.0-bb.4] (2026-01-26)
+
+### Changed
+
+- Generate Network Policies with bb-common
+- Generate Istio resources with bb-common
 
 ## [0.24.0-bb.3] (2026-01-28)
+
+### Changed
 
 - Added management of logon, intelligence, and scan settings via helm chart values.
 
