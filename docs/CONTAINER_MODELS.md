@@ -10,7 +10,7 @@ You can create custom rules which run alongside Container Models by defining Con
 
 You can find more exhaustive documentation here:
 
-* https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/runtime_defense/runtime_defense_containers 
+* https://docs.prismacloud.io/en/compute-edition/34/admin-guide/runtime-defense/runtime-defense-containers
 
 ## Create a Scope
 
