@@ -28,4 +28,4 @@ You will then be able to customize the monitoring setup which will require at mi
 
 ## Exposed Metrics
 
-Palo Alto provides a document with a list of exposed metrics [here](https://docs.paloaltonetworks.com/prisma/prisma-cloud/prisma-cloud-admin-compute/audit/prometheus).
+Palo Alto provides a document with a list of exposed metrics [here](https://docs.prismacloud.io/en/compute-edition/34/admin-guide/audit/prometheus).
