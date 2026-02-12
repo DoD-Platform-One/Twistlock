@@ -1,7 +1,7 @@
 <!-- Warning: Do not manually edit this file. See notes on gluon + helm-docs at the end of this file for more information. -->
 # twistlock
 
-![Version: 0.24.0-bb.4](https://img.shields.io/badge/Version-0.24.0--bb.4-informational?style=flat-square) ![AppVersion: 34.03.138](https://img.shields.io/badge/AppVersion-34.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
+![Version: 0.24.0-bb.5](https://img.shields.io/badge/Version-0.24.0--bb.5-informational?style=flat-square) ![AppVersion: 34.03.138](https://img.shields.io/badge/AppVersion-34.03.138-informational?style=flat-square) ![Maintenance Track: bb_integrated](https://img.shields.io/badge/Maintenance_Track-bb_integrated-green?style=flat-square)
 
 ## Upstream References
 
@@ -53,11 +53,11 @@ helm install twistlock chart/
 | sso.console_url | string | `""` | Console URL of the Twistlock app. Example: `https://twistlock.bigbang.dev` (optional) |
 | sso.groups | string | `""` | Groups attribute (optional) |
 | sso.cert | string | `""` | X.509 Certificate from Identity Provider (i.e. Keycloak). See docs/KEYCLOAK.md for format. Use the `\|-` syntax for multiline string |
-| istio.enabled | bool | `true` | Toggle istio integration |
+| istio.enabled | bool | `false` | Toggle istio integration |
 | istio.mtls | object | `{"mode":"STRICT"}` | Mutual TLS configuration |
 | istio.mtls.mode | string | `"STRICT"` | STRICT = Allow only mutual TLS traffic, PERMISSIVE = Allow both plain text and mutual TLS traffic |
-| istio.sidecar | object | `{"enabled":true,"outboundTrafficPolicyMode":"REGISTRY_ONLY"}` | Sidecar configuration for restricting outbound traffic |
-| istio.authorizationPolicies | object | `{"additionalPolicies":{"allow-defender-to-console-port":{"spec":{"action":"ALLOW","rules":[{"to":[{"operation":{"ports":["8084"]}}]}],"selector":{"matchLabels":{"app.kubernetes.io/name":"twistlock-console"}}}}},"custom":[],"enabled":true,"generateFromNetpol":true}` | Authorization policies configuration |
+| istio.sidecar | object | `{"enabled":false,"outboundTrafficPolicyMode":"REGISTRY_ONLY"}` | Sidecar configuration for restricting outbound traffic |
+| istio.authorizationPolicies | object | `{"additionalPolicies":{"allow-defender-to-console-port":{"spec":{"action":"ALLOW","rules":[{"to":[{"operation":{"ports":["8084"]}}]}],"selector":{"matchLabels":{"app.kubernetes.io/name":"twistlock-console"}}}}},"custom":[],"enabled":false,"generateFromNetpol":false}` | Authorization policies configuration |
 | istio.serviceEntries | object | `{"custom":[]}` | Service entries for external services |
 | istio.tempo | object | `{"enabled":false,"namespaces":["tempo"],"principals":["cluster.local/ns/tempo/sa/tempo-tempo"]}` | Tempo authorization policy (for tracing) |
 | routes.inbound.console.enabled | bool | `true` |  |
