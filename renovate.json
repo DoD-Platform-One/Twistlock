@@ -3,35 +3,35 @@
     "main"
   ],
   "dependencyDashboard": true,
-  "dependencyDashboardTitle": "Renovate: Upgrade Twistlock Package Dependencies",
+  "dependencyDashboardTitle": "Renovate: Update Twistlock Dependencies",
   "draftPR": true,
   "ignorePaths": [
     "chart/charts/**"
   ],
   "labels": [
     "twistlock",
-    "renovate"
+    "renovate",
+    "kind::maintenance"
   ],
   "packageRules": [
     {
       "matchDatasources": [
-        "docker"
+        "docker",
+        "helm"
       ],
       "groupName": "Twistlock",
-      "registryUrls": [
-        "https://registry1.dso.mil"
-      ],
       "postUpgradeTasks": {
         "commands": [
           "bump-chart-yaml",
-          "regenerate-helm-docs",
-          "bump-changelog '- {{{replace 'registry1.dso.mil/' '' depName}}} updated from {{{currentVersion}}} to {{{newVersion}}}'"
+          "bump-changelog '{{#each upgrades}}- {{depName}} {{currentVersion}} -> {{newVersion}}\\n{{/each}}'",
+          "regenerate-helm-docs"
         ],
         "fileFilters": [
           "chart/Chart.yaml",
           "README.md",
           "CHANGELOG.md"
-        ]
+        ],
+        "executionMode": "branch"
       }
     }
   ],
@@ -40,27 +40,6 @@
     "helmUpdateSubChartArchives"
   ],
   "customManagers": [
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^chart/values\\.yaml$/"
-      ],
-      "matchStrings": [
-        "repository:\\s+(?<depName>.+)\\n[a-zA-Z0-9#`_.-]*\\n\\s+tag:\\s+(?<currentValue>.+)",
-        "image:\\s+(?<depName>.+):(?<currentValue>.+)"
-      ],
-      "datasourceTemplate": "docker"
-    },
-    {
-      "customType": "regex",
-      "managerFilePatterns": [
-        "/^tests/images\\.txt$/"
-      ],
-      "matchStrings": [
-        "s*(?<depName>.+):(?<currentValue>.+)"
-      ],
-      "datasourceTemplate": "docker"
-    },
     {
       "customType": "regex",
       "managerFilePatterns": [
@@ -80,6 +59,27 @@
       ],
       "matchStrings": [
         "image:[^\\S\\r\\n]+(?<depName>.+):(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^chart/values\\.yaml$/"
+      ],
+      "matchStrings": [
+        "repository:\\s+(?<depName>.+)\\n[a-zA-Z0-9#`_.-]*\\n\\s+tag:\\s+(?<currentValue>.+)",
+        "image:\\s+(?<depName>.+):(?<currentValue>.+)"
+      ],
+      "datasourceTemplate": "docker"
+    },
+    {
+      "customType": "regex",
+      "managerFilePatterns": [
+        "/^tests/images\\.txt$/"
+      ],
+      "matchStrings": [
+        "(?<depName>.+):(?<currentValue>.+)"
       ],
       "datasourceTemplate": "docker"
     }
