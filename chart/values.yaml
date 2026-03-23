@@ -236,7 +236,7 @@ console:
     # -- Full image name for console
     repository: registry1.dso.mil/ironbank/twistlock/console/console
     # -- Full image tag for console
-    tag: 34.03.138
+    tag: 34.04.145
     # -- Pull policy for console image
     imagePullPolicy: IfNotPresent
   ports:
@@ -358,7 +358,7 @@ defender:
     # -- Repository and path for defender image
     repository: registry1.dso.mil/ironbank/twistlock/defender/defender
     # -- Image tag for defender
-    tag: 34.03.138
+    tag: 34.04.145
 
   # Collects Namespace and Deployment labels as part of the Pod information
   collect_pod_labels: true

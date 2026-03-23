@@ -1,11 +1,18 @@
-apiVersion: kpt.dev/v1alpha1
+apiVersion: kpt.dev/v1
 kind: Kptfile
 metadata:
   name: dashboards
 upstream:
   type: git
   git:
-    commit: 51c756d8cfc749547429b064309dc2b5b47071b9
     repo: https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
     directory: grafana/dashboards/Prisma-Cloud-Dashboards
     ref: main
+  updateStrategy: force-delete-replace
+upstreamLock:
+  type: git
+  git:
+    repo: https://github.com/PaloAltoNetworks/pcs-metrics-monitoring
+    directory: grafana/dashboards/Prisma-Cloud-Dashboards
+    ref: main
+    commit: 51c756d8cfc749547429b064309dc2b5b47071b9
